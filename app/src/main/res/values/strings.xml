@@ -2,4 +2,15 @@
     <string name="app_name">Food network</string>
 
     <string name="button_register">Registrarse</string>
+    <string name="title_activity_register">RegisterActivity</string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+
+    <string name="name">Nombre</string>
+    <string name="lastName">Apellidos</string>
+    <string name="nickName">Nombre de Usuario</string>
+    <string name="mail">Correo</string>
+    <string name="password">Contraseña</string>
+    <string name="repeatPassword">Repetir contraseña</string>
 </resources>
