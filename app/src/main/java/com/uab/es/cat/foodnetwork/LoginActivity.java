@@ -84,8 +84,8 @@ public class LoginActivity extends PlusBaseActivity implements LoaderCallbacks<C
         } else {
             // Don't offer G+ sign in if the app's version is too low to support Google Play
             // Services.
-            mPlusSignInButton.setVisibility(View.GONE);
-            return;
+            //mPlusSignInButton.setVisibility(View.GONE);
+            //return;
         }
 
         // Set up the login form.

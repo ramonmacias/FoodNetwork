@@ -13,4 +13,5 @@
     <string name="mail">Correo</string>
     <string name="password">Contraseña</string>
     <string name="repeatPassword">Repetir contraseña</string>
+    <string name="logIn">Iniciar sesión</string>
 </resources>
