@@ -1,9 +1,12 @@
 package com.uab.es.cat.foodnetwork;
 
+import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.EditText;
 
 public class RegisterActivity extends AppCompatActivity {
 
@@ -34,4 +37,24 @@ public class RegisterActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
+    public void register(View view){
+        EditText nameText = (EditText) findViewById(R.id.name);
+        EditText lastNameText = (EditText) findViewById(R.id.lastName);
+        EditText nickNameText = (EditText) findViewById(R.id.nickName);
+        EditText mailText = (EditText) findViewById(R.id.mail);
+        EditText passwordText = (EditText) findViewById(R.id.password);
+
+        String name = nameText.getText().toString();
+        String lastName = lastNameText.getText().toString();
+        String nickName = nickNameText.getText().toString();
+        String mail = mailText.getText().toString();
+        String password = passwordText.getText().toString();
+
+        FoodNetworkDbHelper mDbHelper = new FoodNetworkDbHelper(getApplicationContext());
+
+        SQLiteDatabase db = mDbHelper.getReadableDatabase();
+
+    }
+
 }

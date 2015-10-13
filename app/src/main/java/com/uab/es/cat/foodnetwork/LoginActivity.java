@@ -120,8 +120,8 @@ public class LoginActivity extends PlusBaseActivity implements LoaderCallbacks<C
 
     public void register(View view){
         Intent intent = new Intent(this, RegisterActivity.class);
-        //EditText editText = (EditText) findViewById(R.id.edit_message);
-        //String message = editText.getText().toString();
+
+
         //intent.putExtra(EXTRA_MESSAGE, message);
         startActivity(intent);
         Log.i("LoginActivity", "Send Message info");
