@@ -1,4 +1,4 @@
-package com.uab.es.cat.foodnetwork;
+package com.uab.es.cat.foodnetwork.database;
 
 import android.provider.BaseColumns;
 

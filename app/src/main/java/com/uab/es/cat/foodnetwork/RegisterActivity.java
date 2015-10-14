@@ -1,5 +1,7 @@
 package com.uab.es.cat.foodnetwork;
 
+import android.content.ContentValues;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -7,6 +9,9 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
+
+import com.uab.es.cat.foodnetwork.database.FoodNetworkDbHelper;
+import com.uab.es.cat.foodnetwork.database.UserContract;
 
 public class RegisterActivity extends AppCompatActivity {
 
@@ -53,7 +58,57 @@ public class RegisterActivity extends AppCompatActivity {
 
         FoodNetworkDbHelper mDbHelper = new FoodNetworkDbHelper(getApplicationContext());
 
+        SQLiteDatabase dbRead = mDbHelper.getWritableDatabase();
+
+        Cursor mCount= dbRead.rawQuery("select count(*) from users", null);
+        mCount.moveToFirst();
+        int count= mCount.getInt(0);
+        mCount.close();
+
+        dbRead.close();
+
+        SQLiteDatabase db = mDbHelper.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(UserContract.UserEntry.COLUMN_NAME_USER_ID, count + 1);
+        values.put(UserContract.UserEntry.COLUMN_NAME_NAME, name);
+        values.put(UserContract.UserEntry.COLUMN_NAME_LAST_NAME, lastName);
+        values.put(UserContract.UserEntry.COLUMN_NAME_USER_NAME, nickName);
+        values.put(UserContract.UserEntry.COLUMN_NAME_MAIL, mail);
+        values.put(UserContract.UserEntry.COLUMN_NAME_PASSWORD, password);
+        values.put(UserContract.UserEntry.COLUMN_NAME_USER_TYPE, "D");
+
+        long newRowId;
+        newRowId = db.insert(
+                UserContract.UserEntry.TABLE_NAME,
+                null,
+                values);
+
+
+        /*FoodNetworkDbHelper mDbHelper = new FoodNetworkDbHelper(getApplicationContext());
+
         SQLiteDatabase db = mDbHelper.getReadableDatabase();
+
+        String[] projection = {
+                UserContract.UserEntry.COLUMN_NAME_USER_ID
+        };
+
+        String sortOrder = UserContract.UserEntry.COLUMN_NAME_USER_ID + " DESC";
+
+        Cursor c = db.query(
+                UserContract.UserEntry.TABLE_NAME,
+                projection,
+                null,
+                null,
+                null,
+                null,
+                sortOrder
+        );
+
+        c.moveToFirst();
+        long itemId = c.getLong(
+                c.getColumnIndexOrThrow(UserContract.UserEntry.COLUMN_NAME_USER_ID)
+        );*/
 
     }
 
