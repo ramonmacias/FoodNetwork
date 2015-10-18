@@ -5,9 +5,11 @@ import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
 
 import android.app.LoaderManager.LoaderCallbacks;
+import android.content.Context;
 import android.content.CursorLoader;
 import android.content.Intent;
 import android.content.Loader;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
@@ -408,9 +410,10 @@ public class LoginActivity extends PlusBaseActivity implements LoaderCallbacks<C
                     c.getColumnIndexOrThrow(UserContract.UserEntry.COLUMN_NAME_PASSWORD)
             );*/
 
-            Cursor mCount= db.rawQuery("select count(*) from users where mail='" + mEmail + "' and password='" + mPassword + "'", null);
+            Cursor mCount= db.rawQuery("select count(*), usertype from users where mail='" + mEmail + "' and password='" + mPassword + "'", null);
             mCount.moveToFirst();
             int count= mCount.getInt(0);
+            String userType = mCount.getString(1);
             mCount.close();
 
             /*for (String credential : DUMMY_CREDENTIALS) {
@@ -421,8 +424,17 @@ public class LoginActivity extends PlusBaseActivity implements LoaderCallbacks<C
                 }
             }
 
+
             // TODO: register the new account here.
             return false;*/
+
+
+            SharedPreferences sharedPref = getApplicationContext().getSharedPreferences(
+                    getString(R.string.user_type), Context.MODE_PRIVATE);
+            SharedPreferences.Editor editor = sharedPref.edit();
+            editor.putString(getString(R.string.user_type), userType);
+            editor.commit();
+
             if(count > 0){
                 return true;
             }else {
@@ -435,8 +447,16 @@ public class LoginActivity extends PlusBaseActivity implements LoaderCallbacks<C
             mAuthTask = null;
             showProgress(false);
 
+            SharedPreferences sharedPref = getApplicationContext().getSharedPreferences(getString(R.string.user_type), Context.MODE_PRIVATE);
+            String defaultValue = "";
+            String userType = sharedPref.getString(getString(R.string.user_type), defaultValue);
+
             if (success) {
-                startActivity(new Intent(getApplicationContext(), MainDonateActivity.class));
+                if("D".equals(userType)){
+                    startActivity(new Intent(getApplicationContext(), MainDonateActivity.class));
+                }else {
+                    startActivity(new Intent(getApplicationContext(), MainReceptorActivity.class));
+                }
                 //finish();
             } else {
                 mPasswordView.setError(getString(R.string.error_incorrect_password));

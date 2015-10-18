@@ -31,6 +31,31 @@
             android:hint="@string/nickName"
             android:id="@+id/nickName"/>
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="@string/user_type"
+            android:id="@+id/textView"
+            android:layout_gravity="left" />
+
+        <RadioGroup xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <RadioButton android:id="@+id/donor_user"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="true"
+                android:text="@string/donor_user"
+                />
+            <RadioButton android:id="@+id/receptor_user"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/recepto_user"
+                />
+        </RadioGroup>
+
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

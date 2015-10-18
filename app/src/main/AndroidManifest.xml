@@ -41,6 +41,11 @@
         <activity
             android:name=".MainDonateActivity"
             android:label="@string/title_activity_main_donate"
+            android:theme="@style/Theme.AppCompat.Light" >
+        </activity>
+        <activity
+            android:name=".MainReceptorActivity"
+            android:label="@string/title_activity_main_receptor"
             android:theme="@style/Theme.AppCompat.Light">
         </activity>
     </application>

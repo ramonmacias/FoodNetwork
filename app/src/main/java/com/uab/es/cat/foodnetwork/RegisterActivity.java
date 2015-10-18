@@ -10,6 +10,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.RadioButton;
 
 import com.uab.es.cat.foodnetwork.database.CacheDbHelper;
 import com.uab.es.cat.foodnetwork.database.FoodNetworkDbHelper;
@@ -59,6 +60,14 @@ public class RegisterActivity extends AppCompatActivity {
         String mail = mailText.getText().toString();
         String password = passwordText.getText().toString();
 
+        boolean donoUserChecked = ((RadioButton)findViewById(R.id.donor_user)).isChecked();
+        boolean receptorUserChecked = ((RadioButton)findViewById(R.id.receptor_user)).isChecked();
+        String userType = "D";
+
+        if(receptorUserChecked){
+            userType = "R";
+        }
+
         FoodNetworkDbHelper mDbHelper = new FoodNetworkDbHelper(getApplicationContext());
 
         SQLiteDatabase dbRead = mDbHelper.getWritableDatabase();
@@ -78,7 +87,7 @@ public class RegisterActivity extends AppCompatActivity {
         userDTO.setUserName(nickName);
         userDTO.setMail(mail);
         userDTO.setPassword(password);
-        userDTO.setIdTypeUser("D");
+        userDTO.setIdTypeUser(userType);
 
         CacheDbHelper cacheDbHelper = new CacheDbHelper();
 

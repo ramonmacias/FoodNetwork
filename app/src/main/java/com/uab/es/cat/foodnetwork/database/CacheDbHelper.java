@@ -18,24 +18,26 @@ public class CacheDbHelper implements DatabaseHandler{
     @Override
     public void insert(BaseDTO baseDTO, FoodNetworkDbHelper mDbHelper) {
 
-        UserDTO userDTO = (UserDTO) baseDTO;
+        if(baseDTO instanceof UserDTO){
+            UserDTO userDTO = (UserDTO) baseDTO;
 
-        SQLiteDatabase db = mDbHelper.getWritableDatabase();
+            SQLiteDatabase db = mDbHelper.getWritableDatabase();
 
-        ContentValues values = new ContentValues();
-        values.put(UserContract.UserEntry.COLUMN_NAME_USER_ID, userDTO.getIdUser());
-        values.put(UserContract.UserEntry.COLUMN_NAME_NAME, userDTO.getName());
-        values.put(UserContract.UserEntry.COLUMN_NAME_LAST_NAME, userDTO.getLastName());
-        values.put(UserContract.UserEntry.COLUMN_NAME_USER_NAME, userDTO.getUserName());
-        values.put(UserContract.UserEntry.COLUMN_NAME_MAIL, userDTO.getMail());
-        values.put(UserContract.UserEntry.COLUMN_NAME_PASSWORD, userDTO.getPassword());
-        values.put(UserContract.UserEntry.COLUMN_NAME_USER_TYPE, userDTO.getIdTypeUser());
+            ContentValues values = new ContentValues();
+            values.put(UserContract.UserEntry.COLUMN_NAME_USER_ID, userDTO.getIdUser());
+            values.put(UserContract.UserEntry.COLUMN_NAME_NAME, userDTO.getName());
+            values.put(UserContract.UserEntry.COLUMN_NAME_LAST_NAME, userDTO.getLastName());
+            values.put(UserContract.UserEntry.COLUMN_NAME_USER_NAME, userDTO.getUserName());
+            values.put(UserContract.UserEntry.COLUMN_NAME_MAIL, userDTO.getMail());
+            values.put(UserContract.UserEntry.COLUMN_NAME_PASSWORD, userDTO.getPassword());
+            values.put(UserContract.UserEntry.COLUMN_NAME_USER_TYPE, userDTO.getIdTypeUser());
 
-        long newRowId;
-        newRowId = db.insert(
-                UserContract.UserEntry.TABLE_NAME,
-                null,
-                values);
+            long newRowId;
+            newRowId = db.insert(
+                    UserContract.UserEntry.TABLE_NAME,
+                    null,
+                    values);
+        }
     }
 
     @Override

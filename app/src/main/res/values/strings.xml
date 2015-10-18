@@ -19,4 +19,11 @@
     <string name="donate_food">Donar Alimentos</string>
     <string name="list_donations">Listado de donaciones</string>
     <string name="rankings">Rankings</string>
+    
+    <string name="donor_user">Donador</string>
+    <string name="recepto_user">Receptor</string>
+    <string name="user_type">Tipo de usuario</string>
+    <string name="title_activity_main_receptor">MainReceptorActivity</string>
+    
+    <string name="collect_donations">Recoger donaciones</string>
 </resources>
