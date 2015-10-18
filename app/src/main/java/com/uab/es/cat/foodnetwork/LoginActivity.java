@@ -32,6 +32,7 @@ import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.android.gms.common.SignInButton;
 import com.uab.es.cat.foodnetwork.database.FoodNetworkDbHelper;
+import com.uab.es.cat.foodnetwork.database.UserContract;
 
 import java.util.ArrayList;
 import java.util.List;

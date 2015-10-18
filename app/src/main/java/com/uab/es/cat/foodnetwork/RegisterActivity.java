@@ -1,6 +1,7 @@
 package com.uab.es.cat.foodnetwork;
 
 import android.content.ContentValues;
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.AppCompatActivity;
@@ -10,8 +11,10 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 
+import com.uab.es.cat.foodnetwork.database.CacheDbHelper;
 import com.uab.es.cat.foodnetwork.database.FoodNetworkDbHelper;
 import com.uab.es.cat.foodnetwork.database.UserContract;
+import com.uab.es.cat.foodnetwork.dto.UserDTO;
 
 public class RegisterActivity extends AppCompatActivity {
 
@@ -67,7 +70,21 @@ public class RegisterActivity extends AppCompatActivity {
 
         dbRead.close();
 
-        SQLiteDatabase db = mDbHelper.getWritableDatabase();
+        UserDTO userDTO = new UserDTO();
+
+        userDTO.setIdUser(count + 1);
+        userDTO.setName(name);
+        userDTO.setLastName(lastName);
+        userDTO.setUserName(nickName);
+        userDTO.setMail(mail);
+        userDTO.setPassword(password);
+        userDTO.setIdTypeUser("D");
+
+        CacheDbHelper cacheDbHelper = new CacheDbHelper();
+
+        cacheDbHelper.insert(userDTO, mDbHelper);
+
+        /*SQLiteDatabase db = mDbHelper.getWritableDatabase();
 
         ContentValues values = new ContentValues();
         values.put(UserContract.UserEntry.COLUMN_NAME_USER_ID, count + 1);
@@ -82,7 +99,7 @@ public class RegisterActivity extends AppCompatActivity {
         newRowId = db.insert(
                 UserContract.UserEntry.TABLE_NAME,
                 null,
-                values);
+                values);*/
 
 
         /*FoodNetworkDbHelper mDbHelper = new FoodNetworkDbHelper(getApplicationContext());
@@ -109,6 +126,8 @@ public class RegisterActivity extends AppCompatActivity {
         long itemId = c.getLong(
                 c.getColumnIndexOrThrow(UserContract.UserEntry.COLUMN_NAME_USER_ID)
         );*/
+
+        startActivity(new Intent(getApplicationContext(), LoginActivity.class));
 
     }
 
