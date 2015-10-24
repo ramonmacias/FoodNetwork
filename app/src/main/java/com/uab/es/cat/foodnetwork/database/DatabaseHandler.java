@@ -12,4 +12,6 @@ public interface DatabaseHandler {
     public void update(BaseDTO baseDTO, FoodNetworkDbHelper mDbHelper);
 
     public void delete(BaseDTO baseDTO, FoodNetworkDbHelper mDbHelper);
+
+    public BaseDTO getById(BaseDTO baseDTO, FoodNetworkDbHelper mDbHelper);
 }

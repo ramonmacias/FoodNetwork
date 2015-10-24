@@ -410,10 +410,11 @@ public class LoginActivity extends PlusBaseActivity implements LoaderCallbacks<C
                     c.getColumnIndexOrThrow(UserContract.UserEntry.COLUMN_NAME_PASSWORD)
             );*/
 
-            Cursor mCount= db.rawQuery("select count(*), usertype from users where mail='" + mEmail + "' and password='" + mPassword + "'", null);
+            Cursor mCount= db.rawQuery("select count(*), usertype, userid from users where mail='" + mEmail + "' and password='" + mPassword + "'", null);
             mCount.moveToFirst();
             int count= mCount.getInt(0);
             String userType = mCount.getString(1);
+            int userId = mCount.getInt(2);
             mCount.close();
 
             /*for (String credential : DUMMY_CREDENTIALS) {
@@ -433,6 +434,7 @@ public class LoginActivity extends PlusBaseActivity implements LoaderCallbacks<C
                     getString(R.string.user_type), Context.MODE_PRIVATE);
             SharedPreferences.Editor editor = sharedPref.edit();
             editor.putString(getString(R.string.user_type), userType);
+            editor.putInt(getString(R.string.user_id), userId);
             editor.commit();
 
             if(count > 0){

@@ -26,4 +26,10 @@
     <string name="title_activity_main_receptor">MainReceptorActivity</string>
     
     <string name="collect_donations">Recoger donaciones</string>
+    <string name="action_view_profile">Mi perfil</string>
+    <string name="action_edit_profile">Editar perfil</string>
+    <string name="action_disconnect">Cerrar sesión</string>
+
+    <string name="user_id">Id de usuario</string>
+    <string name="title_activity_view_profile">ViewProfileActivity</string>
 </resources>

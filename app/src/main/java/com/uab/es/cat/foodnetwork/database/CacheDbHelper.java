@@ -1,6 +1,7 @@
 package com.uab.es.cat.foodnetwork.database;
 
 import android.content.ContentValues;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 import com.uab.es.cat.foodnetwork.dto.BaseDTO;
@@ -48,5 +49,35 @@ public class CacheDbHelper implements DatabaseHandler{
     @Override
     public void delete(BaseDTO baseDTO, FoodNetworkDbHelper mDbHelper) {
 
+    }
+
+    @Override
+    public BaseDTO getById(BaseDTO baseDTO, FoodNetworkDbHelper mDbHelper) {
+        if(baseDTO instanceof UserDTO){
+            UserDTO userDTO = (UserDTO) baseDTO;
+            int userId = userDTO.getIdUser();
+            SQLiteDatabase dbRead = mDbHelper.getReadableDatabase();
+
+            Cursor mCount= dbRead.rawQuery("select name, lastname, username, mail, password, usertype from users where userid = " + userId, null);
+            mCount.moveToFirst();
+            String name = mCount.getString(0);
+            String lastName = mCount.getString(1);
+            String userName = mCount.getString(2);
+            String mail = mCount.getString(3);
+            String password = mCount.getString(4);
+            String userType = mCount.getString(5);
+
+            userDTO.setName(name);
+            userDTO.setLastName(lastName);
+            userDTO.setUserName(userName);
+            userDTO.setMail(mail);
+            userDTO.setPassword(password);
+            userDTO.setIdTypeUser(userType);
+
+            mCount.close();
+
+            return userDTO;
+        }
+        return null;
     }
 }

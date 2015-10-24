@@ -1,5 +1,6 @@
 package com.uab.es.cat.foodnetwork;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -29,7 +30,14 @@ public class MainDonateActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.action_view_profile) {
+            startActivity(new Intent(getApplicationContext(), ViewProfileActivity.class));
+            return true;
+        }
+        if (id == R.id.action_edit_profile) {
+            return true;
+        }
+        if (id == R.id.action_disconnect) {
             return true;
         }
 
