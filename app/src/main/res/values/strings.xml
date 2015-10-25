@@ -32,4 +32,10 @@
 
     <string name="user_id">Id de usuario</string>
     <string name="title_activity_view_profile">ViewProfileActivity</string>
+
+    <string name="address">Dirección</string>
+    <string name="neighborhood">Barrio</string>
+    <string name="district">Distrito</string>
+    <string name="contact_phone">Teléfono de contacto</string>
+    <string name="ranking_position">Posición ranking</string>
 </resources>

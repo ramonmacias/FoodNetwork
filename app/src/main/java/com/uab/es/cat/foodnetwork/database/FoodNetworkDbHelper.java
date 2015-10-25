@@ -19,15 +19,27 @@ public class FoodNetworkDbHelper extends SQLiteOpenHelper {
                     UserContract.UserEntry.COLUMN_NAME_USER_NAME + TEXT_TYPE + COMMA_SEP +
                     UserContract.UserEntry.COLUMN_NAME_MAIL + TEXT_TYPE + COMMA_SEP +
                     UserContract.UserEntry.COLUMN_NAME_PASSWORD + TEXT_TYPE + COMMA_SEP +
+                    UserContract.UserEntry.COLUMN_NAME_PHONE_NUMBER + TEXT_TYPE + COMMA_SEP +
                     UserContract.UserEntry.COLUMN_NAME_USER_TYPE + TEXT_TYPE +
-                    " )";
+                    " );" +
+            " CREATE TABLE " + LocationContract.LocationEntry.TABLE_NAME + " (" +
+                    LocationContract.LocationEntry.COLUMN_NAME_LOCATION_ID + " INTEGER PRIMARY KEY," +
+                    LocationContract.LocationEntry.COLUMN_NAME_STREET_NAME + TEXT_TYPE + COMMA_SEP +
+                    LocationContract.LocationEntry.COLUMN_NAME_BUILDING_NUMBER + TEXT_TYPE + COMMA_SEP +
+                    LocationContract.LocationEntry.COLUMN_NAME_FLOOR + TEXT_TYPE + COMMA_SEP +
+                    LocationContract.LocationEntry.COLUMN_NAME_DOOR + TEXT_TYPE + COMMA_SEP +
+                    LocationContract.LocationEntry.COLUMN_NAME_CITY + TEXT_TYPE + COMMA_SEP +
+                    LocationContract.LocationEntry.COLUMN_NAME_NEIGHBORHOOD + TEXT_TYPE + COMMA_SEP +
+                    LocationContract.LocationEntry.COLUMN_NAME_DISTRICT + TEXT_TYPE +
+                    " );";
 
     private static final String SQL_DELETE_ENTRIES =
-            "DROP TABLE IF EXISTS " + UserContract.UserEntry.TABLE_NAME;
+            "DROP TABLE IF EXISTS " + UserContract.UserEntry.TABLE_NAME +
+            "; DROP TABLE IF EXISTS " + LocationContract.LocationEntry.TABLE_NAME;
 
 
     // If you change the database schema, you must increment the database version.
-    public static final int DATABASE_VERSION = 1;
+    public static final int DATABASE_VERSION = 2;
     public static final String DATABASE_NAME = "FoodNetwork.db";
 
     public FoodNetworkDbHelper(Context context){
