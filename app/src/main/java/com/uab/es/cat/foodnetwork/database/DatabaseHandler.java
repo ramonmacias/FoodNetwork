@@ -7,7 +7,7 @@ import com.uab.es.cat.foodnetwork.dto.BaseDTO;
  */
 public interface DatabaseHandler {
 
-    public void insert(BaseDTO baseDTO, FoodNetworkDbHelper mDbHelper);
+    public long insert(BaseDTO baseDTO, FoodNetworkDbHelper mDbHelper);
 
     public void update(BaseDTO baseDTO, FoodNetworkDbHelper mDbHelper);
 

@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="neighborhoods">
+        <item>El Raval</item>
+        <item>Barrio Gótico</item>
+        <item>La Barceloneta</item>
+        <item>Sant Pere, Santa Caterina i la Ribera</item>
+        <item>El Fort Pienc</item>
+        <item>Sagrada Familia</item>
+        <item>Eixample dreta</item>
+        <item>Antiga eixample esquerra</item>
+        <item>Nova eixample esquerra</item>
+        <item>Sant Antoni</item>
+        <item>Poble sec</item>
+        <item>La marina del prat vermell</item>
+        <item>La marina de port</item>
+        <item>La font de la guatlla</item>
+        <item>Hostafrancs</item>
+        <item>La bordeta</item>
+        <item>Sants-Badal</item>
+        <item>Sants</item>
+        <item>Zona Franca</item>
+        <item>Montjuic</item>
+        <item>Les corts</item>
+        <item>La maternitat i Sant Ramón</item>
+        <item>Pedralbes</item>
+        <item>Vallvidrera, Tibidabo i les planes</item>
+        <item>Sarrià</item>
+        <item>Les tres torres</item>
+        <item>Sant Gervasi - Bonanova</item>
+        <item>Sant Gervasi - Galvany</item>
+        <item>El putget i Farró</item>
+        <item>Vallcarca i penitents</item>
+        <item>El Coll</item>
+        <item>La Salud</item>
+        <item>Vila de Gracia</item>
+        <item>Camp d\'en Grassot i Gràcia Nova</item>
+        <item>Baix Guinardó</item>
+        <item>Can Baró</item>
+        <item>El Guinardó</item>
+        <item>La font d\'en Fargues</item>
+        <item>El carmel</item>
+        <item>La Teixonera</item>
+        <item>Sant Genís dels Agudells</item>
+        <item>Vall d\'Hebrón</item>
+        <item>La Clota</item>
+        <item>Horta</item>
+        <item>Vilapicina y la torre llobeta</item>
+        <item>Porta</item>
+        <item>Turó de la peira</item>
+        <item>Can Peguera</item>
+        <item>La Guineueta</item>
+        <item>Canyelles</item>
+        <item>Les Roquetes</item>
+        <item>Verdún</item>
+        <item>La prosperitat</item>
+        <item>Trinitat nova</item>
+        <item>Torre Baró</item>
+        <item>Ciutat Meridiana</item>
+        <item>Vallbona</item>
+        <item>Trinitat Vella</item>
+        <item>Baró de viver</item>
+        <item>Bon pastor</item>
+        <item>Sant Andreu</item>
+        <item>La sagrera</item>
+        <item>Congrés i els indians</item>
+        <item>Navas</item>
+        <item>Camp de l\'arpa</item>
+        <item>El clot</item>
+        <item>El parc i la Llacuna del poblenou</item>
+        <item>Vila olímpica</item>
+        <item>Poblenou</item>
+        <item>Diagonal mar</item>
+        <item>El besós i el Maresme</item>
+        <item>Provençals del Poblenou</item>
+        <item>Sant Martí</item>
+        <item>La Verneda i la pau</item>
+    </string-array>
+
+    <string-array name="districts">
+        <item>Ciutat vella</item>
+        <item>Eixample</item>
+        <item>Sants Montjuic</item>
+        <item>Les Corts</item>
+        <item>Sarrià - Sant Gervasi</item>
+        <item>Gracia</item>
+        <item>Horta - Guinardó</item>
+        <item>Nou Barris</item>
+        <item>Sant Andreu</item>
+        <item>Sant Martí</item>
+    </string-array>
+</resources>

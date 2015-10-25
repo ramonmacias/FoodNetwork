@@ -35,6 +35,7 @@ public class MainDonateActivity extends AppCompatActivity {
             return true;
         }
         if (id == R.id.action_edit_profile) {
+            startActivity(new Intent(getApplicationContext(), EditProfileActivity.class));
             return true;
         }
         if (id == R.id.action_disconnect) {

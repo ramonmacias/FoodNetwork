@@ -2,6 +2,7 @@
     <string name="app_name">Food network</string>
 
     <string name="button_register">Registrarse</string>
+    <string name="button_save">Guardar</string>
     <string name="title_activity_register">RegisterActivity</string>
 
     <string name="hello_world">Hello world!</string>
@@ -38,4 +39,10 @@
     <string name="district">Distrito</string>
     <string name="contact_phone">Teléfono de contacto</string>
     <string name="ranking_position">Posición ranking</string>
+    <string name="title_activity_edit_profile">EditProfileActivity</string>
+    <string name="street_name">Nombre de la calle</string>
+    <string name="building_number">Número del edificio</string>
+    <string name="floor">Piso</string>
+    <string name="door">Puerta</string>
+    <string name="city">Ciudad</string>
 </resources>

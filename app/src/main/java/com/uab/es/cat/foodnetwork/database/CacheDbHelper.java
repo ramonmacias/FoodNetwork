@@ -17,7 +17,7 @@ public class CacheDbHelper implements DatabaseHandler{
     }
 
     @Override
-    public void insert(BaseDTO baseDTO, FoodNetworkDbHelper mDbHelper) {
+    public long insert(BaseDTO baseDTO, FoodNetworkDbHelper mDbHelper) {
 
         if(baseDTO instanceof UserDTO){
             UserDTO userDTO = (UserDTO) baseDTO;
@@ -38,7 +38,9 @@ public class CacheDbHelper implements DatabaseHandler{
                     UserContract.UserEntry.TABLE_NAME,
                     null,
                     values);
+            return newRowId;
         }
+        return new Long("0");
     }
 
     @Override
