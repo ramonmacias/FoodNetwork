@@ -5,6 +5,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 import com.uab.es.cat.foodnetwork.dto.BaseDTO;
+import com.uab.es.cat.foodnetwork.dto.LocationDTO;
 import com.uab.es.cat.foodnetwork.dto.UserDTO;
 
 /**
@@ -19,10 +20,10 @@ public class CacheDbHelper implements DatabaseHandler{
     @Override
     public long insert(BaseDTO baseDTO, FoodNetworkDbHelper mDbHelper) {
 
+        SQLiteDatabase db = mDbHelper.getWritableDatabase();
+
         if(baseDTO instanceof UserDTO){
             UserDTO userDTO = (UserDTO) baseDTO;
-
-            SQLiteDatabase db = mDbHelper.getWritableDatabase();
 
             ContentValues values = new ContentValues();
             values.put(UserContract.UserEntry.COLUMN_NAME_USER_ID, userDTO.getIdUser());
@@ -40,11 +41,61 @@ public class CacheDbHelper implements DatabaseHandler{
                     values);
             return newRowId;
         }
+        if(baseDTO instanceof LocationDTO){
+            LocationDTO locationDTO = (LocationDTO) baseDTO;
+
+            Cursor mCount= db.rawQuery("select count(*) from location", null);
+            mCount.moveToFirst();
+            int lastId= mCount.getInt(0);
+            mCount.close();
+
+            locationDTO.setIdLocation(lastId + 1);
+
+            ContentValues values = new ContentValues();
+            values.put(LocationContract.LocationEntry.COLUMN_NAME_LOCATION_ID, locationDTO.getIdLocation());
+            values.put(LocationContract.LocationEntry.COLUMN_NAME_STREET_NAME, locationDTO.getStreetName());
+            values.put(LocationContract.LocationEntry.COLUMN_NAME_BUILDING_NUMBER, locationDTO.getBuildingNumber());
+            values.put(LocationContract.LocationEntry.COLUMN_NAME_FLOOR, locationDTO.getFloor());
+            values.put(LocationContract.LocationEntry.COLUMN_NAME_DOOR, locationDTO.getDoor());
+            values.put(LocationContract.LocationEntry.COLUMN_NAME_CITY, locationDTO.getCity());
+            values.put(LocationContract.LocationEntry.COLUMN_NAME_NEIGHBORHOOD, locationDTO.getNeighborhood());
+            values.put(LocationContract.LocationEntry.COLUMN_NAME_DISTRICT, locationDTO.getDistrict());
+
+            long newRowId;
+            newRowId = db.insert(
+                    LocationContract.LocationEntry.TABLE_NAME,
+                    null,
+                    values);
+            return newRowId;
+        }
         return new Long("0");
     }
 
     @Override
     public void update(BaseDTO baseDTO, FoodNetworkDbHelper mDbHelper) {
+        SQLiteDatabase db = mDbHelper.getWritableDatabase();
+
+        if (baseDTO instanceof UserDTO){
+            UserDTO userDTO = (UserDTO) baseDTO;
+
+            ContentValues values = new ContentValues();
+            values.put(UserContract.UserEntry.COLUMN_NAME_NAME, userDTO.getName());
+            values.put(UserContract.UserEntry.COLUMN_NAME_LAST_NAME, userDTO.getLastName());
+            values.put(UserContract.UserEntry.COLUMN_NAME_USER_NAME, userDTO.getUserName());
+            values.put(UserContract.UserEntry.COLUMN_NAME_MAIL, userDTO.getMail());
+            values.put(UserContract.UserEntry.COLUMN_NAME_PASSWORD, userDTO.getPassword());
+            values.put(UserContract.UserEntry.COLUMN_NAME_USER_TYPE, userDTO.getIdTypeUser());
+            values.put(UserContract.UserEntry.COLUMN_NAME_ID_LOCATION, userDTO.getIdLocation());
+
+            String selection = UserContract.UserEntry.COLUMN_NAME_USER_ID + " LIKE ?";
+            String[] selectionArgs = { String.valueOf(userDTO.getIdUser()) };
+
+            int count = db.update(
+                    UserContract.UserEntry.TABLE_NAME,
+                    values,
+                    selection,
+                    selectionArgs);
+        }
 
     }
 
@@ -60,7 +111,7 @@ public class CacheDbHelper implements DatabaseHandler{
             int userId = userDTO.getIdUser();
             SQLiteDatabase dbRead = mDbHelper.getReadableDatabase();
 
-            Cursor mCount= dbRead.rawQuery("select name, lastname, username, mail, password, usertype from users where userid = " + userId, null);
+            Cursor mCount= dbRead.rawQuery("select name, lastname, username, mail, password, usertype, idlocation from users where userid = " + userId, null);
             mCount.moveToFirst();
             String name = mCount.getString(0);
             String lastName = mCount.getString(1);
@@ -68,6 +119,7 @@ public class CacheDbHelper implements DatabaseHandler{
             String mail = mCount.getString(3);
             String password = mCount.getString(4);
             String userType = mCount.getString(5);
+            int idLocation = mCount.getInt(6);
 
             userDTO.setName(name);
             userDTO.setLastName(lastName);
@@ -75,6 +127,7 @@ public class CacheDbHelper implements DatabaseHandler{
             userDTO.setMail(mail);
             userDTO.setPassword(password);
             userDTO.setIdTypeUser(userType);
+            userDTO.setIdLocation(idLocation);
 
             mCount.close();
 

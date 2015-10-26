@@ -11,7 +11,7 @@ public class FoodNetworkDbHelper extends SQLiteOpenHelper {
 
     private static final String TEXT_TYPE = " TEXT";
     private static final String COMMA_SEP = ",";
-    private static final String SQL_CREATE_ENTRIES =
+    private static final String SQL_CREATE_ENTRIES_USER =
             "CREATE TABLE " + UserContract.UserEntry.TABLE_NAME + " (" +
                     UserContract.UserEntry.COLUMN_NAME_USER_ID + " INTEGER PRIMARY KEY," +
                     UserContract.UserEntry.COLUMN_NAME_NAME + TEXT_TYPE + COMMA_SEP +
@@ -20,8 +20,10 @@ public class FoodNetworkDbHelper extends SQLiteOpenHelper {
                     UserContract.UserEntry.COLUMN_NAME_MAIL + TEXT_TYPE + COMMA_SEP +
                     UserContract.UserEntry.COLUMN_NAME_PASSWORD + TEXT_TYPE + COMMA_SEP +
                     UserContract.UserEntry.COLUMN_NAME_PHONE_NUMBER + TEXT_TYPE + COMMA_SEP +
+                    UserContract.UserEntry.COLUMN_NAME_ID_LOCATION + " INTEGER " + COMMA_SEP +
                     UserContract.UserEntry.COLUMN_NAME_USER_TYPE + TEXT_TYPE +
-                    " );" +
+                    " );";
+    private static final String SQL_CREATE_ENTRIES_LOCATION =
             " CREATE TABLE " + LocationContract.LocationEntry.TABLE_NAME + " (" +
                     LocationContract.LocationEntry.COLUMN_NAME_LOCATION_ID + " INTEGER PRIMARY KEY," +
                     LocationContract.LocationEntry.COLUMN_NAME_STREET_NAME + TEXT_TYPE + COMMA_SEP +
@@ -39,7 +41,7 @@ public class FoodNetworkDbHelper extends SQLiteOpenHelper {
 
 
     // If you change the database schema, you must increment the database version.
-    public static final int DATABASE_VERSION = 2;
+    public static final int DATABASE_VERSION = 4;
     public static final String DATABASE_NAME = "FoodNetwork.db";
 
     public FoodNetworkDbHelper(Context context){
@@ -47,7 +49,8 @@ public class FoodNetworkDbHelper extends SQLiteOpenHelper {
     }
 
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL(SQL_CREATE_ENTRIES);
+        db.execSQL(SQL_CREATE_ENTRIES_LOCATION);
+        db.execSQL(SQL_CREATE_ENTRIES_USER);
     }
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         // This database is only a cache for online data, so its upgrade policy is

@@ -19,5 +19,6 @@ public class UserContract {
         public static final String COLUMN_NAME_PASSWORD = "password";
         public static final String COLUMN_NAME_USER_TYPE = "usertype";
         public static final String COLUMN_NAME_PHONE_NUMBER = "phonenumber";
+        public static final String COLUMN_NAME_ID_LOCATION = "idlocation";
     }
 }

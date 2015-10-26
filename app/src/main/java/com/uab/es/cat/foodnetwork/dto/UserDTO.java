@@ -10,7 +10,7 @@ public class UserDTO extends BaseDTO{
     public String mail;
     public String name;
     public String lastName;
-    public int idLocation;
+    public long idLocation;
     public String password;
     public String idTypeUser;
 
@@ -58,11 +58,11 @@ public class UserDTO extends BaseDTO{
         this.lastName = lastName;
     }
 
-    public int getIdLocation() {
+    public long getIdLocation() {
         return idLocation;
     }
 
-    public void setIdLocation(int idLocation) {
+    public void setIdLocation(long idLocation) {
         this.idLocation = idLocation;
     }
 

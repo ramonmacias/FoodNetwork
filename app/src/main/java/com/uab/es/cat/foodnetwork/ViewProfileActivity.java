@@ -31,6 +31,10 @@ public class ViewProfileActivity extends AppCompatActivity {
         CacheDbHelper cacheDbHelper = new CacheDbHelper();
         userDTO = (UserDTO) cacheDbHelper.getById(userDTO, mDbHelper);
 
+        long idLocation = userDTO.getIdLocation();
+        if(idLocation != 0){
+
+        }
         setContentView(R.layout.activity_view_profile);
         TextView textViewName = (TextView) findViewById(R.id.name);
         TextView textViewLastName = (TextView) findViewById(R.id.lastName);

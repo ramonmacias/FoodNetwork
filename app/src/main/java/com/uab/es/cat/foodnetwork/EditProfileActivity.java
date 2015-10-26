@@ -1,5 +1,7 @@
 package com.uab.es.cat.foodnetwork;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -8,6 +10,11 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
+
+import com.uab.es.cat.foodnetwork.database.CacheDbHelper;
+import com.uab.es.cat.foodnetwork.database.FoodNetworkDbHelper;
+import com.uab.es.cat.foodnetwork.dto.LocationDTO;
+import com.uab.es.cat.foodnetwork.dto.UserDTO;
 
 public class EditProfileActivity extends AppCompatActivity {
 
@@ -67,5 +74,36 @@ public class EditProfileActivity extends AppCompatActivity {
 
         String neighborhood = spinner.getSelectedItem().toString();
         String district = spinner_districts.getSelectedItem().toString();
+
+        UserDTO userDTO = new UserDTO();
+        LocationDTO locationDTO = new LocationDTO();
+
+        locationDTO.setStreetName(streetNameText.getText().toString());
+        locationDTO.setBuildingNumber(buildingNumberText.getText().toString());
+        locationDTO.setFloor(floorText.getText().toString());
+        locationDTO.setDoor(doorText.getText().toString());
+        locationDTO.setCity(cityText.getText().toString());
+        locationDTO.setNeighborhood(neighborhood);
+        locationDTO.setDistrict(district);
+
+        SharedPreferences sharedPref = getApplicationContext().getSharedPreferences(getString(R.string.user_type), Context.MODE_PRIVATE);
+        int defaultValue = 0;
+        int userId = sharedPref.getInt(getString(R.string.user_id), defaultValue);
+
+        userDTO.setIdUser(userId);
+
+        FoodNetworkDbHelper mDbHelper = new FoodNetworkDbHelper(getApplicationContext());
+
+        CacheDbHelper cacheDbHelper = new CacheDbHelper();
+        userDTO = (UserDTO) cacheDbHelper.getById(userDTO, mDbHelper);
+
+        long idLocation = userDTO.getIdLocation();
+        if(idLocation != 0){
+            //Realizar update
+        }else {
+            long idLocationNew = cacheDbHelper.insert(locationDTO, mDbHelper);
+            userDTO.setIdLocation(idLocationNew);
+            cacheDbHelper.update(userDTO, mDbHelper);
+        }
     }
 }
