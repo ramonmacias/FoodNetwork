@@ -5,7 +5,7 @@ package com.uab.es.cat.foodnetwork.dto;
  */
 public class LocationDTO extends BaseDTO {
 
-    public int idLocation;
+    public long idLocation;
     public String streetName;
     public String buildingNumber;
     public String floor;
@@ -18,11 +18,11 @@ public class LocationDTO extends BaseDTO {
 
     }
 
-    public int getIdLocation() {
+    public long getIdLocation() {
         return idLocation;
     }
 
-    public void setIdLocation(int idLocation) {
+    public void setIdLocation(long idLocation) {
         this.idLocation = idLocation;
     }
 

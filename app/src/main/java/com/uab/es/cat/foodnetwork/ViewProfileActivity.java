@@ -10,7 +10,9 @@ import android.widget.TextView;
 
 import com.uab.es.cat.foodnetwork.database.CacheDbHelper;
 import com.uab.es.cat.foodnetwork.database.FoodNetworkDbHelper;
+import com.uab.es.cat.foodnetwork.dto.LocationDTO;
 import com.uab.es.cat.foodnetwork.dto.UserDTO;
+import com.uab.es.cat.foodnetwork.util.Utilities;
 
 public class ViewProfileActivity extends AppCompatActivity {
 
@@ -31,11 +33,20 @@ public class ViewProfileActivity extends AppCompatActivity {
         CacheDbHelper cacheDbHelper = new CacheDbHelper();
         userDTO = (UserDTO) cacheDbHelper.getById(userDTO, mDbHelper);
 
+        setContentView(R.layout.activity_view_profile);
         long idLocation = userDTO.getIdLocation();
         if(idLocation != 0){
-
+            LocationDTO locationDTO = new LocationDTO();
+            locationDTO.setIdLocation(idLocation);
+            locationDTO = (LocationDTO) cacheDbHelper.getById(locationDTO, mDbHelper);
+            TextView textViewNeighborhood = (TextView) findViewById(R.id.neighborhood);
+            TextView textViewDistrict = (TextView) findViewById(R.id.district);
+            TextView textViewAddress = (TextView) findViewById(R.id.address);
+            textViewNeighborhood.setText(locationDTO.getNeighborhood());
+            textViewDistrict.setText(locationDTO.getDistrict());
+            textViewAddress.setText(Utilities.getFullAddress(locationDTO.getStreetName(), locationDTO.getBuildingNumber(), locationDTO.getFloor(), locationDTO.getDoor()));
         }
-        setContentView(R.layout.activity_view_profile);
+
         TextView textViewName = (TextView) findViewById(R.id.name);
         TextView textViewLastName = (TextView) findViewById(R.id.lastName);
         textViewName.setText(userDTO.getName());
@@ -45,7 +56,7 @@ public class ViewProfileActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_view_profile, menu);
+        //getMenuInflater().inflate(R.menu.menu_view_profile, menu);
         return true;
     }
 

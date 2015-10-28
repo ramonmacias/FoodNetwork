@@ -39,6 +39,7 @@ public class MainDonateActivity extends AppCompatActivity {
             return true;
         }
         if (id == R.id.action_disconnect) {
+            startActivity(new Intent(getApplicationContext(), LoginActivity.class));
             return true;
         }
 

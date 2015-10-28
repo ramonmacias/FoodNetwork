@@ -3,6 +3,7 @@ package com.uab.es.cat.foodnetwork.database;
 import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteOpenHelper;
 
 import com.uab.es.cat.foodnetwork.dto.BaseDTO;
 import com.uab.es.cat.foodnetwork.dto.LocationDTO;
@@ -96,6 +97,27 @@ public class CacheDbHelper implements DatabaseHandler{
                     selection,
                     selectionArgs);
         }
+        if (baseDTO instanceof LocationDTO){
+            LocationDTO locationDTO = (LocationDTO) baseDTO;
+
+            ContentValues values = new ContentValues();
+            values.put(LocationContract.LocationEntry.COLUMN_NAME_STREET_NAME, locationDTO.getStreetName());
+            values.put(LocationContract.LocationEntry.COLUMN_NAME_BUILDING_NUMBER, locationDTO.getBuildingNumber());
+            values.put(LocationContract.LocationEntry.COLUMN_NAME_FLOOR, locationDTO.getFloor());
+            values.put(LocationContract.LocationEntry.COLUMN_NAME_DOOR, locationDTO.getDoor());
+            values.put(LocationContract.LocationEntry.COLUMN_NAME_CITY, locationDTO.getCity());
+            values.put(LocationContract.LocationEntry.COLUMN_NAME_NEIGHBORHOOD, locationDTO.getNeighborhood());
+            values.put(LocationContract.LocationEntry.COLUMN_NAME_DISTRICT, locationDTO.getDistrict());
+
+            String selection = LocationContract.LocationEntry.COLUMN_NAME_LOCATION_ID + " LIKE ?";
+            String[] selectionArgs = { String.valueOf(locationDTO.getIdLocation()) };
+
+            int count = db.update(
+                    LocationContract.LocationEntry.TABLE_NAME,
+                    values,
+                    selection,
+                    selectionArgs);
+        }
 
     }
 
@@ -132,6 +154,34 @@ public class CacheDbHelper implements DatabaseHandler{
             mCount.close();
 
             return userDTO;
+        }
+        if(baseDTO instanceof LocationDTO){
+            LocationDTO locationDTO = (LocationDTO) baseDTO;
+            long idLocation = locationDTO.getIdLocation();
+            SQLiteDatabase dbRead = mDbHelper.getReadableDatabase();
+
+            Cursor mCount= dbRead.rawQuery("select streetname, buildingnumber, floor, door, city, neighborhood, district from location where locationid = " + idLocation, null);
+            mCount.moveToFirst();
+
+            String streetName = mCount.getString(0);
+            String buildingNumber = mCount.getString(1);
+            String floor = mCount.getString(2);
+            String door = mCount.getString(3);
+            String city = mCount.getString(4);
+            String neighborhood = mCount.getString(5);
+            String district = mCount.getString(6);
+
+            locationDTO.setStreetName(streetName);
+            locationDTO.setBuildingNumber(buildingNumber);
+            locationDTO.setFloor(floor);
+            locationDTO.setDoor(door);
+            locationDTO.setCity(city);
+            locationDTO.setNeighborhood(neighborhood);
+            locationDTO.setDistrict(district);
+
+            mCount.close();
+
+            return locationDTO;
         }
         return null;
     }

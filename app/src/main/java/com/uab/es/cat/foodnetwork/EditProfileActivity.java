@@ -1,6 +1,7 @@
 package com.uab.es.cat.foodnetwork;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -99,11 +100,22 @@ public class EditProfileActivity extends AppCompatActivity {
 
         long idLocation = userDTO.getIdLocation();
         if(idLocation != 0){
-            //Realizar update
+            locationDTO.setIdLocation(idLocation);
+            cacheDbHelper.update(locationDTO, mDbHelper);
         }else {
             long idLocationNew = cacheDbHelper.insert(locationDTO, mDbHelper);
             userDTO.setIdLocation(idLocationNew);
             cacheDbHelper.update(userDTO, mDbHelper);
+        }
+
+        sharedPref = getApplicationContext().getSharedPreferences(getString(R.string.user_type), Context.MODE_PRIVATE);
+        String defaultValueType = "";
+        String userType = sharedPref.getString(getString(R.string.user_type), defaultValueType);
+
+        if("D".equals(userType)){
+            startActivity(new Intent(getApplicationContext(), MainDonateActivity.class));
+        }else {
+            startActivity(new Intent(getApplicationContext(), MainReceptorActivity.class));
         }
     }
 }
