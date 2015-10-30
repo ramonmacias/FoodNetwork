@@ -35,6 +35,7 @@ import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.android.gms.common.SignInButton;
 import com.uab.es.cat.foodnetwork.database.FoodNetworkDbHelper;
 import com.uab.es.cat.foodnetwork.database.UserContract;
+import com.uab.es.cat.foodnetwork.util.UserSession;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -368,47 +369,9 @@ public class LoginActivity extends PlusBaseActivity implements LoaderCallbacks<C
         protected Boolean doInBackground(Void... params) {
             // TODO: attempt authentication against a network service.
 
-            //try {
-                // Simulate network access.
-              //  Thread.sleep(2000);
-            //} catch (InterruptedException e) {
-               // return false;
-            //}
-
             FoodNetworkDbHelper mDbHelper = new FoodNetworkDbHelper(getApplicationContext());
 
             SQLiteDatabase db = mDbHelper.getReadableDatabase();
-
-            /*String[] projection = {
-                UserContract.UserEntry.COLUMN_NAME_USER_ID,
-                    UserContract.UserEntry.COLUMN_NAME_MAIL,
-                    UserContract.UserEntry.COLUMN_NAME_PASSWORD
-            };
-
-            String sortOrder = UserContract.UserEntry.COLUMN_NAME_USER_ID + " DESC";
-
-            Cursor c = db.query(
-                    UserContract.UserEntry.TABLE_NAME,
-                    projection,
-                    null,
-                    null,
-                    null,
-                    null,
-                    sortOrder
-            );
-
-            c.moveToFirst();
-            long itemId = c.getLong(
-                c.getColumnIndexOrThrow(UserContract.UserEntry.COLUMN_NAME_USER_ID)
-            );
-
-            String mail = c.getString(
-                    c.getColumnIndexOrThrow(UserContract.UserEntry.COLUMN_NAME_MAIL)
-            );
-
-            String password = c.getString(
-                    c.getColumnIndexOrThrow(UserContract.UserEntry.COLUMN_NAME_PASSWORD)
-            );*/
 
             Cursor mCount= db.rawQuery("select count(*), usertype, userid from users where mail='" + mEmail + "' and password='" + mPassword + "'", null);
             mCount.moveToFirst();
@@ -417,25 +380,8 @@ public class LoginActivity extends PlusBaseActivity implements LoaderCallbacks<C
             int userId = mCount.getInt(2);
             mCount.close();
 
-            /*for (String credential : DUMMY_CREDENTIALS) {
-                String[] pieces = credential.split(":");
-                if (pieces[0].equals(mEmail)) {
-                    // Account exists, return true if the password matches.
-                    return pieces[1].equals(mPassword);
-                }
-            }
 
-
-            // TODO: register the new account here.
-            return false;*/
-
-
-            SharedPreferences sharedPref = getApplicationContext().getSharedPreferences(
-                    getString(R.string.user_type), Context.MODE_PRIVATE);
-            SharedPreferences.Editor editor = sharedPref.edit();
-            editor.putString(getString(R.string.user_type), userType);
-            editor.putInt(getString(R.string.user_id), userId);
-            editor.commit();
+            UserSession.getInstance(getApplicationContext()).logIn(userId, userType);
 
             if(count > 0){
                 return true;
@@ -449,9 +395,7 @@ public class LoginActivity extends PlusBaseActivity implements LoaderCallbacks<C
             mAuthTask = null;
             showProgress(false);
 
-            SharedPreferences sharedPref = getApplicationContext().getSharedPreferences(getString(R.string.user_type), Context.MODE_PRIVATE);
-            String defaultValue = "";
-            String userType = sharedPref.getString(getString(R.string.user_type), defaultValue);
+            String userType = UserSession.getInstance(getApplicationContext()).getUserType();
 
             if (success) {
                 if("D".equals(userType)){
@@ -459,7 +403,6 @@ public class LoginActivity extends PlusBaseActivity implements LoaderCallbacks<C
                 }else {
                     startActivity(new Intent(getApplicationContext(), MainReceptorActivity.class));
                 }
-                //finish();
             } else {
                 mPasswordView.setError(getString(R.string.error_incorrect_password));
                 mPasswordView.requestFocus();

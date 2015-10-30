@@ -5,7 +5,7 @@ package com.uab.es.cat.foodnetwork.dto;
  */
 public class UserDTO extends BaseDTO{
 
-    public int idUser;
+    public long idUser;
     public String userName;
     public String mail;
     public String name;
@@ -18,11 +18,11 @@ public class UserDTO extends BaseDTO{
 
     }
 
-    public int getIdUser() {
+    public long getIdUser() {
         return idUser;
     }
 
-    public void setIdUser(int idUser) {
+    public void setIdUser(long idUser) {
         this.idUser = idUser;
     }
 

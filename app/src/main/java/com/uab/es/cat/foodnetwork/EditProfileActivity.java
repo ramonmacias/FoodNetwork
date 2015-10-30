@@ -16,6 +16,7 @@ import com.uab.es.cat.foodnetwork.database.CacheDbHelper;
 import com.uab.es.cat.foodnetwork.database.FoodNetworkDbHelper;
 import com.uab.es.cat.foodnetwork.dto.LocationDTO;
 import com.uab.es.cat.foodnetwork.dto.UserDTO;
+import com.uab.es.cat.foodnetwork.util.UserSession;
 
 public class EditProfileActivity extends AppCompatActivity {
 
@@ -87,9 +88,7 @@ public class EditProfileActivity extends AppCompatActivity {
         locationDTO.setNeighborhood(neighborhood);
         locationDTO.setDistrict(district);
 
-        SharedPreferences sharedPref = getApplicationContext().getSharedPreferences(getString(R.string.user_type), Context.MODE_PRIVATE);
-        int defaultValue = 0;
-        int userId = sharedPref.getInt(getString(R.string.user_id), defaultValue);
+        long userId = UserSession.getInstance(getApplicationContext()).getUserId();
 
         userDTO.setIdUser(userId);
 
@@ -108,9 +107,7 @@ public class EditProfileActivity extends AppCompatActivity {
             cacheDbHelper.update(userDTO, mDbHelper);
         }
 
-        sharedPref = getApplicationContext().getSharedPreferences(getString(R.string.user_type), Context.MODE_PRIVATE);
-        String defaultValueType = "";
-        String userType = sharedPref.getString(getString(R.string.user_type), defaultValueType);
+        String userType = UserSession.getInstance(getApplicationContext()).getUserType();
 
         if("D".equals(userType)){
             startActivity(new Intent(getApplicationContext(), MainDonateActivity.class));

@@ -130,7 +130,7 @@ public class CacheDbHelper implements DatabaseHandler{
     public BaseDTO getById(BaseDTO baseDTO, FoodNetworkDbHelper mDbHelper) {
         if(baseDTO instanceof UserDTO){
             UserDTO userDTO = (UserDTO) baseDTO;
-            int userId = userDTO.getIdUser();
+            long userId = userDTO.getIdUser();
             SQLiteDatabase dbRead = mDbHelper.getReadableDatabase();
 
             Cursor mCount= dbRead.rawQuery("select name, lastname, username, mail, password, usertype, idlocation from users where userid = " + userId, null);

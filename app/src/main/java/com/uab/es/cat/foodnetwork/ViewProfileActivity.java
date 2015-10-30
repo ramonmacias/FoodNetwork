@@ -12,6 +12,7 @@ import com.uab.es.cat.foodnetwork.database.CacheDbHelper;
 import com.uab.es.cat.foodnetwork.database.FoodNetworkDbHelper;
 import com.uab.es.cat.foodnetwork.dto.LocationDTO;
 import com.uab.es.cat.foodnetwork.dto.UserDTO;
+import com.uab.es.cat.foodnetwork.util.UserSession;
 import com.uab.es.cat.foodnetwork.util.Utilities;
 
 public class ViewProfileActivity extends AppCompatActivity {
@@ -22,9 +23,10 @@ public class ViewProfileActivity extends AppCompatActivity {
 
         UserDTO userDTO = new UserDTO();
 
-        SharedPreferences sharedPref = getApplicationContext().getSharedPreferences(getString(R.string.user_type), Context.MODE_PRIVATE);
+        /*SharedPreferences sharedPref = getApplicationContext().getSharedPreferences(getString(R.string.user_type), Context.MODE_PRIVATE);
         int defaultValue = 0;
-        int userId = sharedPref.getInt(getString(R.string.user_id), defaultValue);
+        int userId = sharedPref.getInt(getString(R.string.user_id), defaultValue);*/
+        long userId = UserSession.getInstance(getApplicationContext()).getUserId();
 
         userDTO.setIdUser(userId);
 
