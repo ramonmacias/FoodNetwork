@@ -24,7 +24,7 @@ public class FoodNetworkDbHelper extends SQLiteOpenHelper {
                     UserContract.UserEntry.COLUMN_NAME_USER_TYPE + TEXT_TYPE +
                     " );";
     private static final String SQL_CREATE_ENTRIES_LOCATION =
-            " CREATE TABLE " + LocationContract.LocationEntry.TABLE_NAME + " (" +
+            " DROP TABLE IF EXISTS location; CREATE TABLE " + LocationContract.LocationEntry.TABLE_NAME + " (" +
                     LocationContract.LocationEntry.COLUMN_NAME_LOCATION_ID + " INTEGER PRIMARY KEY," +
                     LocationContract.LocationEntry.COLUMN_NAME_STREET_NAME + TEXT_TYPE + COMMA_SEP +
                     LocationContract.LocationEntry.COLUMN_NAME_BUILDING_NUMBER + TEXT_TYPE + COMMA_SEP +
@@ -34,14 +34,38 @@ public class FoodNetworkDbHelper extends SQLiteOpenHelper {
                     LocationContract.LocationEntry.COLUMN_NAME_NEIGHBORHOOD + TEXT_TYPE + COMMA_SEP +
                     LocationContract.LocationEntry.COLUMN_NAME_DISTRICT + TEXT_TYPE +
                     " );";
+    private static final String SQL_CREATE_ENTRIES_FOODS =
+            " CREATE TABLE " + FoodsContract.FoodEntry.TABLE_NAME + " (" +
+                    FoodsContract.FoodEntry.COLUMN_NAME_FOOD_ID + " INTEGER PRIMARY KEY," +
+                    FoodsContract.FoodEntry.COLUMN_NAME_FOOD_NAME + TEXT_TYPE + COMMA_SEP +
+                    FoodsContract.FoodEntry.COLUMN_NAME_FOOD_TYPE + TEXT_TYPE + COMMA_SEP +
+                    FoodsContract.FoodEntry.COLUMN_NAME_EXPIRATION_DATE + TEXT_TYPE + COMMA_SEP +
+                    FoodsContract.FoodEntry.COLUMN_NAME_QUANTITY + TEXT_TYPE +
+                    " );";
+    private static final String SQL_CREATE_ENTRIES_DONATION =
+            " CREATE TABLE " + DonationContract.DonationEntry.TABLE_NAME + " (" +
+                    DonationContract.DonationEntry.COLUMN_NAME_DONATION_ID + " INTEGER," +
+                    DonationContract.DonationEntry.COLUMN_NAME_FOOD_ID + " INTEGER," +
+                    DonationContract.DonationEntry.COLUMN_NAME_LOCATION_ID + " INTEGER," +
+                    DonationContract.DonationEntry.COLUMN_NAME_USER_ID + " INTEGER," +
+                    DonationContract.DonationEntry.COLUMN_NAME_STATE + TEXT_TYPE +
+                    " ,PRIMARY KEY (" +
+                    DonationContract.DonationEntry.COLUMN_NAME_DONATION_ID +
+                    ", " +
+                    DonationContract.DonationEntry.COLUMN_NAME_FOOD_ID +
+                    ", " +
+                    DonationContract.DonationEntry.COLUMN_NAME_USER_ID +
+                    ") );";
 
     private static final String SQL_DELETE_ENTRIES =
             "DROP TABLE IF EXISTS " + UserContract.UserEntry.TABLE_NAME +
-            "; DROP TABLE IF EXISTS " + LocationContract.LocationEntry.TABLE_NAME;
+            "; DROP TABLE IF EXISTS " + LocationContract.LocationEntry.TABLE_NAME +
+            "; DROP TABLE IF EXISTS " + FoodsContract.FoodEntry.TABLE_NAME +
+            "; DROP TABLE IF EXISTS " + DonationContract.DonationEntry.TABLE_NAME;
 
 
     // If you change the database schema, you must increment the database version.
-    public static final int DATABASE_VERSION = 4;
+    public static final int DATABASE_VERSION = 8;
     public static final String DATABASE_NAME = "FoodNetwork.db";
 
     public FoodNetworkDbHelper(Context context){
@@ -49,6 +73,8 @@ public class FoodNetworkDbHelper extends SQLiteOpenHelper {
     }
 
     public void onCreate(SQLiteDatabase db) {
+        db.execSQL(SQL_CREATE_ENTRIES_DONATION);
+        db.execSQL(SQL_CREATE_ENTRIES_FOODS);
         db.execSQL(SQL_CREATE_ENTRIES_LOCATION);
         db.execSQL(SQL_CREATE_ENTRIES_USER);
     }

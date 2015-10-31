@@ -56,7 +56,12 @@
         <activity
             android:name=".EditProfileActivity"
             android:label="@string/title_activity_edit_profile"
-            android:theme="@style/Theme.AppCompat.Light">
+            android:theme="@style/Theme.AppCompat.Light" >
+        </activity>
+        <activity
+            android:name=".FoodDonationActivity"
+            android:label="@string/title_activity_food_donation"
+            android:theme="@style/Theme.AppCompat.Light" >
         </activity>
     </application>
 

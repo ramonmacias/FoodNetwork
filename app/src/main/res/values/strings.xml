@@ -45,4 +45,9 @@
     <string name="floor">Piso</string>
     <string name="door">Puerta</string>
     <string name="city">Ciudad</string>
+    <string name="title_activity_food_donation">FoodDonationActivity</string>
+    <string name="productName">Nombre del producto</string>
+    <string name="my_location">Mi ubicación</string>
+    <string name="profile_location">Profile location</string>
+    <string name="button_donate">Donar</string>
 </resources>

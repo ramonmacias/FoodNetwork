@@ -57,7 +57,7 @@ public class MainDonateActivity extends AppCompatActivity {
     }
 
     public void donate(View view){
-
+        startActivity(new Intent(getApplicationContext(), FoodDonationActivity.class));
     }
 
     public void listDonations(View view){
