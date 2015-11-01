@@ -12,7 +12,7 @@ public class FoodNetworkDbHelper extends SQLiteOpenHelper {
     private static final String TEXT_TYPE = " TEXT";
     private static final String COMMA_SEP = ",";
     private static final String SQL_CREATE_ENTRIES_USER =
-            "CREATE TABLE " + UserContract.UserEntry.TABLE_NAME + " (" +
+            "create table if not exists " + UserContract.UserEntry.TABLE_NAME + " (" +
                     UserContract.UserEntry.COLUMN_NAME_USER_ID + " INTEGER PRIMARY KEY," +
                     UserContract.UserEntry.COLUMN_NAME_NAME + TEXT_TYPE + COMMA_SEP +
                     UserContract.UserEntry.COLUMN_NAME_LAST_NAME + TEXT_TYPE + COMMA_SEP +
@@ -24,7 +24,7 @@ public class FoodNetworkDbHelper extends SQLiteOpenHelper {
                     UserContract.UserEntry.COLUMN_NAME_USER_TYPE + TEXT_TYPE +
                     " );";
     private static final String SQL_CREATE_ENTRIES_LOCATION =
-            " DROP TABLE IF EXISTS location; CREATE TABLE " + LocationContract.LocationEntry.TABLE_NAME + " (" +
+            "create table if not exists " + LocationContract.LocationEntry.TABLE_NAME + " (" +
                     LocationContract.LocationEntry.COLUMN_NAME_LOCATION_ID + " INTEGER PRIMARY KEY," +
                     LocationContract.LocationEntry.COLUMN_NAME_STREET_NAME + TEXT_TYPE + COMMA_SEP +
                     LocationContract.LocationEntry.COLUMN_NAME_BUILDING_NUMBER + TEXT_TYPE + COMMA_SEP +
@@ -35,7 +35,7 @@ public class FoodNetworkDbHelper extends SQLiteOpenHelper {
                     LocationContract.LocationEntry.COLUMN_NAME_DISTRICT + TEXT_TYPE +
                     " );";
     private static final String SQL_CREATE_ENTRIES_FOODS =
-            " CREATE TABLE " + FoodsContract.FoodEntry.TABLE_NAME + " (" +
+            " create table if not exists " + FoodsContract.FoodEntry.TABLE_NAME + " (" +
                     FoodsContract.FoodEntry.COLUMN_NAME_FOOD_ID + " INTEGER PRIMARY KEY," +
                     FoodsContract.FoodEntry.COLUMN_NAME_FOOD_NAME + TEXT_TYPE + COMMA_SEP +
                     FoodsContract.FoodEntry.COLUMN_NAME_FOOD_TYPE + TEXT_TYPE + COMMA_SEP +
@@ -43,7 +43,7 @@ public class FoodNetworkDbHelper extends SQLiteOpenHelper {
                     FoodsContract.FoodEntry.COLUMN_NAME_QUANTITY + TEXT_TYPE +
                     " );";
     private static final String SQL_CREATE_ENTRIES_DONATION =
-            " CREATE TABLE " + DonationContract.DonationEntry.TABLE_NAME + " (" +
+            " create table if not exists " + DonationContract.DonationEntry.TABLE_NAME + " (" +
                     DonationContract.DonationEntry.COLUMN_NAME_DONATION_ID + " INTEGER," +
                     DonationContract.DonationEntry.COLUMN_NAME_FOOD_ID + " INTEGER," +
                     DonationContract.DonationEntry.COLUMN_NAME_LOCATION_ID + " INTEGER," +
@@ -63,9 +63,14 @@ public class FoodNetworkDbHelper extends SQLiteOpenHelper {
             "; DROP TABLE IF EXISTS " + FoodsContract.FoodEntry.TABLE_NAME +
             "; DROP TABLE IF EXISTS " + DonationContract.DonationEntry.TABLE_NAME;
 
+    private static final String SQL_DELETE_USER = "DROP TABLE IF EXISTS " + UserContract.UserEntry.TABLE_NAME;
+    private static final String SQL_DELETE_LOCATION = "DROP TABLE IF EXISTS " + UserContract.UserEntry.TABLE_NAME;
+    private static final String SQL_DELETE_FOODS = "DROP TABLE IF EXISTS " + UserContract.UserEntry.TABLE_NAME;
+    private static final String SQL_DELETE_DONATION = "DROP TABLE IF EXISTS " + UserContract.UserEntry.TABLE_NAME;
+
 
     // If you change the database schema, you must increment the database version.
-    public static final int DATABASE_VERSION = 8;
+    public static final int DATABASE_VERSION = 14;
     public static final String DATABASE_NAME = "FoodNetwork.db";
 
     public FoodNetworkDbHelper(Context context){
@@ -73,15 +78,18 @@ public class FoodNetworkDbHelper extends SQLiteOpenHelper {
     }
 
     public void onCreate(SQLiteDatabase db) {
+        db.execSQL(SQL_CREATE_ENTRIES_LOCATION);
         db.execSQL(SQL_CREATE_ENTRIES_DONATION);
         db.execSQL(SQL_CREATE_ENTRIES_FOODS);
-        db.execSQL(SQL_CREATE_ENTRIES_LOCATION);
         db.execSQL(SQL_CREATE_ENTRIES_USER);
     }
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         // This database is only a cache for online data, so its upgrade policy is
         // to simply to discard the data and start over
-        db.execSQL(SQL_DELETE_ENTRIES);
+        db.execSQL(SQL_DELETE_USER);
+        db.execSQL(SQL_DELETE_LOCATION);
+        db.execSQL(SQL_DELETE_FOODS);
+        db.execSQL(SQL_DELETE_DONATION);
         onCreate(db);
     }
     public void onDowngrade(SQLiteDatabase db, int oldVersion, int newVersion) {

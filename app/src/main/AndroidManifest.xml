@@ -63,6 +63,10 @@
             android:label="@string/title_activity_food_donation"
             android:theme="@style/Theme.AppCompat.Light" >
         </activity>
+        <activity
+            android:name=".DonationsActivity"
+            android:label="@string/title_activity_donations" >
+        </activity>
     </application>
 
 </manifest>

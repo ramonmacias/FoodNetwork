@@ -50,4 +50,5 @@
     <string name="my_location">Mi ubicación</string>
     <string name="profile_location">Profile location</string>
     <string name="button_donate">Donar</string>
+    <string name="title_activity_donations">DonationsActivity</string>
 </resources>

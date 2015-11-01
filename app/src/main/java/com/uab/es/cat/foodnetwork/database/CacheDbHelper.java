@@ -6,6 +6,8 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 import com.uab.es.cat.foodnetwork.dto.BaseDTO;
+import com.uab.es.cat.foodnetwork.dto.DonationDTO;
+import com.uab.es.cat.foodnetwork.dto.FoodsDTO;
 import com.uab.es.cat.foodnetwork.dto.LocationDTO;
 import com.uab.es.cat.foodnetwork.dto.UserDTO;
 
@@ -69,6 +71,54 @@ public class CacheDbHelper implements DatabaseHandler{
                     values);
             return newRowId;
         }
+        if(baseDTO instanceof FoodsDTO){
+            FoodsDTO foodsDTO = (FoodsDTO) baseDTO;
+
+            Cursor mCount = db.rawQuery("select count(*) from foods", null);
+            mCount.moveToFirst();
+            int lastFoodId = mCount.getInt(0);
+            mCount.close();
+
+            foodsDTO.setIdFood(lastFoodId + 1);
+
+            ContentValues values = new ContentValues();
+            values.put(FoodsContract.FoodEntry.COLUMN_NAME_FOOD_ID, foodsDTO.getIdFood());
+            values.put(FoodsContract.FoodEntry.COLUMN_NAME_FOOD_NAME, foodsDTO.getFoodName());
+            values.put(FoodsContract.FoodEntry.COLUMN_NAME_FOOD_TYPE, foodsDTO.getFoodType());
+            values.put(FoodsContract.FoodEntry.COLUMN_NAME_EXPIRATION_DATE, foodsDTO.getExpirationDate());
+            values.put(FoodsContract.FoodEntry.COLUMN_NAME_QUANTITY, foodsDTO.getQuantity());
+
+            long newRowId;
+            newRowId = db.insert(
+                    FoodsContract.FoodEntry.TABLE_NAME,
+                    null,
+                    values);
+            return newRowId;
+        }
+        if(baseDTO instanceof DonationDTO){
+            DonationDTO donationDTO = (DonationDTO) baseDTO;
+
+            Cursor mCount = db.rawQuery("select count(*) from donation", null);
+            mCount.moveToFirst();
+            int lastDonationId = mCount.getInt(0);
+            mCount.close();
+
+            donationDTO.setIdDonation(lastDonationId + 1);
+
+            ContentValues values = new ContentValues();
+            values.put(DonationContract.DonationEntry.COLUMN_NAME_DONATION_ID, donationDTO.getIdDonation());
+            values.put(DonationContract.DonationEntry.COLUMN_NAME_USER_ID, donationDTO.getIdUser());
+            values.put(DonationContract.DonationEntry.COLUMN_NAME_FOOD_ID, donationDTO.getIdFood());
+            values.put(DonationContract.DonationEntry.COLUMN_NAME_LOCATION_ID, donationDTO.getIdLocation());
+            values.put(DonationContract.DonationEntry.COLUMN_NAME_STATE, donationDTO.getState());
+
+            long newRowId;
+            newRowId = db.insert(
+                    DonationContract.DonationEntry.TABLE_NAME,
+                    null,
+                    values);
+            return newRowId;
+        }
         return new Long("0");
     }
 
@@ -118,6 +168,7 @@ public class CacheDbHelper implements DatabaseHandler{
                     selection,
                     selectionArgs);
         }
+
 
     }
 

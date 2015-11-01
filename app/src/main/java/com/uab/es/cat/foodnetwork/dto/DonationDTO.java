@@ -5,45 +5,47 @@ package com.uab.es.cat.foodnetwork.dto;
  */
 public class DonationDTO extends BaseDTO {
 
-    public int idDonation;
-    public int idUser;
-    public int idFood;
-    public int idLocation;
+
+
+    public long idDonation;
+    public long idUser;
+    public long idFood;
+    public long idLocation;
     public int state;
 
     public DonationDTO(){
 
     }
 
-    public int getIdDonation() {
+    public long getIdDonation() {
         return idDonation;
     }
 
-    public void setIdDonation(int idDonation) {
+    public void setIdDonation(long idDonation) {
         this.idDonation = idDonation;
     }
 
-    public int getIdUser() {
+    public long getIdUser() {
         return idUser;
     }
 
-    public void setIdUser(int idUser) {
+    public void setIdUser(long idUser) {
         this.idUser = idUser;
     }
 
-    public int getIdFood() {
+    public long getIdFood() {
         return idFood;
     }
 
-    public void setIdFood(int idFood) {
+    public void setIdFood(long idFood) {
         this.idFood = idFood;
     }
 
-    public int getIdLocation() {
+    public long getIdLocation() {
         return idLocation;
     }
 
-    public void setIdLocation(int idLocation) {
+    public void setIdLocation(long idLocation) {
         this.idLocation = idLocation;
     }
 
@@ -54,6 +56,5 @@ public class DonationDTO extends BaseDTO {
     public void setState(int state) {
         this.state = state;
     }
-
 
 }

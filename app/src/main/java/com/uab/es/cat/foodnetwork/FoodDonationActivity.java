@@ -1,5 +1,7 @@
 package com.uab.es.cat.foodnetwork;
 
+import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -7,8 +9,12 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 
+import com.uab.es.cat.foodnetwork.database.CacheDbHelper;
+import com.uab.es.cat.foodnetwork.database.FoodNetworkDbHelper;
 import com.uab.es.cat.foodnetwork.dto.DonationDTO;
 import com.uab.es.cat.foodnetwork.dto.FoodsDTO;
+import com.uab.es.cat.foodnetwork.dto.UserDTO;
+import com.uab.es.cat.foodnetwork.util.UserSession;
 
 public class FoodDonationActivity extends AppCompatActivity {
 
@@ -21,7 +27,7 @@ public class FoodDonationActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_food_donation, menu);
+        //getMenuInflater().inflate(R.menu.menu_food_donation, menu);
         return true;
     }
 
@@ -52,7 +58,28 @@ public class FoodDonationActivity extends AppCompatActivity {
         foodsDTO.setFoodType("Lactico");
         foodsDTO.setQuantity(2);
 
+        CacheDbHelper cacheDbHelper = new CacheDbHelper();
+        FoodNetworkDbHelper mDbHelper = new FoodNetworkDbHelper(getApplicationContext());
 
+        long idFood = cacheDbHelper.insert(foodsDTO, mDbHelper);
+
+        long userId = UserSession.getInstance(getApplicationContext()).getUserId();
+
+        UserDTO userDTO = new UserDTO();
+        userDTO.setIdUser(userId);
+
+        userDTO = (UserDTO) cacheDbHelper.getById(userDTO, mDbHelper);
+
+        DonationDTO donationDTO = new DonationDTO();
+
+        donationDTO.setIdFood(idFood);
+        donationDTO.setIdLocation(userDTO.getIdLocation());
+        donationDTO.setIdUser(userDTO.getIdUser());
+        donationDTO.setState(1);
+
+        cacheDbHelper.insert(donationDTO, mDbHelper);
+
+        startActivity(new Intent(getApplicationContext(), MainDonateActivity.class));
 
     }
 }

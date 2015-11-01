@@ -61,7 +61,7 @@ public class MainDonateActivity extends AppCompatActivity {
     }
 
     public void listDonations(View view){
-
+        startActivity(new Intent(getApplicationContext(), DonationsActivity.class));
     }
 
     public void rankings(View view){
