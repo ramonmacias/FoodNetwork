@@ -7,6 +7,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
+import com.uab.es.cat.foodnetwork.util.UserSession;
+
 public class MainDonateActivity extends AppCompatActivity {
 
     @Override
@@ -41,15 +43,16 @@ public class MainDonateActivity extends AppCompatActivity {
         if (id == R.id.action_disconnect) {
 
             // After logout redirect user to Loing Activity
-            Intent i = new Intent(getApplicationContext(), LoginActivity.class);
+            //Intent i = new Intent(getApplicationContext(), LoginActivity.class);
             // Closing all the Activities
-            i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            //i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
 
             // Add new Flag to start new Activity
-            i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            //i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 
             // Staring Login Activity
-            getApplicationContext().startActivity(i);
+            //getApplicationContext().startActivity(i);
+            UserSession.getInstance(getApplicationContext()).logOut(getApplicationContext());
             return true;
         }
 

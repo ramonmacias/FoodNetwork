@@ -10,20 +10,38 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.uab.es.cat.foodnetwork.database.CacheDbHelper;
+import com.uab.es.cat.foodnetwork.database.FoodNetworkDbHelper;
+import com.uab.es.cat.foodnetwork.dto.DonationDTO;
+import com.uab.es.cat.foodnetwork.util.DonationArrayAdapter;
+import com.uab.es.cat.foodnetwork.util.UserSession;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import static com.uab.es.cat.foodnetwork.R.*;
+
 public class DonationsActivity extends ListActivity {
 
     public void onCreate(Bundle icicle) {
         super.onCreate(icicle);
-        //TUTORIAL: http://www.vogella.com/tutorials/AndroidListView/article.html
-        String[] values = new String[] { "Android", "iPhone", "WindowsMobile",
-                "Blackberry", "WebOS", "Ubuntu", "Windows7", "Max OS X",
-                "Linux", "OS/2", "Blackberry", "WebOS", "Ubuntu", "Windows7", "Max OS X",
-                "Blackberry", "WebOS", "Ubuntu", "Windows7", "Max OS X",
-                "Blackberry", "WebOS", "Ubuntu", "Windows7", "Max OS X",
-                "Blackberry", "WebOS", "Ubuntu", "Windows7", "Max OS X",
-                "Blackberry", "WebOS", "Ubuntu", "Windows7", "Max OS X"};
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
-                R.layout.activity_donations, R.id.label, values);
+
+        long userId = UserSession.getInstance(getApplicationContext()).getUserId();
+
+        FoodNetworkDbHelper mDbHelper = new FoodNetworkDbHelper(getApplicationContext());
+
+        CacheDbHelper cacheDbHelper = new CacheDbHelper();
+        List<DonationDTO> donations = cacheDbHelper.getDonationsByUserId(userId, mDbHelper);
+        List<String> strings = new ArrayList<String>();
+
+        for(DonationDTO donationDTO : donations){
+            strings.add(String.valueOf(donationDTO.getIdFood()));
+        }
+
+        DonationArrayAdapter adapter = new DonationArrayAdapter(this, strings, donations);
+
+        //ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
+        //        layout.activity_donations, id.label, strings);
         setListAdapter(adapter);
     }
 

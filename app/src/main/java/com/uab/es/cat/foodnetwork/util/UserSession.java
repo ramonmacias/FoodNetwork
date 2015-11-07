@@ -1,8 +1,10 @@
 package com.uab.es.cat.foodnetwork.util;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 
+import com.uab.es.cat.foodnetwork.LoginActivity;
 import com.uab.es.cat.foodnetwork.R;
 
 /**
@@ -18,6 +20,8 @@ public class UserSession {
     SharedPreferences sharedPref;
     SharedPreferences.Editor editor;
 
+    private Context context;
+
     private String sessionManagerKey = "sessionManager";
     private String userIdKey = "userId";
     private String userTypeKey = "userType";
@@ -26,6 +30,7 @@ public class UserSession {
     protected UserSession(Context context){
         sharedPref = context.getSharedPreferences(sessionManagerKey, Context.MODE_PRIVATE);
         editor = sharedPref.edit();
+        context = context;
     }
 
     public static UserSession getInstance(Context context){
@@ -55,5 +60,18 @@ public class UserSession {
         String defaultValue = "";
         this.userType = sharedPref.getString(userTypeKey, defaultValue);
         return this.userType;
+    }
+
+    public void logOut(Context context){
+        // After logout redirect user to Loing Activity
+        Intent i = new Intent(context, LoginActivity.class);
+        // Closing all the Activities
+        i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+
+        // Add new Flag to start new Activity
+        i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+
+        // Staring Login Activity
+        context.startActivity(i);
     }
 }

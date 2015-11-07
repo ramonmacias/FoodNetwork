@@ -11,6 +11,9 @@ import com.uab.es.cat.foodnetwork.dto.FoodsDTO;
 import com.uab.es.cat.foodnetwork.dto.LocationDTO;
 import com.uab.es.cat.foodnetwork.dto.UserDTO;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by ramonmacias on 18/10/15.
  */
@@ -235,5 +238,25 @@ public class CacheDbHelper implements DatabaseHandler{
             return locationDTO;
         }
         return null;
+    }
+
+    public List<DonationDTO> getDonationsByUserId(long userId, FoodNetworkDbHelper mDbHelper){
+
+        SQLiteDatabase dbRead = mDbHelper.getReadableDatabase();
+        Cursor mCount= dbRead.rawQuery("select donatioid, userid, foodid, locationid, state from donation where userid = " + userId, null);
+        List<DonationDTO> donations = new ArrayList<DonationDTO>();
+
+        while (mCount.moveToNext()) {
+            DonationDTO donationDTO = new DonationDTO();
+
+            donationDTO.setIdDonation(mCount.getLong(0));
+            donationDTO.setIdUser(mCount.getLong(1));
+            donationDTO.setIdFood(mCount.getLong(2));
+            donationDTO.setIdLocation(mCount.getLong(3));
+            donationDTO.setState(mCount.getInt(4));
+
+            donations.add(donationDTO);
+        }
+        return donations;
     }
 }
