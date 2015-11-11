@@ -51,4 +51,10 @@
     <string name="profile_location">Profile location</string>
     <string name="button_donate">Donar</string>
     <string name="title_activity_donations">DonationsActivity</string>
+    <string name="title_activity_maps_sample">MapsSampleActivity</string>
+    <string name="title_activity_login">LoginActivity</string>
+
+    <string name="signed_in_fmt">signed_in_fmt</string>
+    <string name="signed_out">Signed out</string>
+    <string name="sign_out">sign out</string>
 </resources>

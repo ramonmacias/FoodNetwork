@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 
 import com.uab.es.cat.foodnetwork.LoginActivity;
-import com.uab.es.cat.foodnetwork.R;
 
 /**
  * Created by ramonmacias on 30/10/15.

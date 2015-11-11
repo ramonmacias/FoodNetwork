@@ -68,6 +68,6 @@ public class MainDonateActivity extends AppCompatActivity {
     }
 
     public void rankings(View view){
-
+        //startActivity(new Intent(getApplicationContext(), MapsSampleActivity.class));
     }
 }
