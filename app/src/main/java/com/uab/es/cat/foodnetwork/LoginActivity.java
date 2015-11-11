@@ -212,4 +212,10 @@ public class LoginActivity extends AppCompatActivity implements
         Intent intent = new Intent(this, RegisterActivity.class);
         startActivity(intent);
     }
+
+    @Override
+    public void onBackPressed()
+    {
+
+    }
 }

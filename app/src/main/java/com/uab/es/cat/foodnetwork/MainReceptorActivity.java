@@ -1,10 +1,13 @@
 package com.uab.es.cat.foodnetwork;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+
+import com.uab.es.cat.foodnetwork.util.UserSession;
 
 public class MainReceptorActivity extends AppCompatActivity {
 
@@ -29,7 +32,27 @@ public class MainReceptorActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.action_view_profile) {
+            startActivity(new Intent(getApplicationContext(), ViewProfileActivity.class));
+            return true;
+        }
+        if (id == R.id.action_edit_profile) {
+            startActivity(new Intent(getApplicationContext(), EditProfileActivity.class));
+            return true;
+        }
+        if (id == R.id.action_disconnect) {
+
+            // After logout redirect user to Loing Activity
+            //Intent i = new Intent(getApplicationContext(), LoginActivity.class);
+            // Closing all the Activities
+            //i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+
+            // Add new Flag to start new Activity
+            //i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+
+            // Staring Login Activity
+            //getApplicationContext().startActivity(i);
+            UserSession.getInstance(getApplicationContext()).logOut(getApplicationContext());
             return true;
         }
 
@@ -42,5 +65,9 @@ public class MainReceptorActivity extends AppCompatActivity {
 
     public void collectDonations(View view){
 
+    }
+
+    public void viewAllDonations(View view){
+        startActivity(new Intent(getApplicationContext(), AllDonationsMapActivity.class));
     }
 }

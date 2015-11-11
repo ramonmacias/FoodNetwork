@@ -57,4 +57,7 @@
     <string name="signed_in_fmt">signed_in_fmt</string>
     <string name="signed_out">Signed out</string>
     <string name="sign_out">sign out</string>
+    <string name="title_activity_all_donations_map">AllDonationsMapActivity</string>
+
+    <string name="view_all_donations">Mapa de donaciones</string>
 </resources>
