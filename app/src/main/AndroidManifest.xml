@@ -11,6 +11,16 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
+        <activity
+            android:name=".LoginActivity"
+            android:label="@string/app_name"
+            android:theme="@style/Theme.AppCompat.Light" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
@@ -52,16 +62,7 @@
             android:name=".DonationsActivity"
             android:label="@string/title_activity_donations" >
         </activity>
-        <activity
-            android:name=".LoginActivity"
-            android:label="@string/title_activity_login"
-            android:theme="@style/Theme.AppCompat.Light" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
         <activity
             android:name=".AllDonationsMapActivity"
             android:label="@string/title_activity_all_donations_map"
