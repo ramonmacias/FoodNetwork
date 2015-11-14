@@ -7,7 +7,10 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.Spinner;
+import android.widget.TextView;
 
 import com.uab.es.cat.foodnetwork.database.CacheDbHelper;
 import com.uab.es.cat.foodnetwork.database.FoodNetworkDbHelper;
@@ -16,12 +19,35 @@ import com.uab.es.cat.foodnetwork.dto.FoodsDTO;
 import com.uab.es.cat.foodnetwork.dto.UserDTO;
 import com.uab.es.cat.foodnetwork.util.UserSession;
 
-public class FoodDonationActivity extends AppCompatActivity {
+public class FoodDonationActivity extends AppCompatActivity implements View.OnClickListener{
+
+    private TextView quantityTextView;
+    private int quantityCount;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_food_donation);
+
+        quantityTextView = (TextView) findViewById(R.id.quantity);
+        quantityCount = 1;
+
+        findViewById(R.id.plusButton).setOnClickListener(this);
+        findViewById(R.id.minusButton).setOnClickListener(this);
+
+        Spinner spinnerInitialHour = (Spinner) findViewById(R.id.initial_hour);
+        Spinner spinnerFinalHour = (Spinner) findViewById(R.id.final_hour);
+
+        ArrayAdapter<CharSequence> adapterInitialHour = ArrayAdapter.createFromResource(this,
+                R.array.hours, android.R.layout.simple_spinner_item);
+        ArrayAdapter<CharSequence> adapterFinalHour = ArrayAdapter.createFromResource(this,
+                R.array.hours, android.R.layout.simple_spinner_item);
+
+        adapterInitialHour.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        adapterFinalHour.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        spinnerInitialHour.setAdapter(adapterInitialHour);
+        spinnerFinalHour.setAdapter(adapterFinalHour);
     }
 
     @Override
@@ -44,6 +70,22 @@ public class FoodDonationActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.plusButton:
+                quantityCount++;
+                quantityTextView.setText(String.valueOf(quantityCount));
+                break;
+            case R.id.minusButton:
+                if(quantityCount > 1){
+                    quantityCount--;
+                    quantityTextView.setText(String.valueOf(quantityCount));
+                }
+                break;
+        }
     }
 
     public void donate(View view){
