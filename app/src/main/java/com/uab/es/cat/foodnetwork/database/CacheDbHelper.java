@@ -244,7 +244,7 @@ public class CacheDbHelper implements DatabaseHandler{
     public List<DonationDTO> getDonationsByUserId(long userId, FoodNetworkDbHelper mDbHelper){
 
         SQLiteDatabase dbRead = mDbHelper.getReadableDatabase();
-        Cursor mCount= dbRead.rawQuery("select donatioid, userid, foodid, locationid, state from donation where userid = " + userId, null);
+        Cursor mCount= dbRead.rawQuery("select donatioid, userid, locationid, state, insertDate from donation where userid = " + userId, null);
         List<DonationDTO> donations = new ArrayList<DonationDTO>();
 
         while (mCount.moveToNext()) {
@@ -252,8 +252,9 @@ public class CacheDbHelper implements DatabaseHandler{
 
             donationDTO.setIdDonation(mCount.getLong(0));
             donationDTO.setIdUser(mCount.getLong(1));
-            donationDTO.setIdLocation(mCount.getLong(3));
-            donationDTO.setState(mCount.getInt(4));
+            donationDTO.setIdLocation(mCount.getLong(2));
+            donationDTO.setState(mCount.getInt(3));
+            donationDTO.setInsertDate(mCount.getString(4));
 
             donations.add(donationDTO);
         }

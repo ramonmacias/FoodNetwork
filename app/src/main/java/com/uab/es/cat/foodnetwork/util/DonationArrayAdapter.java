@@ -38,7 +38,7 @@ public class DonationArrayAdapter extends ArrayAdapter<String> {
         TextView textView = (TextView) rowView.findViewById(R.id.label);
         ImageView imageView = (ImageView) rowView.findViewById(R.id.icon);
         //textView.setText(values.get(position));
-        textView.setText(String.valueOf(valuesDTO.get(position).getIdDonation()));
+        textView.setText(String.valueOf(valuesDTO.get(position).getInsertDate()));
 
         //String s = values.get(position);
         String s = String.valueOf(valuesDTO.get(position).getIdDonation());

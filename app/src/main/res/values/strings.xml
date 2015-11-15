@@ -62,4 +62,5 @@
     <string name="button_add_to_donation">Añadir a la donación</string>
 
     <string name="view_all_donations">Mapa de donaciones</string>
+    <string name="title_activity_donation_detail">DonationDetailActivity</string>
 </resources>

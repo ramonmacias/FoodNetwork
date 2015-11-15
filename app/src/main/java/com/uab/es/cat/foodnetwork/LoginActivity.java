@@ -145,7 +145,7 @@ public class LoginActivity extends AppCompatActivity implements
         mCount.close();
 
         if(count > 0){
-            UserSession.getInstance(getApplicationContext()).logIn(userId, userType);
+            UserSession.getInstance(getApplicationContext()).logIn(userId, userType, "Mail");
             if("D".equals(userType)){
                 startActivity(new Intent(getApplicationContext(), MainDonateActivity.class));
             }else {
@@ -187,7 +187,7 @@ public class LoginActivity extends AppCompatActivity implements
             mCount.close();
 
             if(count > 0){
-                UserSession.getInstance(getApplicationContext()).logIn(userId, userType);
+                UserSession.getInstance(getApplicationContext()).logIn(userId, userType, "Google");
                 if("D".equals(userType)){
                     startActivity(new Intent(getApplicationContext(), MainDonateActivity.class));
                 }else {
