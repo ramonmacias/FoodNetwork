@@ -35,7 +35,7 @@ public class DonationsActivity extends ListActivity {
         List<String> strings = new ArrayList<String>();
 
         for(DonationDTO donationDTO : donations){
-            strings.add(String.valueOf(donationDTO.getIdFood()));
+            strings.add(String.valueOf(donationDTO.getIdDonation()));
         }
 
         DonationArrayAdapter adapter = new DonationArrayAdapter(this, strings, donations);

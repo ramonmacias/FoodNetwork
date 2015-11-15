@@ -87,8 +87,6 @@ public class CacheDbHelper implements DatabaseHandler{
             ContentValues values = new ContentValues();
             values.put(FoodsContract.FoodEntry.COLUMN_NAME_FOOD_ID, foodsDTO.getIdFood());
             values.put(FoodsContract.FoodEntry.COLUMN_NAME_FOOD_NAME, foodsDTO.getFoodName());
-            values.put(FoodsContract.FoodEntry.COLUMN_NAME_FOOD_TYPE, foodsDTO.getFoodType());
-            values.put(FoodsContract.FoodEntry.COLUMN_NAME_EXPIRATION_DATE, foodsDTO.getExpirationDate());
             values.put(FoodsContract.FoodEntry.COLUMN_NAME_QUANTITY, foodsDTO.getQuantity());
 
             long newRowId;
@@ -111,9 +109,12 @@ public class CacheDbHelper implements DatabaseHandler{
             ContentValues values = new ContentValues();
             values.put(DonationContract.DonationEntry.COLUMN_NAME_DONATION_ID, donationDTO.getIdDonation());
             values.put(DonationContract.DonationEntry.COLUMN_NAME_USER_ID, donationDTO.getIdUser());
-            values.put(DonationContract.DonationEntry.COLUMN_NAME_FOOD_ID, donationDTO.getIdFood());
             values.put(DonationContract.DonationEntry.COLUMN_NAME_LOCATION_ID, donationDTO.getIdLocation());
             values.put(DonationContract.DonationEntry.COLUMN_NAME_STATE, donationDTO.getState());
+            values.put(DonationContract.DonationEntry.COLUMN_NAME_INITIAL_HOUR, donationDTO.getInitialHour());
+            values.put(DonationContract.DonationEntry.COLUMN_NAME_FIINAL_HOUR, donationDTO.getFinalHour());
+            values.put(DonationContract.DonationEntry.COLUMN_NAME_INSERT_DATE, donationDTO.getInsertDate());
+
 
             long newRowId;
             newRowId = db.insert(
@@ -251,7 +252,6 @@ public class CacheDbHelper implements DatabaseHandler{
 
             donationDTO.setIdDonation(mCount.getLong(0));
             donationDTO.setIdUser(mCount.getLong(1));
-            donationDTO.setIdFood(mCount.getLong(2));
             donationDTO.setIdLocation(mCount.getLong(3));
             donationDTO.setState(mCount.getInt(4));
 

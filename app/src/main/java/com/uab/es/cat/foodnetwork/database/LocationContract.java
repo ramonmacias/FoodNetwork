@@ -19,5 +19,8 @@ public class LocationContract {
         public static final String COLUMN_NAME_CITY = "city";
         public static final String COLUMN_NAME_NEIGHBORHOOD = "neighborhood";
         public static final String COLUMN_NAME_DISTRICT = "district";
+        public static final String COLUMN_NAME_INSERT_DATE = "insertDate";
+        public static final String COLUMN_NAME_LAST_UPDATE = "lastUpdate";
+        public static final String COLUMN_NAME_UPDATE_USER = "updateUser";
     }
 }

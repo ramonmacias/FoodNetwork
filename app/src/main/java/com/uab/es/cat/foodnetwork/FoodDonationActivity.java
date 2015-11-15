@@ -18,19 +18,34 @@ import com.uab.es.cat.foodnetwork.dto.DonationDTO;
 import com.uab.es.cat.foodnetwork.dto.FoodsDTO;
 import com.uab.es.cat.foodnetwork.dto.UserDTO;
 import com.uab.es.cat.foodnetwork.util.UserSession;
+import com.uab.es.cat.foodnetwork.util.Utilities;
+
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 public class FoodDonationActivity extends AppCompatActivity implements View.OnClickListener{
 
     private TextView quantityTextView;
+    private EditText productNameText;
     private int quantityCount;
+    private List<FoodsDTO> foodsOfDonation;
+    private CacheDbHelper cacheDbHelper;
+    private FoodNetworkDbHelper mDbHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_food_donation);
 
+        cacheDbHelper = new CacheDbHelper();
+        mDbHelper = new FoodNetworkDbHelper(getApplicationContext());
+
+        productNameText = (EditText) findViewById(R.id.productName);
         quantityTextView = (TextView) findViewById(R.id.quantity);
         quantityCount = 1;
+
+        foodsOfDonation = new ArrayList<FoodsDTO>();
 
         findViewById(R.id.plusButton).setOnClickListener(this);
         findViewById(R.id.minusButton).setOnClickListener(this);
@@ -88,22 +103,20 @@ public class FoodDonationActivity extends AppCompatActivity implements View.OnCl
         }
     }
 
-    public void donate(View view){
-
-        EditText productNameText = (EditText) findViewById(R.id.productName);
-
+    public void addToDonation(View view){
         String productName = productNameText.getText().toString();
 
         FoodsDTO foodsDTO = new FoodsDTO();
         foodsDTO.setFoodName(productName);
-        foodsDTO.setExpirationDate("07/08/2016");
-        foodsDTO.setFoodType("Lactico");
-        foodsDTO.setQuantity(2);
+        foodsDTO.setQuantity(quantityCount);
 
-        CacheDbHelper cacheDbHelper = new CacheDbHelper();
-        FoodNetworkDbHelper mDbHelper = new FoodNetworkDbHelper(getApplicationContext());
+        foodsOfDonation.add(foodsDTO);
 
-        long idFood = cacheDbHelper.insert(foodsDTO, mDbHelper);
+        quantityTextView.setText("1");
+        productNameText.setText("");
+    }
+
+    public void donate(View view){
 
         long userId = UserSession.getInstance(getApplicationContext()).getUserId();
 
@@ -112,15 +125,27 @@ public class FoodDonationActivity extends AppCompatActivity implements View.OnCl
 
         userDTO = (UserDTO) cacheDbHelper.getById(userDTO, mDbHelper);
 
+        Spinner spinnerInitialHour = (Spinner) findViewById(R.id.initial_hour);
+        Spinner spinnerFinalHour = (Spinner) findViewById(R.id.final_hour);
+
+        String initialHour = spinnerInitialHour.getSelectedItem().toString();
+        String finalHour = spinnerFinalHour.getSelectedItem().toString();
+
         DonationDTO donationDTO = new DonationDTO();
 
-        donationDTO.setIdFood(idFood);
         donationDTO.setIdLocation(userDTO.getIdLocation());
         donationDTO.setIdUser(userDTO.getIdUser());
+        donationDTO.setInitialHour(initialHour);
+        donationDTO.setFinalHour(finalHour);
         donationDTO.setState(1);
+        donationDTO.setInsertDate(Utilities.dateToString(new Date()));
 
-        cacheDbHelper.insert(donationDTO, mDbHelper);
+        Long idDonation = cacheDbHelper.insert(donationDTO, mDbHelper);
+        for(FoodsDTO foodsDTO : foodsOfDonation){
+            foodsDTO.setIdDonation(idDonation);
+            cacheDbHelper.insert(foodsDTO, mDbHelper);
 
+        }
         startActivity(new Intent(getApplicationContext(), MainDonateActivity.class));
 
     }

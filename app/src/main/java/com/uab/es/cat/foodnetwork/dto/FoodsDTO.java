@@ -6,6 +6,7 @@ package com.uab.es.cat.foodnetwork.dto;
 public class FoodsDTO extends BaseDTO{
 
     public int idFood;
+    public long idDonation;
     public String foodName;
     public String foodType;
     public String expirationDate;
@@ -53,6 +54,14 @@ public class FoodsDTO extends BaseDTO{
 
     public void setQuantity(int quantity) {
         this.quantity = quantity;
+    }
+
+    public long getIdDonation() {
+        return idDonation;
+    }
+
+    public void setIdDonation(long idDonation) {
+        this.idDonation = idDonation;
     }
 
 

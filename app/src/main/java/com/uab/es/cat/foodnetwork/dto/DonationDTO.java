@@ -9,9 +9,10 @@ public class DonationDTO extends BaseDTO {
 
     public long idDonation;
     public long idUser;
-    public long idFood;
     public long idLocation;
     public int state;
+    public String initialHour;
+    public String finalHour;
 
     public DonationDTO(){
 
@@ -33,14 +34,6 @@ public class DonationDTO extends BaseDTO {
         this.idUser = idUser;
     }
 
-    public long getIdFood() {
-        return idFood;
-    }
-
-    public void setIdFood(long idFood) {
-        this.idFood = idFood;
-    }
-
     public long getIdLocation() {
         return idLocation;
     }
@@ -55,6 +48,22 @@ public class DonationDTO extends BaseDTO {
 
     public void setState(int state) {
         this.state = state;
+    }
+
+    public String getInitialHour() {
+        return initialHour;
+    }
+
+    public void setInitialHour(String initialHour) {
+        this.initialHour = initialHour;
+    }
+
+    public String getFinalHour() {
+        return finalHour;
+    }
+
+    public void setFinalHour(String finalHour) {
+        this.finalHour = finalHour;
     }
 
 }

@@ -20,5 +20,8 @@ public class UserContract {
         public static final String COLUMN_NAME_USER_TYPE = "usertype";
         public static final String COLUMN_NAME_PHONE_NUMBER = "phonenumber";
         public static final String COLUMN_NAME_ID_LOCATION = "idlocation";
+        public static final String COLUMN_NAME_INSERT_DATE = "insertDate";
+        public static final String COLUMN_NAME_LAST_UPDATE = "lastUpdate";
+        public static final String COLUMN_NAME_UPDATE_USER = "updateUser";
     }
 }
