@@ -1,9 +1,12 @@
 package com.uab.es.cat.foodnetwork;
 
+import android.app.ListActivity;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
+import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.SparseBooleanArray;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -24,7 +27,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class FoodDonationActivity extends AppCompatActivity implements View.OnClickListener{
+public class FoodDonationActivity extends ListActivity implements View.OnClickListener{
 
     private TextView quantityTextView;
     private EditText productNameText;
@@ -32,6 +35,12 @@ public class FoodDonationActivity extends AppCompatActivity implements View.OnCl
     private List<FoodsDTO> foodsOfDonation;
     private CacheDbHelper cacheDbHelper;
     private FoodNetworkDbHelper mDbHelper;
+
+    /** Items entered by the user is stored in this ArrayList variable */
+    ArrayList list = new ArrayList();
+
+    /** Declaring an ArrayAdapter to set items to ListView */
+    ArrayAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,6 +72,11 @@ public class FoodDonationActivity extends AppCompatActivity implements View.OnCl
 
         spinnerInitialHour.setAdapter(adapterInitialHour);
         spinnerFinalHour.setAdapter(adapterFinalHour);
+
+        /** Defining the ArrayAdapter to set items to ListView */
+        adapter = new ArrayAdapter(this, android.R.layout.simple_list_item_multiple_choice, list);
+
+        setListAdapter(adapter);
     }
 
     @Override
@@ -112,8 +126,29 @@ public class FoodDonationActivity extends AppCompatActivity implements View.OnCl
 
         foodsOfDonation.add(foodsDTO);
 
+        list.add(String.valueOf(quantityCount) + " Kg/l " + productName);
+        adapter.notifyDataSetChanged();
+
+        quantityCount = 1;
         quantityTextView.setText("1");
         productNameText.setText("");
+    }
+
+    public void removeFromDonation(View view){
+
+        /** Getting the checked items from the listview */
+        SparseBooleanArray checkedItemPositions = getListView().getCheckedItemPositions();
+        int itemCount = getListView().getCount();
+
+        for(int i=itemCount-1; i >= 0; i--){
+            if(checkedItemPositions.get(i)){
+                adapter.remove(list.get(i));
+                foodsOfDonation.remove(i);
+            }
+        }
+        checkedItemPositions.clear();
+        adapter.notifyDataSetChanged();
+
     }
 
     public void donate(View view){
