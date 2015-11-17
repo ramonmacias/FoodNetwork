@@ -63,4 +63,7 @@
 
     <string name="view_all_donations">Mapa de donaciones</string>
     <string name="title_activity_donation_detail">DonationDetailActivity</string>
+    <string name="Donation_day">Donación del dia </string>
+    <string name="Initial_hour">Desde</string>
+    <string name="Final_hour">Hasta</string>
 </resources>

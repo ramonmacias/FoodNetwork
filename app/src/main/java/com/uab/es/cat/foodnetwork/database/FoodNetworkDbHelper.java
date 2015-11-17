@@ -43,6 +43,7 @@ public class FoodNetworkDbHelper extends SQLiteOpenHelper {
     private static final String SQL_CREATE_ENTRIES_FOODS =
             " create table if not exists " + FoodsContract.FoodEntry.TABLE_NAME + " (" +
                     FoodsContract.FoodEntry.COLUMN_NAME_FOOD_ID + " INTEGER PRIMARY KEY," +
+                    FoodsContract.FoodEntry.COLUMN_NAME_DONATION_ID + " INTEGER," +
                     FoodsContract.FoodEntry.COLUMN_NAME_FOOD_NAME + TEXT_TYPE + COMMA_SEP +
                     FoodsContract.FoodEntry.COLUMN_NAME_INSERT_DATE + TEXT_TYPE + COMMA_SEP +
                     FoodsContract.FoodEntry.COLUMN_NAME_LAST_UPDATE + TEXT_TYPE + COMMA_SEP +
@@ -79,7 +80,7 @@ public class FoodNetworkDbHelper extends SQLiteOpenHelper {
 
 
     // If you change the database schema, you must increment the database version.
-    public static final int DATABASE_VERSION = 19;
+    public static final int DATABASE_VERSION = 20;
     public static final String DATABASE_NAME = "FoodNetwork.db";
 
     public FoodNetworkDbHelper(Context context){

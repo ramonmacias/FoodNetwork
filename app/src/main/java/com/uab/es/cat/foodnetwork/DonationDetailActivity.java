@@ -1,12 +1,36 @@
 package com.uab.es.cat.foodnetwork;
 
+import android.app.ListActivity;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ArrayAdapter;
+import android.widget.TextView;
 
-public class DonationDetailActivity extends AppCompatActivity {
+import com.uab.es.cat.foodnetwork.database.CacheDbHelper;
+import com.uab.es.cat.foodnetwork.database.FoodNetworkDbHelper;
+import com.uab.es.cat.foodnetwork.dto.DonationDTO;
+import com.uab.es.cat.foodnetwork.dto.FoodsDTO;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class DonationDetailActivity extends ListActivity {
+
+    CacheDbHelper cacheDbHelper;
+    FoodNetworkDbHelper mDbHelper;
+    private TextView dateOfDonationTextView;
+    private TextView stateOfDonationTextView;
+    private TextView initialHourTextView;
+    private TextView finalHourTextView;
+
+    /** Items entered by the user is stored in this ArrayList variable */
+    ArrayList list = new ArrayList();
+
+    /** Declaring an ArrayAdapter to set items to ListView */
+    ArrayAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -15,27 +39,37 @@ public class DonationDetailActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         String idDonation = intent.getStringExtra(DonationsActivity.DONATION_ID);
-    }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        //getMenuInflater().inflate(R.menu.menu_donation_detail, menu);
-        return true;
-    }
+        DonationDTO donationDTO = new DonationDTO();
+        donationDTO.setIdDonation(Long.valueOf(idDonation));
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
+        cacheDbHelper = new CacheDbHelper();
+        mDbHelper = new FoodNetworkDbHelper(getApplicationContext());
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+        donationDTO = (DonationDTO) cacheDbHelper.getById(donationDTO, mDbHelper);
+
+        dateOfDonationTextView = (TextView) findViewById(R.id.dateOfDonation);
+        stateOfDonationTextView = (TextView) findViewById(R.id.stateOfDonation);
+        initialHourTextView = (TextView) findViewById(R.id.initial_hour);
+        finalHourTextView = (TextView) findViewById(R.id.final_hour);
+
+        dateOfDonationTextView.setText(donationDTO.getInsertDate());
+        stateOfDonationTextView.setText(String.valueOf(donationDTO.getState()));
+        initialHourTextView.setText(donationDTO.getInitialHour());
+        finalHourTextView.setText(donationDTO.getFinalHour());
+
+        List<FoodsDTO> foods = cacheDbHelper.getFoodsOfDonation(donationDTO.getIdDonation(), mDbHelper);
+
+        for(FoodsDTO foodsDTO : foods){
+            list.add(foodsDTO.getQuantity() + " Kg/l " + foodsDTO.getFoodName());
         }
 
-        return super.onOptionsItemSelected(item);
+        /** Defining the ArrayAdapter to set items to ListView */
+        adapter = new ArrayAdapter(this, android.R.layout.simple_list_item_multiple_choice, list);
+
+        setListAdapter(adapter);
+
+
     }
+
 }

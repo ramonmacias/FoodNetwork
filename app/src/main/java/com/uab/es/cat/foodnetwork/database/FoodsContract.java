@@ -12,6 +12,7 @@ public class FoodsContract {
     public static abstract class FoodEntry implements BaseColumns{
         public static final String TABLE_NAME = "foods";
         public static final String COLUMN_NAME_FOOD_ID = "foodid";
+        public static final String COLUMN_NAME_DONATION_ID = "donationid";
         public static final String COLUMN_NAME_FOOD_NAME = "foodname";
         public static final String COLUMN_NAME_QUANTITY = "quantity";
         public static final String COLUMN_NAME_INSERT_DATE = "insertDate";

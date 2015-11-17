@@ -86,6 +86,7 @@ public class CacheDbHelper implements DatabaseHandler{
 
             ContentValues values = new ContentValues();
             values.put(FoodsContract.FoodEntry.COLUMN_NAME_FOOD_ID, foodsDTO.getIdFood());
+            values.put(FoodsContract.FoodEntry.COLUMN_NAME_DONATION_ID, foodsDTO.getIdDonation());
             values.put(FoodsContract.FoodEntry.COLUMN_NAME_FOOD_NAME, foodsDTO.getFoodName());
             values.put(FoodsContract.FoodEntry.COLUMN_NAME_QUANTITY, foodsDTO.getQuantity());
 
@@ -238,7 +239,56 @@ public class CacheDbHelper implements DatabaseHandler{
 
             return locationDTO;
         }
+        if(baseDTO instanceof DonationDTO){
+            DonationDTO donationDTO = (DonationDTO) baseDTO;
+            long idDonation = donationDTO.getIdDonation();
+            SQLiteDatabase dbRead = mDbHelper.getReadableDatabase();
+
+            Cursor mCount= dbRead.rawQuery("select donatioid, userid, locationid, state, initialHour, finalHour, insertDate from donation where donatioid = " + idDonation, null);
+            mCount.moveToFirst();
+
+            long donationId = mCount.getLong(0);
+            long userId = mCount.getLong(1);
+            long locationId = mCount.getLong(2);
+            String state = mCount.getString(3);
+            String initialHour = mCount.getString(4);
+            String finalHour = mCount.getString(5);
+            String insertDate = mCount.getString(6);
+
+            donationDTO.setIdDonation(donationId);
+            donationDTO.setIdUser(userId);
+            donationDTO.setIdLocation(locationId);
+            donationDTO.setState(Integer.valueOf(state));
+            donationDTO.setInitialHour(initialHour);
+            donationDTO.setFinalHour(finalHour);
+            donationDTO.setInsertDate(insertDate);
+
+            mCount.close();
+
+            return donationDTO;
+        }
         return null;
+    }
+
+    @Override
+    public List<FoodsDTO> getFoodsOfDonation(long idDonation, FoodNetworkDbHelper mDbHelper) {
+        SQLiteDatabase dbRead = mDbHelper.getReadableDatabase();
+        Cursor mCount= dbRead.rawQuery("select foodid, donationid, foodname, quantity from foods where donationid = " + idDonation, null);
+
+        List<FoodsDTO> foods = new ArrayList<FoodsDTO>();
+
+        while (mCount.moveToNext()) {
+            FoodsDTO foodsDTO = new FoodsDTO();
+
+            foodsDTO.setIdFood(mCount.getLong(0));
+            foodsDTO.setIdDonation(mCount.getLong(1));
+            foodsDTO.setFoodName(mCount.getString(2));
+            foodsDTO.setQuantity(Integer.valueOf(mCount.getString(3)));
+
+            foods.add(foodsDTO);
+        }
+
+        return foods;
     }
 
     public List<DonationDTO> getDonationsByUserId(long userId, FoodNetworkDbHelper mDbHelper){
