@@ -80,7 +80,7 @@ public class FoodNetworkDbHelper extends SQLiteOpenHelper {
 
 
     // If you change the database schema, you must increment the database version.
-    public static final int DATABASE_VERSION = 20;
+    public static final int DATABASE_VERSION = 21;
     public static final String DATABASE_NAME = "FoodNetwork.db";
 
     public FoodNetworkDbHelper(Context context){

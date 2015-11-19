@@ -21,7 +21,9 @@ import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.common.api.Status;
+import com.uab.es.cat.foodnetwork.database.CacheDbHelper;
 import com.uab.es.cat.foodnetwork.database.FoodNetworkDbHelper;
+import com.uab.es.cat.foodnetwork.dto.UserDTO;
 import com.uab.es.cat.foodnetwork.util.UserSession;
 
 public class LoginActivity extends AppCompatActivity implements
@@ -32,61 +34,33 @@ public class LoginActivity extends AppCompatActivity implements
     private GoogleApiClient mGoogleApiClient;
     private static final int RC_SIGN_IN = 9001;
 
+    private FoodNetworkDbHelper mDbHelper;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
+        mDbHelper = new FoodNetworkDbHelper(getApplicationContext());
+
 
         findViewById(R.id.button_sign_in).setOnClickListener(this);
         findViewById(R.id.email_sign_in_button).setOnClickListener(this);
 
-        // Configure sign-in to request the user's ID, email address, and basic
-        // profile. ID and basic profile are included in DEFAULT_SIGN_IN.
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestEmail()
                 .build();
 
-        // Build a GoogleApiClient with access to the Google Sign-In API and the
-        // options specified by gso.
         mGoogleApiClient = new GoogleApiClient.Builder(this)
                 .enableAutoManage(this /* FragmentActivity */, this /* OnConnectionFailedListener */)
                 .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
                 .build();
 
-        // Customize sign-in button. The sign-in button can be displayed in
-        // multiple sizes and color schemes. It can also be contextually
-        // rendered based on the requested scopes. For example. a red button may
-        // be displayed when Google+ scopes are requested, but a white button
-        // may be displayed when only basic profile is requested. Try adding the
-        // Scopes.PLUS_LOGIN scope to the GoogleSignInOptions to see the
-        // difference.
         SignInButton signInButton = (SignInButton) findViewById(R.id.button_sign_in);
         signInButton.setSize(SignInButton.SIZE_STANDARD);
         signInButton.setScopes(gso.getScopeArray());
     }
 
-    /*@Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_login, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }*/
 
     @Override
     public void onClick(View v) {
@@ -133,8 +107,6 @@ public class LoginActivity extends AppCompatActivity implements
         String mEmail = mEmailView.getText().toString();
         String mPassword = mPasswordView.getText().toString();
 
-        FoodNetworkDbHelper mDbHelper = new FoodNetworkDbHelper(getApplicationContext());
-
         SQLiteDatabase db = mDbHelper.getReadableDatabase();
 
         Cursor mCount= db.rawQuery("select count(*), usertype, userid from users where mail='" + mEmail + "' and password='" + mPassword + "'", null);
@@ -175,7 +147,6 @@ public class LoginActivity extends AppCompatActivity implements
             String email = acct.getEmail();
             String name = acct.getDisplayName();
 
-            FoodNetworkDbHelper mDbHelper = new FoodNetworkDbHelper(getApplicationContext());
 
             SQLiteDatabase db = mDbHelper.getReadableDatabase();
 
@@ -194,7 +165,20 @@ public class LoginActivity extends AppCompatActivity implements
                     startActivity(new Intent(getApplicationContext(), MainReceptorActivity.class));
                 }
             }else {
-                updateUI(false);
+                UserDTO userDTO = new UserDTO();
+
+                String[] longName = name.split(" ");
+
+                userDTO.setName(longName[0]);
+                userDTO.setLastName(longName[1]);
+                userDTO.setMail(email);
+
+                CacheDbHelper cacheDbHelper = new CacheDbHelper();
+                long newUserId = cacheDbHelper.insert(userDTO, mDbHelper);
+
+                UserSession.getInstance(getApplicationContext()).logIn(newUserId, "", "Google");
+
+                setContentView(R.layout.type_user);
             }
         } else {
             updateUI(false);
@@ -211,6 +195,39 @@ public class LoginActivity extends AppCompatActivity implements
     public void register(View view){
         Intent intent = new Intent(this, RegisterActivity.class);
         startActivity(intent);
+    }
+
+    public void donador(View view){
+
+        UserDTO userDTO = new UserDTO();
+        userDTO.setIdUser(UserSession.getInstance(getApplicationContext()).getUserId());
+
+        CacheDbHelper cacheDbHelper = new CacheDbHelper();
+        userDTO = (UserDTO) cacheDbHelper.getById(userDTO, mDbHelper);
+        userDTO.setIdTypeUser("D");
+
+        cacheDbHelper.update(userDTO, mDbHelper);
+
+
+        UserSession.getInstance(getApplicationContext()).logIn(userDTO.getIdUser(), userDTO.getIdTypeUser(), "Google");
+
+        startActivity(new Intent(getApplicationContext(), MainDonateActivity.class));
+    }
+
+    public void transporter(View view){
+        UserDTO userDTO = new UserDTO();
+        userDTO.setIdUser(UserSession.getInstance(getApplicationContext()).getUserId());
+
+        CacheDbHelper cacheDbHelper = new CacheDbHelper();
+        userDTO = (UserDTO) cacheDbHelper.getById(userDTO, mDbHelper);
+        userDTO.setIdTypeUser("R");
+
+        cacheDbHelper.update(userDTO, mDbHelper);
+
+
+        UserSession.getInstance(getApplicationContext()).logIn(userDTO.getIdUser(), userDTO.getIdTypeUser(), "Google");
+
+        startActivity(new Intent(getApplicationContext(), MainReceptorActivity.class));
     }
 
     @Override

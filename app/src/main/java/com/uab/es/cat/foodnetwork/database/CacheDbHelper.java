@@ -29,7 +29,14 @@ public class CacheDbHelper implements DatabaseHandler{
         SQLiteDatabase db = mDbHelper.getWritableDatabase();
 
         if(baseDTO instanceof UserDTO){
+
+            Cursor mCount= db.rawQuery("select count(*) from users", null);
+            mCount.moveToFirst();
+            int count= mCount.getInt(0);
+            mCount.close();
+
             UserDTO userDTO = (UserDTO) baseDTO;
+            userDTO.setIdUser(count + 1);
 
             ContentValues values = new ContentValues();
             values.put(UserContract.UserEntry.COLUMN_NAME_USER_ID, userDTO.getIdUser());

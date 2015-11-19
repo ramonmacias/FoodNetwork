@@ -19,10 +19,14 @@ import com.uab.es.cat.foodnetwork.dto.UserDTO;
 
 public class RegisterActivity extends AppCompatActivity {
 
+    FoodNetworkDbHelper mDbHelper;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
+
+        mDbHelper = new FoodNetworkDbHelper(getApplicationContext());
     }
 
     @Override
@@ -68,20 +72,19 @@ public class RegisterActivity extends AppCompatActivity {
             userType = "R";
         }
 
-        FoodNetworkDbHelper mDbHelper = new FoodNetworkDbHelper(getApplicationContext());
 
         SQLiteDatabase dbRead = mDbHelper.getWritableDatabase();
 
-        Cursor mCount= dbRead.rawQuery("select count(*) from users", null);
+        /*Cursor mCount= dbRead.rawQuery("select count(*) from users", null);
         mCount.moveToFirst();
         int count= mCount.getInt(0);
         mCount.close();
 
-        dbRead.close();
+        dbRead.close();*/
 
         UserDTO userDTO = new UserDTO();
 
-        userDTO.setIdUser(count + 1);
+        //userDTO.setIdUser(count + 1);
         userDTO.setName(name);
         userDTO.setLastName(lastName);
         userDTO.setUserName(nickName);

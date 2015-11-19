@@ -23,10 +23,12 @@
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:text="@string/name"
+                android:layout_weight="1"
                 android:layout_gravity="left" />
 
             <TextView android:id="@id/name" android:text="" android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:layout_gravity="right"/>
 
         </LinearLayout>
@@ -42,10 +44,12 @@
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:text="@string/lastName"
+                android:layout_weight="1"
                 android:layout_gravity="left" />
 
             <TextView android:id="@id/lastName" android:text="" android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:layout_gravity="right"/>
 
         </LinearLayout>
@@ -61,10 +65,12 @@
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:text="@string/address"
+                android:layout_weight="1"
                 android:layout_gravity="left" />
 
             <TextView android:id="@+id/address" android:text="" android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:layout_gravity="right"/>
 
         </LinearLayout>
@@ -80,10 +86,12 @@
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:text="@string/neighborhood"
+                android:layout_weight="1"
                 android:layout_gravity="left" />
 
             <TextView android:id="@+id/neighborhood" android:text="" android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:layout_gravity="right"/>
 
         </LinearLayout>
@@ -99,10 +107,12 @@
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:text="@string/district"
+                android:layout_weight="1"
                 android:layout_gravity="left" />
 
             <TextView android:id="@+id/district" android:text="" android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:layout_gravity="right"/>
 
         </LinearLayout>
@@ -118,10 +128,12 @@
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:text="@string/contact_phone"
+                android:layout_weight="1"
                 android:layout_gravity="left" />
 
             <TextView android:id="@+id/contact_phone" android:text="" android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:layout_gravity="right"/>
 
         </LinearLayout>
@@ -137,10 +149,12 @@
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:text="@string/ranking_position"
+                android:layout_weight="1"
                 android:layout_gravity="left" />
 
             <TextView android:id="@+id/ranking_position" android:text="" android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:layout_gravity="right"/>
 
         </LinearLayout>
