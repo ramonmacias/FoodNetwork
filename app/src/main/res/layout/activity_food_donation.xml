@@ -79,17 +79,23 @@
                 <RadioButton android:id="@+id/my_location"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:checked="true"
                     android:text="@string/my_location"
                     android:layout_weight="1"
                     />
                 <RadioButton android:id="@+id/profile_location"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:checked="true"
                     android:text="@string/profile_location"
                     android:layout_weight="1"
                     />
             </RadioGroup>
+
+            <fragment xmlns:android="http://schemas.android.com/apk/res/android"
+                android:name="com.google.android.gms.maps.MapFragment"
+                android:id="@+id/map"
+                android:layout_width="match_parent"
+                android:layout_height="300px"/>
 
             <LinearLayout
                 android:orientation="horizontal"

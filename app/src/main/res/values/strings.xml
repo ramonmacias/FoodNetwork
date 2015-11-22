@@ -66,5 +66,9 @@
     <string name="Donation_day">Donación del dia </string>
     <string name="Initial_hour">Desde</string>
     <string name="Final_hour">Hasta</string>
+    <string name="service_not_available">Servicio no disponible</string>
+    <string name="invalid_lat_long_used">Latitud y longitud no validos</string>
+    <string name="no_address_found">No se ha encontrado ninguna direccion</string>
+    <string name="address_found">Direccion encontrada</string>
 
 </resources>

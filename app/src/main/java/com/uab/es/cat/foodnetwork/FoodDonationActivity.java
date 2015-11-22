@@ -15,6 +15,9 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.MapFragment;
+import com.google.android.gms.maps.OnMapReadyCallback;
 import com.uab.es.cat.foodnetwork.database.CacheDbHelper;
 import com.uab.es.cat.foodnetwork.database.FoodNetworkDbHelper;
 import com.uab.es.cat.foodnetwork.dto.DonationDTO;
@@ -27,7 +30,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class FoodDonationActivity extends ListActivity implements View.OnClickListener{
+public class FoodDonationActivity extends ListActivity implements View.OnClickListener, OnMapReadyCallback {
 
     private TextView quantityTextView;
     private EditText productNameText;
@@ -35,6 +38,8 @@ public class FoodDonationActivity extends ListActivity implements View.OnClickLi
     private List<FoodsDTO> foodsOfDonation;
     private CacheDbHelper cacheDbHelper;
     private FoodNetworkDbHelper mDbHelper;
+    private MapFragment mapFragment;
+    private GoogleMap map;
 
     /** Items entered by the user is stored in this ArrayList variable */
     ArrayList list = new ArrayList();
@@ -77,28 +82,10 @@ public class FoodDonationActivity extends ListActivity implements View.OnClickLi
         adapter = new ArrayAdapter(this, android.R.layout.simple_list_item_multiple_choice, list);
 
         setListAdapter(adapter);
-    }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        //getMenuInflater().inflate(R.menu.menu_food_donation, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
+        mapFragment = (MapFragment) getFragmentManager()
+                .findFragmentById(R.id.map);
+        mapFragment.getMapAsync(this);
     }
 
     @Override
@@ -115,6 +102,11 @@ public class FoodDonationActivity extends ListActivity implements View.OnClickLi
                 }
                 break;
         }
+    }
+
+    @Override
+    public void onMapReady(GoogleMap map) {
+        this.map = map;
     }
 
     public void addToDonation(View view){
