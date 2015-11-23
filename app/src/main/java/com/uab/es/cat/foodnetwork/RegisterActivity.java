@@ -29,28 +29,6 @@ public class RegisterActivity extends AppCompatActivity {
         mDbHelper = new FoodNetworkDbHelper(getApplicationContext());
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        //getMenuInflater().inflate(R.menu.menu_register, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
-
     public void register(View view){
         EditText nameText = (EditText) findViewById(R.id.name);
         EditText lastNameText = (EditText) findViewById(R.id.lastName);
@@ -73,18 +51,8 @@ public class RegisterActivity extends AppCompatActivity {
         }
 
 
-        SQLiteDatabase dbRead = mDbHelper.getWritableDatabase();
-
-        /*Cursor mCount= dbRead.rawQuery("select count(*) from users", null);
-        mCount.moveToFirst();
-        int count= mCount.getInt(0);
-        mCount.close();
-
-        dbRead.close();*/
-
         UserDTO userDTO = new UserDTO();
 
-        //userDTO.setIdUser(count + 1);
         userDTO.setName(name);
         userDTO.setLastName(lastName);
         userDTO.setUserName(nickName);

@@ -5,14 +5,17 @@ package com.uab.es.cat.foodnetwork.dto;
  */
 public class LocationDTO extends BaseDTO {
 
-    public long idLocation;
-    public String streetName;
-    public String buildingNumber;
-    public String floor;
-    public String door;
-    public String city;
-    public String neighborhood;
-    public String district;
+    private long idLocation;
+    private String streetName;
+    private String buildingNumber;
+    private String floor;
+    private String door;
+    private String city;
+    private String neighborhood;
+    private String district;
+    private String latitude;
+    private String longitude;
+
 
     public LocationDTO(){
 
@@ -82,5 +85,20 @@ public class LocationDTO extends BaseDTO {
         this.district = district;
     }
 
+    public String getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(String latitude) {
+        this.latitude = latitude;
+    }
+
+    public String getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(String longitude) {
+        this.longitude = longitude;
+    }
 
 }

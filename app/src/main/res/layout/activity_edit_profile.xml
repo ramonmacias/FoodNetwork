@@ -113,7 +113,7 @@
 
         <Button
             android:text="@string/button_save"
-            android:onClick="updateUserInfo"
+            android:onClick="beginUpdateUserInfo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
