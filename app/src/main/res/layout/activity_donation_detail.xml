@@ -72,6 +72,13 @@
 
         </LinearLayout>
 
+        <fragment xmlns:android="http://schemas.android.com/apk/res/android"
+            android:name="com.google.android.gms.maps.MapFragment"
+            android:id="@+id/map"
+            android:layout_width="match_parent"
+            android:layout_marginTop="40px"
+            android:layout_height="500px"/>
+
 
     </LinearLayout>
 

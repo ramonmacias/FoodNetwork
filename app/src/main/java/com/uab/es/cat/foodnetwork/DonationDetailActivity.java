@@ -9,22 +9,34 @@ import android.view.MenuItem;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.MapFragment;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 import com.uab.es.cat.foodnetwork.database.CacheDbHelper;
 import com.uab.es.cat.foodnetwork.database.FoodNetworkDbHelper;
 import com.uab.es.cat.foodnetwork.dto.DonationDTO;
 import com.uab.es.cat.foodnetwork.dto.FoodsDTO;
+import com.uab.es.cat.foodnetwork.dto.LocationDTO;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class DonationDetailActivity extends ListActivity {
+public class DonationDetailActivity extends ListActivity implements OnMapReadyCallback {
 
+    private GoogleMap map;
+    private MapFragment mapFragment;
     CacheDbHelper cacheDbHelper;
     FoodNetworkDbHelper mDbHelper;
     private TextView dateOfDonationTextView;
     private TextView stateOfDonationTextView;
     private TextView initialHourTextView;
     private TextView finalHourTextView;
+
+    double latitude;
+    double longitude;
 
     /** Items entered by the user is stored in this ArrayList variable */
     ArrayList list = new ArrayList();
@@ -43,10 +55,16 @@ public class DonationDetailActivity extends ListActivity {
         DonationDTO donationDTO = new DonationDTO();
         donationDTO.setIdDonation(Long.valueOf(idDonation));
 
+        LocationDTO locationDTO = new LocationDTO();
+
         cacheDbHelper = new CacheDbHelper();
         mDbHelper = new FoodNetworkDbHelper(getApplicationContext());
 
         donationDTO = (DonationDTO) cacheDbHelper.getById(donationDTO, mDbHelper);
+        locationDTO.setIdLocation(donationDTO.getIdLocation());
+        locationDTO = (LocationDTO) cacheDbHelper.getById(locationDTO, mDbHelper);
+        longitude = Double.valueOf(locationDTO.getLongitude());
+        latitude = Double.valueOf(locationDTO.getLatitude());
 
         dateOfDonationTextView = (TextView) findViewById(R.id.dateOfDonation);
         stateOfDonationTextView = (TextView) findViewById(R.id.stateOfDonation);
@@ -69,7 +87,23 @@ public class DonationDetailActivity extends ListActivity {
 
         setListAdapter(adapter);
 
+        mapFragment = (MapFragment) getFragmentManager()
+                .findFragmentById(R.id.map);
+        mapFragment.getMapAsync(this);
 
+
+    }
+
+    @Override
+    public void onMapReady(GoogleMap map) {
+        this.map = map;
+
+        LatLng latLng = new LatLng(latitude, longitude);
+
+        MarkerOptions options = new MarkerOptions()
+                .position(latLng);
+        map.addMarker(options);
+        map.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 17.0f));
     }
 
 }
