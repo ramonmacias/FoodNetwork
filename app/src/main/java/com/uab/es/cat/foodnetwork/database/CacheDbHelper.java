@@ -73,6 +73,8 @@ public class CacheDbHelper implements DatabaseHandler{
             values.put(LocationContract.LocationEntry.COLUMN_NAME_CITY, locationDTO.getCity());
             values.put(LocationContract.LocationEntry.COLUMN_NAME_NEIGHBORHOOD, locationDTO.getNeighborhood());
             values.put(LocationContract.LocationEntry.COLUMN_NAME_DISTRICT, locationDTO.getDistrict());
+            values.put(LocationContract.LocationEntry.COLUMN_NAME_LATITUDE, locationDTO.getLatitude());
+            values.put(LocationContract.LocationEntry.COLUMN_NAME_LONGITUDE, locationDTO.getLongitude());
 
             long newRowId;
             newRowId = db.insert(
@@ -170,6 +172,8 @@ public class CacheDbHelper implements DatabaseHandler{
             values.put(LocationContract.LocationEntry.COLUMN_NAME_CITY, locationDTO.getCity());
             values.put(LocationContract.LocationEntry.COLUMN_NAME_NEIGHBORHOOD, locationDTO.getNeighborhood());
             values.put(LocationContract.LocationEntry.COLUMN_NAME_DISTRICT, locationDTO.getDistrict());
+            values.put(LocationContract.LocationEntry.COLUMN_NAME_LATITUDE, locationDTO.getLatitude());
+            values.put(LocationContract.LocationEntry.COLUMN_NAME_LONGITUDE, locationDTO.getLongitude());
 
             String selection = LocationContract.LocationEntry.COLUMN_NAME_LOCATION_ID + " LIKE ?";
             String[] selectionArgs = { String.valueOf(locationDTO.getIdLocation()) };
@@ -218,34 +222,6 @@ public class CacheDbHelper implements DatabaseHandler{
 
             return userDTO;
         }
-        if(baseDTO instanceof LocationDTO){
-            LocationDTO locationDTO = (LocationDTO) baseDTO;
-            long idLocation = locationDTO.getIdLocation();
-            SQLiteDatabase dbRead = mDbHelper.getReadableDatabase();
-
-            Cursor mCount= dbRead.rawQuery("select streetname, buildingnumber, floor, door, city, neighborhood, district from location where locationid = " + idLocation, null);
-            mCount.moveToFirst();
-
-            String streetName = mCount.getString(0);
-            String buildingNumber = mCount.getString(1);
-            String floor = mCount.getString(2);
-            String door = mCount.getString(3);
-            String city = mCount.getString(4);
-            String neighborhood = mCount.getString(5);
-            String district = mCount.getString(6);
-
-            locationDTO.setStreetName(streetName);
-            locationDTO.setBuildingNumber(buildingNumber);
-            locationDTO.setFloor(floor);
-            locationDTO.setDoor(door);
-            locationDTO.setCity(city);
-            locationDTO.setNeighborhood(neighborhood);
-            locationDTO.setDistrict(district);
-
-            mCount.close();
-
-            return locationDTO;
-        }
         if(baseDTO instanceof DonationDTO){
             DonationDTO donationDTO = (DonationDTO) baseDTO;
             long idDonation = donationDTO.getIdDonation();
@@ -273,6 +249,29 @@ public class CacheDbHelper implements DatabaseHandler{
             mCount.close();
 
             return donationDTO;
+        }
+        if(baseDTO instanceof LocationDTO){
+            LocationDTO locationDTO = (LocationDTO) baseDTO;
+            long idLocation = locationDTO.getIdLocation();
+            SQLiteDatabase dbRead = mDbHelper.getReadableDatabase();
+
+            Cursor mCount = dbRead.rawQuery("select locationid, streetname, buildingnumber, floor, door, city, neighborhood, district, latitude, longitude from location where locationid = " + idLocation, null);
+            mCount.moveToFirst();
+
+            locationDTO.setIdLocation(mCount.getLong(0));
+            locationDTO.setStreetName(mCount.getString(1));
+            locationDTO.setBuildingNumber(mCount.getString(2));
+            locationDTO.setFloor(mCount.getString(3));
+            locationDTO.setDoor(mCount.getString(4));
+            locationDTO.setCity(mCount.getString(5));
+            locationDTO.setNeighborhood(mCount.getString(6));
+            locationDTO.setDistrict(mCount.getString(7));
+            locationDTO.setLatitude(mCount.getString(8));
+            locationDTO.setLongitude(mCount.getString(9));
+
+            mCount.close();
+
+            return locationDTO;
         }
         return null;
     }
