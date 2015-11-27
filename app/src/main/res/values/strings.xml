@@ -70,5 +70,6 @@
     <string name="invalid_lat_long_used">Latitud y longitud no validos</string>
     <string name="no_address_found">No se ha encontrado ninguna direccion</string>
     <string name="address_found">Direccion encontrada</string>
+    <string name="radio_action">Radio de búsqueda</string>
 
 </resources>

@@ -116,4 +116,11 @@
         <item>22:00</item>
         <item>23:00</item>
     </string-array>
+
+    <string-array name="typeOfVehicles">
+        <item>Moto</item>
+        <item>Coche</item>
+        <item>Furgoneta</item>
+        <item>Camión</item>
+    </string-array>
 </resources>

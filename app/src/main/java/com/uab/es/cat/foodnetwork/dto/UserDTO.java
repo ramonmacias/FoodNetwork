@@ -5,14 +5,19 @@ package com.uab.es.cat.foodnetwork.dto;
  */
 public class UserDTO extends BaseDTO{
 
-    public long idUser;
-    public String userName;
-    public String mail;
-    public String name;
-    public String lastName;
-    public long idLocation;
-    public String password;
-    public String idTypeUser;
+    private long idUser;
+    private String userName;
+    private String mail;
+    private String name;
+    private String lastName;
+    private long idLocation;
+    private String password;
+    private String idTypeUser;
+    private String typeOfVehicle;
+    private int actionRadio;
+    private String initialHour;
+    private String finalHour;
+    private long phoneNumber;
 
     public UserDTO(){
 
@@ -81,6 +86,47 @@ public class UserDTO extends BaseDTO{
     public void setIdTypeUser(String idTypeUser) {
         this.idTypeUser = idTypeUser;
     }
+
+    public String getTypeOfVehicle() {
+        return typeOfVehicle;
+    }
+
+    public void setTypeOfVehicle(String typeOfVehicle) {
+        this.typeOfVehicle = typeOfVehicle;
+    }
+
+    public int getActionRadio() {
+        return actionRadio;
+    }
+
+    public void setActionRadio(int actionRadio) {
+        this.actionRadio = actionRadio;
+    }
+
+    public String getInitialHour() {
+        return initialHour;
+    }
+
+    public void setInitialHour(String initialHour) {
+        this.initialHour = initialHour;
+    }
+
+    public String getFinalHour() {
+        return finalHour;
+    }
+
+    public void setFinalHour(String finalHour) {
+        this.finalHour = finalHour;
+    }
+
+    public long getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(long phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
 
 
 }

@@ -21,6 +21,10 @@ public class FoodNetworkDbHelper extends SQLiteOpenHelper {
                     UserContract.UserEntry.COLUMN_NAME_PASSWORD + TEXT_TYPE + COMMA_SEP +
                     UserContract.UserEntry.COLUMN_NAME_PHONE_NUMBER + TEXT_TYPE + COMMA_SEP +
                     UserContract.UserEntry.COLUMN_NAME_ID_LOCATION + " INTEGER " + COMMA_SEP +
+                    UserContract.UserEntry.COLUMN_NAME_ACTION_RADIO + " INTEGER " + COMMA_SEP +
+                    UserContract.UserEntry.COLUMN_NAME_TYPE_VEHICLE + TEXT_TYPE + COMMA_SEP +
+                    UserContract.UserEntry.COLUMN_NAME_FINAL_HOUR + TEXT_TYPE + COMMA_SEP +
+                    UserContract.UserEntry.COLUMN_NAME_INITIAL_HOUR + TEXT_TYPE + COMMA_SEP +
                     UserContract.UserEntry.COLUMN_NAME_INSERT_DATE + TEXT_TYPE + COMMA_SEP +
                     UserContract.UserEntry.COLUMN_NAME_LAST_UPDATE + TEXT_TYPE + COMMA_SEP +
                     UserContract.UserEntry.COLUMN_NAME_UPDATE_USER + TEXT_TYPE + COMMA_SEP +
@@ -82,7 +86,7 @@ public class FoodNetworkDbHelper extends SQLiteOpenHelper {
 
 
     // If you change the database schema, you must increment the database version.
-    public static final int DATABASE_VERSION = 23;
+    public static final int DATABASE_VERSION = 24;
     public static final String DATABASE_NAME = "FoodNetwork.db";
 
     public FoodNetworkDbHelper(Context context){

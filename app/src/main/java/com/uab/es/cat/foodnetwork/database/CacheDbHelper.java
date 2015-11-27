@@ -46,6 +46,10 @@ public class CacheDbHelper implements DatabaseHandler{
             values.put(UserContract.UserEntry.COLUMN_NAME_MAIL, userDTO.getMail());
             values.put(UserContract.UserEntry.COLUMN_NAME_PASSWORD, userDTO.getPassword());
             values.put(UserContract.UserEntry.COLUMN_NAME_USER_TYPE, userDTO.getIdTypeUser());
+            values.put(UserContract.UserEntry.COLUMN_NAME_INITIAL_HOUR, userDTO.getInitialHour());
+            values.put(UserContract.UserEntry.COLUMN_NAME_FINAL_HOUR, userDTO.getFinalHour());
+            values.put(UserContract.UserEntry.COLUMN_NAME_TYPE_VEHICLE, userDTO.getTypeOfVehicle());
+            values.put(UserContract.UserEntry.COLUMN_NAME_ACTION_RADIO, userDTO.getActionRadio());
 
             long newRowId;
             newRowId = db.insert(
@@ -151,6 +155,11 @@ public class CacheDbHelper implements DatabaseHandler{
             values.put(UserContract.UserEntry.COLUMN_NAME_PASSWORD, userDTO.getPassword());
             values.put(UserContract.UserEntry.COLUMN_NAME_USER_TYPE, userDTO.getIdTypeUser());
             values.put(UserContract.UserEntry.COLUMN_NAME_ID_LOCATION, userDTO.getIdLocation());
+            values.put(UserContract.UserEntry.COLUMN_NAME_PHONE_NUMBER, userDTO.getPhoneNumber());
+            values.put(UserContract.UserEntry.COLUMN_NAME_INITIAL_HOUR, userDTO.getInitialHour());
+            values.put(UserContract.UserEntry.COLUMN_NAME_FINAL_HOUR, userDTO.getFinalHour());
+            values.put(UserContract.UserEntry.COLUMN_NAME_TYPE_VEHICLE, userDTO.getTypeOfVehicle());
+            values.put(UserContract.UserEntry.COLUMN_NAME_ACTION_RADIO, userDTO.getActionRadio());
 
             String selection = UserContract.UserEntry.COLUMN_NAME_USER_ID + " LIKE ?";
             String[] selectionArgs = { String.valueOf(userDTO.getIdUser()) };
