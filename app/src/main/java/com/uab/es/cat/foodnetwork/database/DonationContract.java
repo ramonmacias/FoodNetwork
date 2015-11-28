@@ -17,6 +17,7 @@ public class DonationContract {
         public static final String COLUMN_NAME_STATE = "state";
         public static final String COLUMN_NAME_INITIAL_HOUR = "initialHour";
         public static final String COLUMN_NAME_FIINAL_HOUR = "finalHour";
+        public static final String COLUMN_NAME_TOTAL_WEIGHT = "totalWeight";
         public static final String COLUMN_NAME_INSERT_DATE = "insertDate";
         public static final String COLUMN_NAME_LAST_UPDATE = "lastUpdate";
         public static final String COLUMN_NAME_UPDATE_USER = "updateUser";

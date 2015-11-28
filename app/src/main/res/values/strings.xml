@@ -75,5 +75,7 @@
     <string name="type_vehicle">Tipo de vehículo</string>
     <string name="my_donation_of">Mi donación del dia</string>
     <string name="state">Estado</string>
-
+    <string name="transporter">Transportista</string>
+    <string name="title_activity_donations_for_transport">DonationsForTransport</string>
+    <string name="start_collecting">Iniciar la recogida</string>
 </resources>

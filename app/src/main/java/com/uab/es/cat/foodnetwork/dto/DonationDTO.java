@@ -7,12 +7,13 @@ public class DonationDTO extends BaseDTO {
 
 
 
-    public long idDonation;
-    public long idUser;
-    public long idLocation;
-    public int state;
-    public String initialHour;
-    public String finalHour;
+    private long idDonation;
+    private long idUser;
+    private long idLocation;
+    private int state;
+    private String initialHour;
+    private String finalHour;
+    private int totalWeight;
 
     public DonationDTO(){
 
@@ -64,6 +65,14 @@ public class DonationDTO extends BaseDTO {
 
     public void setFinalHour(String finalHour) {
         this.finalHour = finalHour;
+    }
+
+    public int getTotalWeight() {
+        return totalWeight;
+    }
+
+    public void setTotalWeight(int totalWeight) {
+        this.totalWeight = totalWeight;
     }
 
 }

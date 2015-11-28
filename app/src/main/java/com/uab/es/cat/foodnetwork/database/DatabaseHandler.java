@@ -1,6 +1,7 @@
 package com.uab.es.cat.foodnetwork.database;
 
 import com.uab.es.cat.foodnetwork.dto.BaseDTO;
+import com.uab.es.cat.foodnetwork.dto.DonationDTO;
 import com.uab.es.cat.foodnetwork.dto.FoodsDTO;
 
 import java.util.List;
@@ -19,4 +20,6 @@ public interface DatabaseHandler {
     public BaseDTO getById(BaseDTO baseDTO, FoodNetworkDbHelper mDbHelper);
 
     public List<FoodsDTO> getFoodsOfDonation(long idDonation, FoodNetworkDbHelper mDbHelper);
+
+    public List<DonationDTO> getReadyAndCurrentDonations(FoodNetworkDbHelper mDbHelper);
 }

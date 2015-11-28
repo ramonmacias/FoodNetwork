@@ -63,6 +63,7 @@ public class FoodNetworkDbHelper extends SQLiteOpenHelper {
                     DonationContract.DonationEntry.COLUMN_NAME_USER_ID + " INTEGER," +
                     DonationContract.DonationEntry.COLUMN_NAME_INITIAL_HOUR + TEXT_TYPE + COMMA_SEP +
                     DonationContract.DonationEntry.COLUMN_NAME_FIINAL_HOUR + TEXT_TYPE + COMMA_SEP +
+                    DonationContract.DonationEntry.COLUMN_NAME_TOTAL_WEIGHT + " INTEGER " + COMMA_SEP +
                     DonationContract.DonationEntry.COLUMN_NAME_INSERT_DATE + TEXT_TYPE + COMMA_SEP +
                     DonationContract.DonationEntry.COLUMN_NAME_LAST_UPDATE + TEXT_TYPE + COMMA_SEP +
                     DonationContract.DonationEntry.COLUMN_NAME_UPDATE_USER + TEXT_TYPE + COMMA_SEP +
@@ -86,7 +87,7 @@ public class FoodNetworkDbHelper extends SQLiteOpenHelper {
 
 
     // If you change the database schema, you must increment the database version.
-    public static final int DATABASE_VERSION = 24;
+    public static final int DATABASE_VERSION = 25;
     public static final String DATABASE_NAME = "FoodNetwork.db";
 
     public FoodNetworkDbHelper(Context context){

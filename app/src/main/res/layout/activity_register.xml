@@ -54,7 +54,7 @@
                 <RadioButton android:id="@+id/receptor_user"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/recepto_user"
+                    android:text="@string/transporter"
                     />
             </RadioGroup>
 

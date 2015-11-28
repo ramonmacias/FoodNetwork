@@ -46,6 +46,7 @@ public class FoodDonationActivity extends ListActivity implements View.OnClickLi
     private TextView quantityTextView;
     private EditText productNameText;
     private int quantityCount;
+    private int totalWeight;
     private List<FoodsDTO> foodsOfDonation;
     private CacheDbHelper cacheDbHelper;
     private FoodNetworkDbHelper mDbHelper;
@@ -106,6 +107,7 @@ public class FoodDonationActivity extends ListActivity implements View.OnClickLi
         productNameText = (EditText) findViewById(R.id.productName);
         quantityTextView = (TextView) findViewById(R.id.quantity);
         quantityCount = 1;
+        totalWeight = 0;
 
         foodsOfDonation = new ArrayList<FoodsDTO>();
 
@@ -197,6 +199,7 @@ public class FoodDonationActivity extends ListActivity implements View.OnClickLi
         FoodsDTO foodsDTO = new FoodsDTO();
         foodsDTO.setFoodName(productName);
         foodsDTO.setQuantity(quantityCount);
+        totalWeight += quantityCount;
 
         foodsOfDonation.add(foodsDTO);
 
@@ -217,6 +220,7 @@ public class FoodDonationActivity extends ListActivity implements View.OnClickLi
         for(int i=itemCount-1; i >= 0; i--){
             if(checkedItemPositions.get(i)){
                 adapter.remove(list.get(i));
+                totalWeight -= foodsOfDonation.get(i).getQuantity();
                 foodsOfDonation.remove(i);
             }
         }
@@ -260,6 +264,7 @@ public class FoodDonationActivity extends ListActivity implements View.OnClickLi
         donationDTO.setFinalHour(finalHour);
         donationDTO.setState(1);
         donationDTO.setInsertDate(Utilities.dateToString(new Date()));
+        donationDTO.setTotalWeight(totalWeight);
 
         Long idDonation = cacheDbHelper.insert(donationDTO, mDbHelper);
         for(FoodsDTO foodsDTO : foodsOfDonation){

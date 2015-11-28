@@ -7,14 +7,33 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
+import com.google.android.gms.auth.api.Auth;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.common.api.ResultCallback;
+import com.google.android.gms.common.api.Status;
 import com.uab.es.cat.foodnetwork.util.UserSession;
 
-public class MainReceptorActivity extends AppCompatActivity {
+public class MainReceptorActivity extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener {
+
+    private GoogleApiClient mGoogleApiClient;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_receptor);
+
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestEmail()
+                .build();
+
+        // Build a GoogleApiClient with access to the Google Sign-In API and the
+        // options specified by gso.
+        mGoogleApiClient = new GoogleApiClient.Builder(this)
+                .enableAutoManage(this /* FragmentActivity */, this /* OnConnectionFailedListener */)
+                .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
+                .build();
     }
 
     @Override
@@ -42,17 +61,11 @@ public class MainReceptorActivity extends AppCompatActivity {
         }
         if (id == R.id.action_disconnect) {
 
-            // After logout redirect user to Loing Activity
-            //Intent i = new Intent(getApplicationContext(), LoginActivity.class);
-            // Closing all the Activities
-            //i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-
-            // Add new Flag to start new Activity
-            //i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-
-            // Staring Login Activity
-            //getApplicationContext().startActivity(i);
-            UserSession.getInstance(getApplicationContext()).logOut(getApplicationContext());
+            if("Google".equals(UserSession.getInstance(getApplicationContext()).getUserTypeLoggin())){
+                signOut();
+            }else {
+                UserSession.getInstance(getApplicationContext()).logOut(getApplicationContext());
+            }
             return true;
         }
 
@@ -60,7 +73,7 @@ public class MainReceptorActivity extends AppCompatActivity {
     }
 
     public void listDonations(View view){
-
+        startActivity(new Intent(getApplicationContext(), DonationsForTransportActivity.class));
     }
 
     public void collectDonations(View view){
@@ -69,5 +82,24 @@ public class MainReceptorActivity extends AppCompatActivity {
 
     public void viewAllDonations(View view){
         startActivity(new Intent(getApplicationContext(), AllDonationsMapActivity.class));
+    }
+
+    private void signOut() {
+        Auth.GoogleSignInApi.signOut(mGoogleApiClient).setResultCallback(
+                new ResultCallback<Status>() {
+                    @Override
+                    public void onResult(Status status) {
+                        // [START_EXCLUDE]
+                        startActivity(new Intent(getApplicationContext(), LoginActivity.class));
+                        // [END_EXCLUDE]
+                    }
+                });
+    }
+
+    @Override
+    public void onConnectionFailed(ConnectionResult connectionResult) {
+        // An unresolvable error has occurred and Google APIs (including Sign-In) will not
+        // be available.
+        //Log.d(TAG, "onConnectionFailed:" + connectionResult);
     }
 }

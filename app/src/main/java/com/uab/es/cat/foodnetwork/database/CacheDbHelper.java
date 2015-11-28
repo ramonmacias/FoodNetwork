@@ -128,6 +128,7 @@ public class CacheDbHelper implements DatabaseHandler{
             values.put(DonationContract.DonationEntry.COLUMN_NAME_INITIAL_HOUR, donationDTO.getInitialHour());
             values.put(DonationContract.DonationEntry.COLUMN_NAME_FIINAL_HOUR, donationDTO.getFinalHour());
             values.put(DonationContract.DonationEntry.COLUMN_NAME_INSERT_DATE, donationDTO.getInsertDate());
+            values.put(DonationContract.DonationEntry.COLUMN_NAME_TOTAL_WEIGHT, donationDTO.getTotalWeight());
 
 
             long newRowId;
@@ -314,6 +315,27 @@ public class CacheDbHelper implements DatabaseHandler{
         }
 
         return foods;
+    }
+
+    @Override
+    public List<DonationDTO> getReadyAndCurrentDonations(FoodNetworkDbHelper mDbHelper) {
+        SQLiteDatabase dbRead = mDbHelper.getReadableDatabase();
+        Cursor mCount= dbRead.rawQuery("select donatioid, userid, locationid, state, insertDate, totalWeight from donation where state in (1, 2)", null);
+        List<DonationDTO> donations = new ArrayList<DonationDTO>();
+
+        while (mCount.moveToNext()) {
+            DonationDTO donationDTO = new DonationDTO();
+
+            donationDTO.setIdDonation(mCount.getLong(0));
+            donationDTO.setIdUser(mCount.getLong(1));
+            donationDTO.setIdLocation(mCount.getLong(2));
+            donationDTO.setState(mCount.getInt(3));
+            donationDTO.setInsertDate(mCount.getString(4));
+            donationDTO.setTotalWeight(mCount.getInt(5));
+
+            donations.add(donationDTO);
+        }
+        return donations;
     }
 
     public List<DonationDTO> getDonationsByUserId(long userId, FoodNetworkDbHelper mDbHelper){
