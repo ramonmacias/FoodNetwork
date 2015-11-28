@@ -71,5 +71,7 @@
     <string name="no_address_found">No se ha encontrado ninguna direccion</string>
     <string name="address_found">Direccion encontrada</string>
     <string name="radio_action">Radio de búsqueda</string>
+    <string name="time_zone">Franja horaria</string>
+    <string name="type_vehicle">Tipo de vehículo</string>
 
 </resources>

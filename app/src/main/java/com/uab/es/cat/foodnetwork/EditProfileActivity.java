@@ -13,7 +13,9 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.SeekBar;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
@@ -31,16 +33,27 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Locale;
 
-public class EditProfileActivity extends AppCompatActivity implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener{
+public class EditProfileActivity extends AppCompatActivity implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, SeekBar.OnSeekBarChangeListener{
 
     private EditText streetNameText;
     private EditText buildingNumberText;
     private EditText floorText;
     private EditText doorText;
     private EditText cityText;
+    private TextView nameText;
+    private TextView lastNameText;
+    private TextView textActionRadio;
     private Spinner spinner;
     private Spinner spinner_districts;
     private String addresToFind;
+    private FoodNetworkDbHelper mDbHelper;
+    private CacheDbHelper cacheDbHelper;
+    private UserDTO userDTO;
+    private Spinner spinnerInitialHour;
+    private Spinner spinnerFinalHour;
+    private Spinner spinnerTypeVehicles;
+    private SeekBar actionRadio;
+    private int initialActionRadio;
 
     GoogleApiClient mGoogleApiClient;
 
@@ -52,24 +65,66 @@ public class EditProfileActivity extends AppCompatActivity implements GoogleApiC
 
         setContentView(R.layout.activity_edit_profile);
 
+        mDbHelper = new FoodNetworkDbHelper(getApplicationContext());
+        cacheDbHelper = new CacheDbHelper();
+        userDTO = new UserDTO();
+        long userId = UserSession.getInstance(getApplicationContext()).getUserId();
+        String userType = UserSession.getInstance(getApplicationContext()).getUserType();
+
+        userDTO.setIdUser(userId);
+
+        userDTO = (UserDTO) cacheDbHelper.getById(userDTO, mDbHelper);
+        initialActionRadio = userDTO.getActionRadio();
+
         streetNameText = (EditText) findViewById(R.id.streetName);
         buildingNumberText = (EditText) findViewById(R.id.buildingNumber);
         floorText = (EditText) findViewById(R.id.floor);
         doorText = (EditText) findViewById(R.id.door);
         cityText = (EditText) findViewById(R.id.city);
+        nameText = (TextView) findViewById(R.id.name);
+        textActionRadio = (TextView) findViewById(R.id.textActionRadio);
+        lastNameText = (TextView) findViewById(R.id.lastName);
         spinner = (Spinner) findViewById(R.id.spinner_neighborhood);
         spinner_districts = (Spinner) findViewById(R.id.spinner_district);
+        spinnerInitialHour = (Spinner) findViewById(R.id.initial_hour);
+        spinnerFinalHour = (Spinner) findViewById(R.id.final_hour);
+        spinnerTypeVehicles = (Spinner) findViewById(R.id.type_vehicles);
+        actionRadio = (SeekBar) findViewById(R.id.actionRadio);
+
+        actionRadio.setOnSeekBarChangeListener(this);
 
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
                 R.array.neighborhoods, android.R.layout.simple_spinner_item);
         ArrayAdapter<CharSequence> adapterDistricts = ArrayAdapter.createFromResource(this,
                 R.array.districts, android.R.layout.simple_spinner_item);
+        ArrayAdapter<CharSequence> adapterInitialHour = ArrayAdapter.createFromResource(this,
+                R.array.hours, android.R.layout.simple_spinner_item);
+        ArrayAdapter<CharSequence> adapterFinalHour = ArrayAdapter.createFromResource(this,
+                R.array.hours, android.R.layout.simple_spinner_item);
+        ArrayAdapter<CharSequence> adapterTypeOfVehicles = ArrayAdapter.createFromResource(this,
+                R.array.typeOfVehicles, android.R.layout.simple_spinner_item);
 
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         adapterDistricts.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        adapterInitialHour.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        adapterFinalHour.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        adapterTypeOfVehicles.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
+        spinnerInitialHour.setAdapter(adapterInitialHour);
+        spinnerFinalHour.setAdapter(adapterFinalHour);
+        spinnerTypeVehicles.setAdapter(adapterTypeOfVehicles);
         spinner.setAdapter(adapter);
         spinner_districts.setAdapter(adapterDistricts);
+        nameText.setText(userDTO.getName());
+        lastNameText.setText(userDTO.getLastName());
+
+        if("D".equals(userType)){
+            spinnerFinalHour.setVisibility(View.GONE);
+            spinnerInitialHour.setVisibility(View.GONE);
+            actionRadio.setVisibility(View.GONE);
+            textActionRadio.setVisibility(View.GONE);
+            spinnerTypeVehicles.setVisibility(View.GONE);
+        }
 
         mGoogleApiClient = new GoogleApiClient.Builder(this)
                 .addConnectionCallbacks(this)
@@ -92,16 +147,6 @@ public class EditProfileActivity extends AppCompatActivity implements GoogleApiC
 
     public void updateUserInfo(LocationDTO locationDTO){
 
-        UserDTO userDTO = new UserDTO();
-        long userId = UserSession.getInstance(getApplicationContext()).getUserId();
-
-        userDTO.setIdUser(userId);
-
-        FoodNetworkDbHelper mDbHelper = new FoodNetworkDbHelper(getApplicationContext());
-
-        CacheDbHelper cacheDbHelper = new CacheDbHelper();
-        userDTO = (UserDTO) cacheDbHelper.getById(userDTO, mDbHelper);
-
         long idLocation = userDTO.getIdLocation();
         if(idLocation != 0){
             locationDTO.setIdLocation(idLocation);
@@ -112,12 +157,27 @@ public class EditProfileActivity extends AppCompatActivity implements GoogleApiC
             cacheDbHelper.update(userDTO, mDbHelper);
         }
 
-        String userType = UserSession.getInstance(getApplicationContext()).getUserType();
+        int actionRadioValue = 0;
+        String initialHour = null;
+        String finalHour = null;
+        String typeOfVehiclesValue = null;
 
-        if("D".equals(userType)){
-            startActivity(new Intent(getApplicationContext(), MainDonateActivity.class));
-        }else {
+        String userType = UserSession.getInstance(getApplicationContext()).getUserType();
+        if(!"D".equals(userType)){
+            actionRadioValue = actionRadio.getProgress();
+            initialHour = spinnerInitialHour.getSelectedItem().toString();
+            finalHour = spinnerFinalHour.getSelectedItem().toString();
+            typeOfVehiclesValue = spinnerTypeVehicles.getSelectedItem().toString();
+            userDTO.setActionRadio(actionRadioValue);
+            userDTO.setInitialHour(initialHour);
+            userDTO.setFinalHour(finalHour);
+            userDTO.setTypeOfVehicle(typeOfVehiclesValue);
+
+            cacheDbHelper.update(userDTO, mDbHelper);
+
             startActivity(new Intent(getApplicationContext(), MainReceptorActivity.class));
+        }else {
+            startActivity(new Intent(getApplicationContext(), MainDonateActivity.class));
         }
     }
 
@@ -166,6 +226,22 @@ public class EditProfileActivity extends AppCompatActivity implements GoogleApiC
 
     @Override
     public void onConnectionFailed(ConnectionResult connectionResult) {
+
+    }
+
+    @Override
+    public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+        textActionRadio.setText(getString(R.string.radio_action) + ": " + progress + " km");
+    }
+
+    @Override
+    public void onStartTrackingTouch(SeekBar seekBar) {
+        seekBar.setProgress(initialActionRadio);
+        textActionRadio.setText(getString(R.string.radio_action) + ": " + seekBar.getProgress() + " km");
+    }
+
+    @Override
+    public void onStopTrackingTouch(SeekBar seekBar) {
 
     }
 }

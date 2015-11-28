@@ -41,8 +41,6 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         spinnerInitialHour = (Spinner) findViewById(R.id.initial_hour);
         spinnerFinalHour = (Spinner) findViewById(R.id.final_hour);
         spinnerTypeVehicles = (Spinner) findViewById(R.id.type_vehicles);
-
-        spinnerFinalHour = (Spinner) findViewById(R.id.final_hour);
         actionRadio = (SeekBar) findViewById(R.id.actionRadio);
         textActionRadio = (TextView) findViewById(R.id.textActionRadio);
 

@@ -209,7 +209,7 @@ public class CacheDbHelper implements DatabaseHandler{
             long userId = userDTO.getIdUser();
             SQLiteDatabase dbRead = mDbHelper.getReadableDatabase();
 
-            Cursor mCount= dbRead.rawQuery("select name, lastname, username, mail, password, usertype, idlocation from users where userid = " + userId, null);
+            Cursor mCount= dbRead.rawQuery("select name, lastname, username, mail, password, usertype, idlocation, phonenumber, typeVehicle, finalHour, initialHour, actionRadio from users where userid = " + userId, null);
             mCount.moveToFirst();
             String name = mCount.getString(0);
             String lastName = mCount.getString(1);
@@ -218,6 +218,11 @@ public class CacheDbHelper implements DatabaseHandler{
             String password = mCount.getString(4);
             String userType = mCount.getString(5);
             int idLocation = mCount.getInt(6);
+            long phoneNumber = mCount.getLong(7);
+            String typeVehicle = mCount.getString(8);
+            String finalHour = mCount.getString(9);
+            String initialHour = mCount.getString(10);
+            int actionRadio = mCount.getInt(11);
 
             userDTO.setName(name);
             userDTO.setLastName(lastName);
@@ -226,6 +231,11 @@ public class CacheDbHelper implements DatabaseHandler{
             userDTO.setPassword(password);
             userDTO.setIdTypeUser(userType);
             userDTO.setIdLocation(idLocation);
+            userDTO.setPhoneNumber(phoneNumber);
+            userDTO.setTypeOfVehicle(typeVehicle);
+            userDTO.setFinalHour(finalHour);
+            userDTO.setInitialHour(initialHour);
+            userDTO.setActionRadio(actionRadio);
 
             mCount.close();
 

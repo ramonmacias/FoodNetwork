@@ -23,9 +23,6 @@ public class ViewProfileActivity extends AppCompatActivity {
 
         UserDTO userDTO = new UserDTO();
 
-        /*SharedPreferences sharedPref = getApplicationContext().getSharedPreferences(getString(R.string.user_type), Context.MODE_PRIVATE);
-        int defaultValue = 0;
-        int userId = sharedPref.getInt(getString(R.string.user_id), defaultValue);*/
         long userId = UserSession.getInstance(getApplicationContext()).getUserId();
 
         userDTO.setIdUser(userId);
@@ -51,29 +48,16 @@ public class ViewProfileActivity extends AppCompatActivity {
 
         TextView textViewName = (TextView) findViewById(R.id.name);
         TextView textViewLastName = (TextView) findViewById(R.id.lastName);
+        TextView textViewInitialHour = (TextView) findViewById(R.id.initial_hour);
+        TextView textViewFinalHour = (TextView) findViewById(R.id.final_hour);
+        TextView textViewActionRadio = (TextView) findViewById(R.id.actionRadio);
+        TextView textViewTypeVehicle = (TextView) findViewById(R.id.type_vehicles);
+
+        textViewActionRadio.setText(String.valueOf(userDTO.getActionRadio()));
+        textViewInitialHour.setText(userDTO.getInitialHour());
+        textViewFinalHour.setText(userDTO.getFinalHour());
+        textViewTypeVehicle.setText(userDTO.getTypeOfVehicle());
         textViewName.setText(userDTO.getName());
         textViewLastName.setText(userDTO.getLastName());
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        //getMenuInflater().inflate(R.menu.menu_view_profile, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
     }
 }
