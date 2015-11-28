@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.TextView;
 
 import com.uab.es.cat.foodnetwork.database.CacheDbHelper;
@@ -17,13 +18,36 @@ import com.uab.es.cat.foodnetwork.util.Utilities;
 
 public class ViewProfileActivity extends AppCompatActivity {
 
+    TextView textViewName;
+    TextView textViewLastName;
+    TextView textViewInitialHour;
+    TextView textViewFinalHour;
+    TextView textViewActionRadio;
+    TextView textViewTypeVehicle;
+    TextView textViewTmeZone;
+    TextView textViewActionRadioTitle;
+    TextView textViewTypeVehicleTitle;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_view_profile);
+
+        textViewName = (TextView) findViewById(R.id.name);
+        textViewLastName = (TextView) findViewById(R.id.lastName);
+        textViewInitialHour = (TextView) findViewById(R.id.initial_hour);
+        textViewFinalHour = (TextView) findViewById(R.id.final_hour);
+        textViewActionRadio = (TextView) findViewById(R.id.actionRadio);
+        textViewTypeVehicle = (TextView) findViewById(R.id.type_vehicles);
+        textViewTmeZone = (TextView) findViewById(R.id.timeZone);
+        textViewActionRadioTitle = (TextView) findViewById(R.id.actionRadioTitle);
+        textViewTypeVehicleTitle = (TextView) findViewById(R.id.type_vehicles_title);
 
         UserDTO userDTO = new UserDTO();
 
         long userId = UserSession.getInstance(getApplicationContext()).getUserId();
+        String userType = UserSession.getInstance(getApplicationContext()).getUserType();
 
         userDTO.setIdUser(userId);
 
@@ -32,7 +56,7 @@ public class ViewProfileActivity extends AppCompatActivity {
         CacheDbHelper cacheDbHelper = new CacheDbHelper();
         userDTO = (UserDTO) cacheDbHelper.getById(userDTO, mDbHelper);
 
-        setContentView(R.layout.activity_view_profile);
+
         long idLocation = userDTO.getIdLocation();
         if(idLocation != 0){
             LocationDTO locationDTO = new LocationDTO();
@@ -46,18 +70,23 @@ public class ViewProfileActivity extends AppCompatActivity {
             textViewAddress.setText(Utilities.getFullAddress(locationDTO.getStreetName(), locationDTO.getBuildingNumber(), locationDTO.getFloor(), locationDTO.getDoor()));
         }
 
-        TextView textViewName = (TextView) findViewById(R.id.name);
-        TextView textViewLastName = (TextView) findViewById(R.id.lastName);
-        TextView textViewInitialHour = (TextView) findViewById(R.id.initial_hour);
-        TextView textViewFinalHour = (TextView) findViewById(R.id.final_hour);
-        TextView textViewActionRadio = (TextView) findViewById(R.id.actionRadio);
-        TextView textViewTypeVehicle = (TextView) findViewById(R.id.type_vehicles);
-
-        textViewActionRadio.setText(String.valueOf(userDTO.getActionRadio()));
-        textViewInitialHour.setText(userDTO.getInitialHour());
-        textViewFinalHour.setText(userDTO.getFinalHour());
-        textViewTypeVehicle.setText(userDTO.getTypeOfVehicle());
         textViewName.setText(userDTO.getName());
         textViewLastName.setText(userDTO.getLastName());
+
+        if (!"D".equals(userType)){
+            textViewActionRadio.setText(String.valueOf(userDTO.getActionRadio()));
+            textViewInitialHour.setText(userDTO.getInitialHour());
+            textViewFinalHour.setText(userDTO.getFinalHour());
+            textViewTypeVehicle.setText(userDTO.getTypeOfVehicle());
+        }else {
+            textViewActionRadio.setVisibility(View.GONE);
+            textViewInitialHour.setVisibility(View.GONE);
+            textViewFinalHour.setVisibility(View.GONE);
+            textViewTypeVehicle.setVisibility(View.GONE);
+            textViewTmeZone.setVisibility(View.GONE);
+            textViewTypeVehicleTitle.setVisibility(View.GONE);
+            textViewActionRadioTitle.setVisibility(View.GONE);
+        }
+
     }
 }

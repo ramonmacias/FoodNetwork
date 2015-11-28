@@ -43,6 +43,7 @@ public class EditProfileActivity extends AppCompatActivity implements GoogleApiC
     private TextView nameText;
     private TextView lastNameText;
     private TextView textActionRadio;
+    private TextView textTimeZone;
     private Spinner spinner;
     private Spinner spinner_districts;
     private String addresToFind;
@@ -75,6 +76,11 @@ public class EditProfileActivity extends AppCompatActivity implements GoogleApiC
 
         userDTO = (UserDTO) cacheDbHelper.getById(userDTO, mDbHelper);
         initialActionRadio = userDTO.getActionRadio();
+        LocationDTO location = new LocationDTO();
+        if(userDTO.getIdLocation() != 0){
+            location.setIdLocation(userDTO.getIdLocation());
+            location = (LocationDTO) cacheDbHelper.getById(location, mDbHelper);
+        }
 
         streetNameText = (EditText) findViewById(R.id.streetName);
         buildingNumberText = (EditText) findViewById(R.id.buildingNumber);
@@ -90,6 +96,7 @@ public class EditProfileActivity extends AppCompatActivity implements GoogleApiC
         spinnerFinalHour = (Spinner) findViewById(R.id.final_hour);
         spinnerTypeVehicles = (Spinner) findViewById(R.id.type_vehicles);
         actionRadio = (SeekBar) findViewById(R.id.actionRadio);
+        textTimeZone = (TextView) findViewById(R.id.timeZone);
 
         actionRadio.setOnSeekBarChangeListener(this);
 
@@ -124,6 +131,22 @@ public class EditProfileActivity extends AppCompatActivity implements GoogleApiC
             actionRadio.setVisibility(View.GONE);
             textActionRadio.setVisibility(View.GONE);
             spinnerTypeVehicles.setVisibility(View.GONE);
+            textTimeZone.setVisibility(View.GONE);
+        }else {
+            spinnerInitialHour.setSelection(adapterInitialHour.getPosition(userDTO.getInitialHour()));
+            spinnerFinalHour.setSelection(adapterFinalHour.getPosition(userDTO.getFinalHour()));
+            actionRadio.setProgress(userDTO.getActionRadio());
+            spinnerTypeVehicles.setSelection(adapterTypeOfVehicles.getPosition(userDTO.getTypeOfVehicle()));
+        }
+
+        if(location != null){
+            streetNameText.setText(location.getStreetName());
+            buildingNumberText.setText(location.getBuildingNumber());
+            floorText.setText(location.getFloor());
+            doorText.setText(location.getDoor());
+            cityText.setText(location.getCity());
+            spinner.setSelection(adapter.getPosition(location.getNeighborhood()));
+            spinner_districts.setSelection(adapterDistricts.getPosition(location.getDistrict()));
         }
 
         mGoogleApiClient = new GoogleApiClient.Builder(this)

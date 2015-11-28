@@ -42,9 +42,6 @@ public class DonationsActivity extends ListActivity {
         }
 
         DonationArrayAdapter adapter = new DonationArrayAdapter(this, strings, donations);
-
-        //ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
-        //        layout.activity_donations, id.label, strings);
         setListAdapter(adapter);
     }
 

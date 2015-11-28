@@ -37,8 +37,11 @@ public class DonationArrayAdapter extends ArrayAdapter<String> {
         View rowView = inflater.inflate(R.layout.activity_donations, parent, false);
         TextView textView = (TextView) rowView.findViewById(R.id.label);
         ImageView imageView = (ImageView) rowView.findViewById(R.id.icon);
+        TextView textViewStateOfDonation = (TextView) rowView.findViewById(R.id.stateOfDonation);
         //textView.setText(values.get(position));
-        textView.setText(String.valueOf(valuesDTO.get(position).getInsertDate()));
+        textView.setText(getContext().getString(R.string.my_donation_of) + ": " + String.valueOf(valuesDTO.get(position).getInsertDate()));
+        String stateText = Constants.STATE.get(valuesDTO.get(position).getState());
+        textViewStateOfDonation.setText(getContext().getString(R.string.state) + ": " + stateText);
 
         //String s = values.get(position);
         String s = String.valueOf(valuesDTO.get(position).getIdDonation());

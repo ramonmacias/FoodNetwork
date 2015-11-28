@@ -123,6 +123,7 @@
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:text="@string/time_zone"
+                android:id="@+id/timeZone"
                 android:layout_gravity="left" />
 
             <LinearLayout

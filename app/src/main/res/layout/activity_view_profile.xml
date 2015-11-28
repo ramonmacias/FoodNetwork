@@ -149,6 +149,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
+            android:id="@+id/timeZone"
             android:text="@string/time_zone" />
 
         <LinearLayout
@@ -180,6 +181,7 @@
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:text="@string/radio_action"
+                android:id="@+id/actionRadioTitle"
                 android:layout_weight="1"
                 android:layout_gravity="left" />
 
@@ -201,6 +203,7 @@
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:text="@string/type_vehicle"
+                android:id="@+id/type_vehicles_title"
                 android:layout_weight="1"
                 android:layout_gravity="left" />
 

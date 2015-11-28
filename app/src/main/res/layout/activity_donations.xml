@@ -11,12 +11,27 @@
         android:layout_marginTop="4px">
     </ImageView>
 
-    <TextView
-        android:id="@+id/label"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@+id/label"
-        android:textSize="80px" >
-    </TextView>
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@+id/label"
+            android:textSize="40px" >
+        </TextView>
+
+        <TextView
+            android:id="@+id/stateOfDonation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@+id/stateOfDonation"
+            android:textSize="30px" >
+        </TextView>
+
+    </LinearLayout>
 
 </LinearLayout>

@@ -73,5 +73,7 @@
     <string name="radio_action">Radio de búsqueda</string>
     <string name="time_zone">Franja horaria</string>
     <string name="type_vehicle">Tipo de vehículo</string>
+    <string name="my_donation_of">Mi donación del dia</string>
+    <string name="state">Estado</string>
 
 </resources>
