@@ -21,6 +21,7 @@ public class LocationContract {
         public static final String COLUMN_NAME_DISTRICT = "district";
         public static final String COLUMN_NAME_LATITUDE = "latitude";
         public static final String COLUMN_NAME_LONGITUDE = "longitude";
+        public static final String COLUMN_NAME_FULL_ADDRESS = "fullAddress";
         public static final String COLUMN_NAME_INSERT_DATE = "insertDate";
         public static final String COLUMN_NAME_LAST_UPDATE = "lastUpdate";
         public static final String COLUMN_NAME_UPDATE_USER = "updateUser";

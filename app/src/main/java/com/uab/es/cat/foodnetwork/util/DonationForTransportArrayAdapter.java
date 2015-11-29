@@ -60,8 +60,12 @@ public class DonationForTransportArrayAdapter extends ArrayAdapter<String> {
         String stateText = Constants.STATE.get(valuesDTO.get(position).getState());
         textViewStateOfDonation.setText(getContext().getString(R.string.state) + ": " + stateText);
 
-        String address = Utilities.getGoogleAddress(locationDTO.getStreetName(), locationDTO.getBuildingNumber(), locationDTO.getCity());
-        textViewAddress.setText(getContext().getString(R.string.address) + ": " + address);
+        if(locationDTO.getStreetName() != null && !"".equals(locationDTO.getStreetName())){
+            String address = Utilities.getGoogleAddress(locationDTO.getStreetName(), locationDTO.getBuildingNumber(), locationDTO.getCity());
+            textViewAddress.setText(getContext().getString(R.string.address) + ": " + address);
+        }else {
+            textViewAddress.setText(getContext().getString(R.string.address) + ": " + locationDTO.getCompleteAdrressFromGeocoder());
+        }
         textViewUser.setText(getContext().getString(R.string.user) + ": " + userDTO.getName());
         textViewPhoneNumber.setText(getContext().getString(R.string.phone) + ": " + "607779462");
         textViewTotalWeight.setText(getContext().getString(R.string.total_weight) + ": " +  valuesDTO.get(position).getTotalWeight() + "kg");

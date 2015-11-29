@@ -79,6 +79,7 @@ public class CacheDbHelper implements DatabaseHandler{
             values.put(LocationContract.LocationEntry.COLUMN_NAME_DISTRICT, locationDTO.getDistrict());
             values.put(LocationContract.LocationEntry.COLUMN_NAME_LATITUDE, locationDTO.getLatitude());
             values.put(LocationContract.LocationEntry.COLUMN_NAME_LONGITUDE, locationDTO.getLongitude());
+            values.put(LocationContract.LocationEntry.COLUMN_NAME_FULL_ADDRESS, locationDTO.getCompleteAdrressFromGeocoder());
 
             long newRowId;
             newRowId = db.insert(
@@ -275,7 +276,7 @@ public class CacheDbHelper implements DatabaseHandler{
             long idLocation = locationDTO.getIdLocation();
             SQLiteDatabase dbRead = mDbHelper.getReadableDatabase();
 
-            Cursor mCount = dbRead.rawQuery("select locationid, streetname, buildingnumber, floor, door, city, neighborhood, district, latitude, longitude from location where locationid = " + idLocation, null);
+            Cursor mCount = dbRead.rawQuery("select locationid, streetname, buildingnumber, floor, door, city, neighborhood, district, latitude, longitude, fullAddress from location where locationid = " + idLocation, null);
             mCount.moveToFirst();
 
             locationDTO.setIdLocation(mCount.getLong(0));
@@ -288,6 +289,7 @@ public class CacheDbHelper implements DatabaseHandler{
             locationDTO.setDistrict(mCount.getString(7));
             locationDTO.setLatitude(mCount.getString(8));
             locationDTO.setLongitude(mCount.getString(9));
+            locationDTO.setCompleteAdrressFromGeocoder(mCount.getString(10));
 
             mCount.close();
 

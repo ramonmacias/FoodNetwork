@@ -3,6 +3,8 @@ package com.uab.es.cat.foodnetwork;
 import android.app.ListActivity;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
+import android.location.Address;
+import android.location.Geocoder;
 import android.location.Location;
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.AppCompatActivity;
@@ -16,6 +18,7 @@ import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -37,9 +40,11 @@ import com.uab.es.cat.foodnetwork.dto.UserDTO;
 import com.uab.es.cat.foodnetwork.util.UserSession;
 import com.uab.es.cat.foodnetwork.util.Utilities;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 public class FoodDonationActivity extends ListActivity implements View.OnClickListener, OnMapReadyCallback, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, LocationListener {
 
@@ -253,6 +258,34 @@ public class FoodDonationActivity extends ListActivity implements View.OnClickLi
             LocationDTO locationDTO = new LocationDTO();
             locationDTO.setLongitude(String.valueOf(myLongitude));
             locationDTO.setLatitude(String.valueOf(myLatitude));
+            Geocoder geocoder = new Geocoder(this, Locale.getDefault());
+            List<Address> addresses = null;
+            try {
+                addresses = geocoder.getFromLocation(myLatitude, myLongitude, 1);
+                if(addresses != null && addresses.size() > 0){
+                    Address address = addresses.get(0);
+                    ArrayList<String> addressFragments = new ArrayList<String>();
+
+                    // Fetch the address lines using getAddressLine,
+                    // join them, and send them to the thread.
+                    for(int i = 0; i < address.getMaxAddressLineIndex(); i++) {
+                        addressFragments.add(address.getAddressLine(i));
+                    }
+                    if(addressFragments != null && addressFragments.size() > 0){
+                        if(addressFragments.size() == 3){
+                            locationDTO.setCompleteAdrressFromGeocoder(addressFragments.get(1) + " Barcelona");
+                        }else {
+                            String fullAdress = "";
+                            for(String partFromAddress : addressFragments){
+                                fullAdress += partFromAddress;
+                            }
+                            locationDTO.setCompleteAdrressFromGeocoder(fullAdress);
+                        }
+                    }
+                }
+            } catch (IOException e) {
+                ShowToast(getString(R.string.no_address_found));
+            }
             long locationId = cacheDbHelper.insert(locationDTO, mDbHelper);
             donationDTO.setIdLocation(locationId);
         }else {
@@ -298,5 +331,10 @@ public class FoodDonationActivity extends ListActivity implements View.OnClickLi
         mLastLocation = location;
         myLatitude = location.getLatitude();
         myLongitude = location.getLongitude();
+    }
+
+    public void ShowToast(String message){
+        Toast.makeText(this, message,
+                Toast.LENGTH_LONG).show();
     }
 }

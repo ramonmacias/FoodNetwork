@@ -15,6 +15,7 @@ public class LocationDTO extends BaseDTO {
     private String district;
     private String latitude;
     private String longitude;
+    private String completeAdrressFromGeocoder;
 
 
     public LocationDTO(){
@@ -99,6 +100,15 @@ public class LocationDTO extends BaseDTO {
 
     public void setLongitude(String longitude) {
         this.longitude = longitude;
+    }
+
+
+    public String getCompleteAdrressFromGeocoder() {
+        return completeAdrressFromGeocoder;
+    }
+
+    public void setCompleteAdrressFromGeocoder(String completeAdrressFromGeocoder) {
+        this.completeAdrressFromGeocoder = completeAdrressFromGeocoder;
     }
 
 }
