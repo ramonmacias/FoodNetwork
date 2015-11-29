@@ -320,7 +320,7 @@ public class CacheDbHelper implements DatabaseHandler{
     @Override
     public List<DonationDTO> getReadyAndCurrentDonations(FoodNetworkDbHelper mDbHelper) {
         SQLiteDatabase dbRead = mDbHelper.getReadableDatabase();
-        Cursor mCount= dbRead.rawQuery("select donatioid, userid, locationid, state, insertDate, totalWeight from donation where state in (1, 2)", null);
+        Cursor mCount= dbRead.rawQuery("select donatioid, userid, locationid, state, insertDate, totalWeight, initialHour, finalHour from donation where state in (1, 2)", null);
         List<DonationDTO> donations = new ArrayList<DonationDTO>();
 
         while (mCount.moveToNext()) {
@@ -332,6 +332,8 @@ public class CacheDbHelper implements DatabaseHandler{
             donationDTO.setState(mCount.getInt(3));
             donationDTO.setInsertDate(mCount.getString(4));
             donationDTO.setTotalWeight(mCount.getInt(5));
+            donationDTO.setInitialHour(mCount.getString(6));
+            donationDTO.setFinalHour(mCount.getString(7));
 
             donations.add(donationDTO);
         }

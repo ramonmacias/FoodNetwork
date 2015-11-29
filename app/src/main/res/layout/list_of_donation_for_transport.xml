@@ -23,6 +23,46 @@
             android:textSize="30px" >
         </TextView>
 
+        <TextView
+            android:id="@+id/address"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@+id/address"
+            android:textSize="30px" >
+        </TextView>
+
+        <TextView
+            android:id="@+id/user"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@+id/user"
+            android:textSize="30px" >
+        </TextView>
+
+        <TextView
+            android:id="@+id/phoneNumber"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@+id/phoneNumber"
+            android:textSize="30px" >
+        </TextView>
+
+        <TextView
+            android:id="@+id/totalWeight"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@+id/totalWeight"
+            android:textSize="30px" >
+        </TextView>
+
+        <TextView
+            android:id="@+id/timeZone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@+id/timeZone"
+            android:textSize="30px" >
+        </TextView>
+
     </LinearLayout>
 
 </LinearLayout>

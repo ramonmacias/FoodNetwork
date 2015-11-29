@@ -78,4 +78,7 @@
     <string name="transporter">Transportista</string>
     <string name="title_activity_donations_for_transport">DonationsForTransport</string>
     <string name="start_collecting">Iniciar la recogida</string>
+    <string name="user">Usuario</string>
+    <string name="phone">Teléfono</string>
+    <string name="total_weight">Peso total</string>
 </resources>

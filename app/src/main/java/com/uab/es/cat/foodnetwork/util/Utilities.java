@@ -28,6 +28,20 @@ public class Utilities {
         return fullAddress;
     }
 
+    public static String getGoogleAddress(String streetName, String buildingNumber, String city){
+        String googleAddress = "";
+        if(streetName != null && !"".equals(streetName)){
+            googleAddress += "C/" + streetName;
+        }
+        if(buildingNumber != null && !"".equals(buildingNumber)){
+            googleAddress += " , " + buildingNumber;
+        }
+        if(city != null && !"".equals(city)){
+            googleAddress += " , " + city;
+        }
+        return googleAddress;
+    }
+
     public static String dateToString(Date date){
         DateFormat dateFormat = new SimpleDateFormat(DATE_FORMAT_YYYY_MM_DD);
         return dateFormat.format(date);
