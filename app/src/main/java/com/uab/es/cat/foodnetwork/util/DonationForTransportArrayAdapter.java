@@ -1,6 +1,7 @@
 package com.uab.es.cat.foodnetwork.util;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +18,7 @@ import com.uab.es.cat.foodnetwork.dto.UserDTO;
 
 import org.w3c.dom.Text;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -27,6 +29,7 @@ public class DonationForTransportArrayAdapter extends ArrayAdapter<String> {
     private final List<String> values;
     private final Context context;
     private final List<DonationDTO> valuesDTO;
+    public ArrayList selectedIds = new ArrayList();
 
     public DonationForTransportArrayAdapter(Context context, List<String> values, List<DonationDTO> valuesDTO){
         super(context, R.layout.list_of_donation_for_transport, values);
@@ -70,7 +73,17 @@ public class DonationForTransportArrayAdapter extends ArrayAdapter<String> {
         textViewPhoneNumber.setText(getContext().getString(R.string.phone) + ": " + "607779462");
         textViewTotalWeight.setText(getContext().getString(R.string.total_weight) + ": " +  valuesDTO.get(position).getTotalWeight() + "kg");
         textViewTimeZone.setText(getContext().getString(R.string.time_zone) + ": " + valuesDTO.get(position).getInitialHour() + " a " + valuesDTO.get(position).getFinalHour());
-
+        if(rowView != null){
+            if (selectedIds.contains(position)) {
+                rowView.setSelected(true);
+                rowView.setPressed(true);
+                rowView.setBackgroundColor(Color.parseColor("#FF8080"));
+            } else {
+                rowView.setSelected(false);
+                rowView.setPressed(false);
+                rowView.setBackgroundColor(Color.parseColor("#FFE5E5"));
+            }
+        }
         //String s = values.get(position);
         /*String s = String.valueOf(valuesDTO.get(position).getIdDonation());
         if (s.startsWith("1")) {
@@ -81,4 +94,14 @@ public class DonationForTransportArrayAdapter extends ArrayAdapter<String> {
 
         return rowView;
     }
+
+    public void toggleSelected(Integer position) {
+        if(selectedIds.contains(position)) {
+            selectedIds.remove(position);
+        }
+        else {
+            selectedIds.add(position);
+        }
+    }
+
 }

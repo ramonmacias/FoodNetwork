@@ -15,7 +15,7 @@
         <ListView
             android:id="@android:id/list"
             android:layout_width="fill_parent"
-            android:layout_height="440dp">
+            android:layout_height="480dp">
         </ListView>
 
         <RelativeLayout android:layout_width="fill_parent"
@@ -24,6 +24,7 @@
             <Button android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:onClick="startCollecting"
+                android:id="@+id/startCollectingId"
                 android:text="@string/start_collecting" />
 
         </RelativeLayout>
