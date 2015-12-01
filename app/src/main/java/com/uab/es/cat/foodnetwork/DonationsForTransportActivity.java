@@ -16,6 +16,7 @@ import com.uab.es.cat.foodnetwork.database.FoodNetworkDbHelper;
 import com.uab.es.cat.foodnetwork.dto.DonationDTO;
 import com.uab.es.cat.foodnetwork.util.DonationForTransportArrayAdapter;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,6 +24,7 @@ public class DonationsForTransportActivity extends ListActivity {
 
     DonationForTransportArrayAdapter adapter;
     Button startCollectingButton;
+    List<DonationDTO> donations;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,7 +35,7 @@ public class DonationsForTransportActivity extends ListActivity {
         FoodNetworkDbHelper mDbHelper = new FoodNetworkDbHelper(getApplicationContext());
 
         CacheDbHelper cacheDbHelper = new CacheDbHelper();
-        List<DonationDTO> donations = cacheDbHelper.getReadyAndCurrentDonations(mDbHelper);
+        donations = cacheDbHelper.getReadyAndCurrentDonations(mDbHelper);
         List<String> strings = new ArrayList<String>();
 
         for(DonationDTO donationDTO : donations){
@@ -60,6 +62,8 @@ public class DonationsForTransportActivity extends ListActivity {
     }
 
     public void startCollecting(View view){
-        Toast.makeText(this, adapter.selectedIds.size() + " items selected", Toast.LENGTH_LONG).show();
+        Intent intent = new Intent(this, CollectingDonationsActivity.class);
+        intent.putExtra("ListOfDonationsSelected", (Serializable) adapter.selectedDonationDTO);
+        startActivity(intent);
     }
 }

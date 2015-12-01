@@ -1,9 +1,11 @@
 package com.uab.es.cat.foodnetwork.dto;
 
+import java.io.Serializable;
+
 /**
  * Created by ramonmacias on 18/10/15.
  */
-public class DonationDTO extends BaseDTO {
+public class DonationDTO extends BaseDTO implements Serializable{
 
 
 

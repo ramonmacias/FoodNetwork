@@ -81,4 +81,6 @@
     <string name="user">Usuario</string>
     <string name="phone">Teléfono</string>
     <string name="total_weight">Peso total</string>
+    <string name="title_activity_collecting_donations">CollectingDonationsActivity</string>
+    <string name="to">a</string>
 </resources>

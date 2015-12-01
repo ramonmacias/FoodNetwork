@@ -1,9 +1,11 @@
 package com.uab.es.cat.foodnetwork.dto;
 
+import java.io.Serializable;
+
 /**
  * Created by ramonmacias on 18/10/15.
  */
-public class BaseDTO {
+public class BaseDTO implements Serializable{
 
     public String insertDate;
     public String lastUpdate;

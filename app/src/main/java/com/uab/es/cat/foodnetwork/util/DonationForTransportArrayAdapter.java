@@ -29,6 +29,7 @@ public class DonationForTransportArrayAdapter extends ArrayAdapter<String> {
     private final List<String> values;
     private final Context context;
     private final List<DonationDTO> valuesDTO;
+    public List<DonationDTO> selectedDonationDTO = new ArrayList<DonationDTO>();
     public ArrayList selectedIds = new ArrayList();
 
     public DonationForTransportArrayAdapter(Context context, List<String> values, List<DonationDTO> valuesDTO){
@@ -98,9 +99,11 @@ public class DonationForTransportArrayAdapter extends ArrayAdapter<String> {
     public void toggleSelected(Integer position) {
         if(selectedIds.contains(position)) {
             selectedIds.remove(position);
+            selectedDonationDTO.remove(valuesDTO.get(position));
         }
         else {
             selectedIds.add(position);
+            selectedDonationDTO.add(valuesDTO.get(position));
         }
     }
 

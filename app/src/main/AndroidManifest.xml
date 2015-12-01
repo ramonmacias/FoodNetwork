@@ -85,6 +85,11 @@
             android:label="@string/title_activity_donations_for_transport"
             android:theme="@style/Theme.AppCompat.Light" >
         </activity>
+        <activity
+            android:name=".CollectingDonationsActivity"
+            android:label="@string/title_activity_collecting_donations"
+            android:theme="@style/Theme.AppCompat.Light" >
+        </activity>
     </application>
 
 </manifest>

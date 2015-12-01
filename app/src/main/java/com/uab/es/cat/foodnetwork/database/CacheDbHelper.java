@@ -195,6 +195,26 @@ public class CacheDbHelper implements DatabaseHandler{
                     selection,
                     selectionArgs);
         }
+        if(baseDTO instanceof DonationDTO){
+            DonationDTO donationDTO = (DonationDTO) baseDTO;
+
+            ContentValues values = new ContentValues();
+            values.put(DonationContract.DonationEntry.COLUMN_NAME_USER_ID, donationDTO.getIdUser());
+            values.put(DonationContract.DonationEntry.COLUMN_NAME_LOCATION_ID, donationDTO.getIdUser());
+            values.put(DonationContract.DonationEntry.COLUMN_NAME_STATE, donationDTO.getIdUser());
+            values.put(DonationContract.DonationEntry.COLUMN_NAME_INITIAL_HOUR, donationDTO.getIdUser());
+            values.put(DonationContract.DonationEntry.COLUMN_NAME_FIINAL_HOUR, donationDTO.getIdUser());
+            values.put(DonationContract.DonationEntry.COLUMN_NAME_TOTAL_WEIGHT, donationDTO.getIdUser());
+
+            String selection = DonationContract.DonationEntry.COLUMN_NAME_LOCATION_ID + " LIKE ?";
+            String[] selectionArgs = { String.valueOf(donationDTO.getIdDonation()) };
+
+            int count = db.update(
+                    DonationContract.DonationEntry.TABLE_NAME,
+                    values,
+                    selection,
+                    selectionArgs);
+        }
 
 
     }
