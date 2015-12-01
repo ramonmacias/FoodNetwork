@@ -5,6 +5,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.TextView;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -17,8 +19,10 @@ import com.uab.es.cat.foodnetwork.database.CacheDbHelper;
 import com.uab.es.cat.foodnetwork.database.FoodNetworkDbHelper;
 import com.uab.es.cat.foodnetwork.dto.DonationDTO;
 import com.uab.es.cat.foodnetwork.dto.LocationDTO;
+import com.uab.es.cat.foodnetwork.util.Utilities;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class CollectingDonationsActivity extends AppCompatActivity implements OnMapReadyCallback {
@@ -32,6 +36,10 @@ public class CollectingDonationsActivity extends AppCompatActivity implements On
     private GoogleMap map;
     private LatLng latLng;
 
+    TextView totalWeightOfDonationsTextView;
+    TextView totalNumOfDonationsTextView;
+    TextView dateOfCollectingTextView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,6 +47,11 @@ public class CollectingDonationsActivity extends AppCompatActivity implements On
 
         cacheDbHelper = new CacheDbHelper();
         mDbHelper = new FoodNetworkDbHelper(getApplicationContext());
+
+        totalWeightOfDonationsTextView = (TextView) findViewById(R.id.totalWeight);
+        totalNumOfDonationsTextView = (TextView) findViewById(R.id.totalNumOfDonations);
+        dateOfCollectingTextView = (TextView) findViewById(R.id.collectingDate);
+
 
         Intent intent = getIntent();
         List<DonationDTO> donations = (List<DonationDTO>) intent.getSerializableExtra("ListOfDonationsSelected");
@@ -48,6 +61,10 @@ public class CollectingDonationsActivity extends AppCompatActivity implements On
             increaseTotalWeight(donationDTO);
             //updateDonationStatus(donationDTO);
         }
+
+        totalWeightOfDonationsTextView.setText(getString(R.string.total_weight) + ": " + String.valueOf(totalWeightOfDonations));
+        totalNumOfDonationsTextView.setText(getString(R.string.number_of_donations) + ": " + String.valueOf(totalSelectedDonations));
+        dateOfCollectingTextView.setText(getString(R.string.collecting_date) + " " + Utilities.dateToString(new Date()));
 
         mapFragment = (MapFragment) getFragmentManager()
                 .findFragmentById(R.id.map);
@@ -75,6 +92,10 @@ public class CollectingDonationsActivity extends AppCompatActivity implements On
     public void updateDonationStatus(DonationDTO donationDTO){
         donationDTO.setState(2);
         cacheDbHelper.update(donationDTO, mDbHelper);
+    }
+
+    public void finalizeCollect(View view){
+
     }
 
     @Override

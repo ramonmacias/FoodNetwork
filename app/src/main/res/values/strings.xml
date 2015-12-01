@@ -83,4 +83,7 @@
     <string name="total_weight">Peso total</string>
     <string name="title_activity_collecting_donations">CollectingDonationsActivity</string>
     <string name="to">a</string>
+    <string name="collecting_date">Ruta del día</string>
+    <string name="number_of_donations">Número total de donaciones</string>
+    <string name="finalize_collect">Finalizar recogida</string>
 </resources>
