@@ -12,6 +12,8 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.model.BitmapDescriptor;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
@@ -35,6 +37,9 @@ public class CollectingDonationsActivity extends AppCompatActivity implements On
     private MapFragment mapFragment;
     private GoogleMap map;
     private LatLng latLng;
+    private double bancAlimentsLatitude = 41.35062245;
+    private double bancAlimentsLongitude = 2.14470506;
+    private List<DonationDTO> donations;
 
     TextView totalWeightOfDonationsTextView;
     TextView totalNumOfDonationsTextView;
@@ -54,12 +59,13 @@ public class CollectingDonationsActivity extends AppCompatActivity implements On
 
 
         Intent intent = getIntent();
-        List<DonationDTO> donations = (List<DonationDTO>) intent.getSerializableExtra("ListOfDonationsSelected");
+        donations = (List<DonationDTO>) intent.getSerializableExtra("ListOfDonationsSelected");
         totalSelectedDonations = donations.size();
+        generateStaticMarkers();
         for(DonationDTO donationDTO : donations){
             generateNewMarker(donationDTO);
             increaseTotalWeight(donationDTO);
-            //updateDonationStatus(donationDTO);
+            updateDonationStatus(donationDTO);
         }
 
         totalWeightOfDonationsTextView.setText(getString(R.string.total_weight) + ": " + String.valueOf(totalWeightOfDonations));
@@ -69,6 +75,16 @@ public class CollectingDonationsActivity extends AppCompatActivity implements On
         mapFragment = (MapFragment) getFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
+    }
+
+    public void generateStaticMarkers(){
+        latLng = new LatLng(bancAlimentsLatitude, bancAlimentsLongitude);
+        MarkerOptions options = new MarkerOptions()
+                .position(latLng)
+                .title(getString(R.string.food_bank))
+                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_VIOLET));
+
+        markers.add(options);
     }
 
     public void generateNewMarker(DonationDTO donationDTO){
@@ -95,7 +111,11 @@ public class CollectingDonationsActivity extends AppCompatActivity implements On
     }
 
     public void finalizeCollect(View view){
-
+        for(DonationDTO donationDTO : donations){
+            donationDTO.setState(3);
+            cacheDbHelper.update(donationDTO, mDbHelper);
+        }
+        startActivity(new Intent(this, MainReceptorActivity.class));
     }
 
     @Override

@@ -200,13 +200,13 @@ public class CacheDbHelper implements DatabaseHandler{
 
             ContentValues values = new ContentValues();
             values.put(DonationContract.DonationEntry.COLUMN_NAME_USER_ID, donationDTO.getIdUser());
-            values.put(DonationContract.DonationEntry.COLUMN_NAME_LOCATION_ID, donationDTO.getIdUser());
-            values.put(DonationContract.DonationEntry.COLUMN_NAME_STATE, donationDTO.getIdUser());
-            values.put(DonationContract.DonationEntry.COLUMN_NAME_INITIAL_HOUR, donationDTO.getIdUser());
-            values.put(DonationContract.DonationEntry.COLUMN_NAME_FIINAL_HOUR, donationDTO.getIdUser());
-            values.put(DonationContract.DonationEntry.COLUMN_NAME_TOTAL_WEIGHT, donationDTO.getIdUser());
+            values.put(DonationContract.DonationEntry.COLUMN_NAME_LOCATION_ID, donationDTO.getIdLocation());
+            values.put(DonationContract.DonationEntry.COLUMN_NAME_STATE, donationDTO.getState());
+            values.put(DonationContract.DonationEntry.COLUMN_NAME_INITIAL_HOUR, donationDTO.getInitialHour());
+            values.put(DonationContract.DonationEntry.COLUMN_NAME_FIINAL_HOUR, donationDTO.getFinalHour());
+            values.put(DonationContract.DonationEntry.COLUMN_NAME_TOTAL_WEIGHT, donationDTO.getTotalWeight());
 
-            String selection = DonationContract.DonationEntry.COLUMN_NAME_LOCATION_ID + " LIKE ?";
+            String selection = DonationContract.DonationEntry.COLUMN_NAME_DONATION_ID + " LIKE ?";
             String[] selectionArgs = { String.valueOf(donationDTO.getIdDonation()) };
 
             int count = db.update(
