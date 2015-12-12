@@ -92,4 +92,5 @@
     <string name="current_state">En curso</string>
     <string name="completed_state">Completado</string>
     <string name="all_state">Cualquier estado</string>
+    <string name="title_activity_rankings">RankingsActivity</string>
 </resources>

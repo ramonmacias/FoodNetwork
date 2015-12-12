@@ -84,7 +84,7 @@ public class MainDonateActivity extends AppCompatActivity implements GoogleApiCl
     }
 
     public void rankings(View view){
-        //startActivity(new Intent(getApplicationContext(), MapsSampleActivity.class));
+        startActivity(new Intent(getApplicationContext(), RankingsActivity.class));
     }
 
     private void signOut() {

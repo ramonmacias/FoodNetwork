@@ -13,7 +13,7 @@
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme" >
+        android:theme="@style/MyMaterialTheme" >
         <service
             android:name=".FetchAddressIntentService"
             android:exported="false" />
@@ -89,6 +89,10 @@
             android:name=".CollectingDonationsActivity"
             android:label="@string/title_activity_collecting_donations"
             android:theme="@style/Theme.AppCompat.Light" >
+        </activity>
+        <activity
+            android:name=".RankingsActivity"
+            android:label="@string/title_activity_rankings">
         </activity>
     </application>
 
