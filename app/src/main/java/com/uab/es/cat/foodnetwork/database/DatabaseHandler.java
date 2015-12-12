@@ -22,4 +22,6 @@ public interface DatabaseHandler {
     public List<FoodsDTO> getFoodsOfDonation(long idDonation, FoodNetworkDbHelper mDbHelper);
 
     public List<DonationDTO> getReadyAndCurrentDonations(FoodNetworkDbHelper mDbHelper);
+
+    public List<DonationDTO> getDonationsByState(FoodNetworkDbHelper mDbHelper, int state);
 }

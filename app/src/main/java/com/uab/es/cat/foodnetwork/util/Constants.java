@@ -17,6 +17,9 @@ public class Constants {
     public static final String RESULT_DATA_KEY = PACKAGE_NAME + ".RESULT_DATA_KEY";
     public static final String LOCATION_DATA_EXTRA = PACKAGE_NAME + ".LOCATION_DATA_EXTRA";
     public static final String LOCATION_ADDRES_TEXT = PACKAGE_NAME + ".LOCATION_ADDRES_TEXT";
+    public static final int ACTIVE_STATE = 1;
+    public static final int CURRENT_STATE = 2;
+    public static final int COMPLETED_STATE = 3;
 
     public static Map<Integer, String> STATE;
     static {

@@ -2,6 +2,19 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.uab.es.cat.foodnetwork.AllDonationsMapActivity">
-    <item android:id="@+id/action_settings" android:title="@string/action_settings"
+
+
+    <item android:id="@+id/active_state" android:title="@string/active_state"
         android:orderInCategory="100" app:showAsAction="never" />
+
+    <item android:id="@+id/current_state" android:title="@string/current_state"
+        android:orderInCategory="200" app:showAsAction="never" />
+
+    <item android:id="@+id/completed_state" android:title="@string/completed_state"
+        android:orderInCategory="300" app:showAsAction="never" />
+
+    <item android:id="@+id/all_state" android:title="@string/all_state"
+        android:orderInCategory="400" app:showAsAction="never" />
+
 </menu>
+

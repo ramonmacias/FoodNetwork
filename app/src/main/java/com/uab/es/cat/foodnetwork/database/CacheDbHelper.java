@@ -362,6 +362,29 @@ public class CacheDbHelper implements DatabaseHandler{
         return donations;
     }
 
+    @Override
+    public List<DonationDTO> getDonationsByState(FoodNetworkDbHelper mDbHelper, int state) {
+        SQLiteDatabase dbRead = mDbHelper.getReadableDatabase();
+        Cursor mCount= dbRead.rawQuery("select donatioid, userid, locationid, state, insertDate, totalWeight, initialHour, finalHour from donation where state = " + state, null);
+        List<DonationDTO> donations = new ArrayList<DonationDTO>();
+
+        while (mCount.moveToNext()) {
+            DonationDTO donationDTO = new DonationDTO();
+
+            donationDTO.setIdDonation(mCount.getLong(0));
+            donationDTO.setIdUser(mCount.getLong(1));
+            donationDTO.setIdLocation(mCount.getLong(2));
+            donationDTO.setState(mCount.getInt(3));
+            donationDTO.setInsertDate(mCount.getString(4));
+            donationDTO.setTotalWeight(mCount.getInt(5));
+            donationDTO.setInitialHour(mCount.getString(6));
+            donationDTO.setFinalHour(mCount.getString(7));
+
+            donations.add(donationDTO);
+        }
+        return donations;
+    }
+
     public List<DonationDTO> getDonationsByUserId(long userId, FoodNetworkDbHelper mDbHelper){
 
         SQLiteDatabase dbRead = mDbHelper.getReadableDatabase();
