@@ -9,10 +9,13 @@ import com.uab.es.cat.foodnetwork.dto.BaseDTO;
 import com.uab.es.cat.foodnetwork.dto.DonationDTO;
 import com.uab.es.cat.foodnetwork.dto.FoodsDTO;
 import com.uab.es.cat.foodnetwork.dto.LocationDTO;
+import com.uab.es.cat.foodnetwork.dto.RankingDTO;
 import com.uab.es.cat.foodnetwork.dto.UserDTO;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by ramonmacias on 18/10/15.
@@ -383,6 +386,63 @@ public class CacheDbHelper implements DatabaseHandler{
             donations.add(donationDTO);
         }
         return donations;
+    }
+
+    @Override
+    public List<UserDTO> getRankingUser(FoodNetworkDbHelper mDbHelper) {
+        SQLiteDatabase dbRead = mDbHelper.getReadableDatabase();
+        Cursor mCount= dbRead.rawQuery("select us.userid, us.name, us.lastname, count(*) as number_of_donations from users us, donation don where don.userid = us.userid and don.state = 3 " +
+                "group by us.userid, us.name, us.lastname order by number_of_donations desc", null);
+        List<UserDTO> rankingUsers = new ArrayList<UserDTO>();
+
+        while (mCount.moveToNext()) {
+            UserDTO userDTO = new UserDTO();
+
+            userDTO.setIdUser(mCount.getLong(0));
+            userDTO.setName(mCount.getString(1));
+            userDTO.setLastName(mCount.getString(2));
+            userDTO.setNumberOfDonationsCompleted(mCount.getString(3));
+
+            rankingUsers.add(userDTO);
+        }
+        return rankingUsers;
+    }
+
+    @Override
+    public List<RankingDTO> getRankingDistricts(FoodNetworkDbHelper mDbHelper) {
+
+        SQLiteDatabase dbRead = mDbHelper.getReadableDatabase();
+        Cursor mCount= dbRead.rawQuery("select lo.district, count(*) as number_of_donations from users us, donation don, location lo where lo.locationid = us.idlocation and don.userid = us.userid and don.state = 3 " +
+                "group by lo.district order by number_of_donations desc", null);
+        List<RankingDTO> rankingDistricts = new ArrayList<RankingDTO>();
+        while (mCount.moveToNext()) {
+            RankingDTO rankingDTO = new RankingDTO();
+
+            rankingDTO.setDistrict(mCount.getString(0));
+            rankingDTO.setNumberOfDonationsCompleted(mCount.getString(1));
+
+            rankingDistricts.add(rankingDTO);
+        }
+
+        return rankingDistricts;
+    }
+
+    @Override
+    public List<RankingDTO> getRankingNeighborhood(FoodNetworkDbHelper mDbHelper) {
+        SQLiteDatabase dbRead = mDbHelper.getReadableDatabase();
+        Cursor mCount= dbRead.rawQuery("select lo.neighborhood, count(*) as number_of_donations from users us, donation don, location lo where lo.locationid = us.idlocation and don.userid = us.userid and don.state = 3 " +
+                "group by lo.district order by number_of_donations desc", null);
+        List<RankingDTO> rankingNeighborhood = new ArrayList<RankingDTO>();
+        while (mCount.moveToNext()) {
+            RankingDTO rankingDTO = new RankingDTO();
+
+            rankingDTO.setNeighborhood(mCount.getString(0));
+            rankingDTO.setNumberOfDonationsCompleted(mCount.getString(1));
+
+            rankingNeighborhood.add(rankingDTO);
+        }
+
+        return rankingNeighborhood;
     }
 
     public List<DonationDTO> getDonationsByUserId(long userId, FoodNetworkDbHelper mDbHelper){

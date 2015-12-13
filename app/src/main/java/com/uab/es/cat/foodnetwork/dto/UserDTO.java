@@ -18,6 +18,7 @@ public class UserDTO extends BaseDTO{
     private String initialHour;
     private String finalHour;
     private long phoneNumber;
+    private String numberOfDonationsCompleted;
 
     public UserDTO(){
 
@@ -127,6 +128,12 @@ public class UserDTO extends BaseDTO{
         this.phoneNumber = phoneNumber;
     }
 
+    public String getNumberOfDonationsCompleted() {
+        return numberOfDonationsCompleted;
+    }
 
+    public void setNumberOfDonationsCompleted(String numberOfDonationsCompleted) {
+        this.numberOfDonationsCompleted = numberOfDonationsCompleted;
+    }
 
 }
