@@ -92,7 +92,11 @@
         </activity>
         <activity
             android:name=".RankingsActivity"
-            android:label="@string/title_activity_rankings">
+            android:label="@string/title_activity_rankings" >
+        </activity>
+        <activity
+            android:name=".BestCollectingActivity"
+            android:label="@string/title_activity_best_collecting" >
         </activity>
     </application>
 

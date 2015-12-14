@@ -46,4 +46,10 @@ public class Utilities {
         DateFormat dateFormat = new SimpleDateFormat(DATE_FORMAT_YYYY_MM_DD);
         return dateFormat.format(date);
     }
+
+    public static int calculateDistanceBetweenToPoints(double initialCoordenateX, double initialCoordenateY, double finalCoordenateX, double finalCoordenateY){
+        double distance = Math.hypot(finalCoordenateX-initialCoordenateX, finalCoordenateY-initialCoordenateY);
+
+        return (int)Math.floor(distance + 0.5d);
+    }
 }
