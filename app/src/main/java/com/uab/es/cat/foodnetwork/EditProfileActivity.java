@@ -170,15 +170,15 @@ public class EditProfileActivity extends AppCompatActivity implements GoogleApiC
 
     public void updateUserInfo(LocationDTO locationDTO){
 
-        long idLocation = userDTO.getIdLocation();
+        /*long idLocation = userDTO.getIdLocation();
         if(idLocation != 0){
             locationDTO.setIdLocation(idLocation);
             cacheDbHelper.update(locationDTO, mDbHelper);
-        }else {
+        }else {*/
             long idLocationNew = cacheDbHelper.insert(locationDTO, mDbHelper);
             userDTO.setIdLocation(idLocationNew);
             cacheDbHelper.update(userDTO, mDbHelper);
-        }
+        //}
 
         int actionRadioValue = 0;
         String initialHour = null;
