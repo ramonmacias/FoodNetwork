@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -18,21 +19,27 @@ import com.uab.es.cat.foodnetwork.util.Utilities;
 
 public class ViewProfileActivity extends AppCompatActivity {
 
-    TextView textViewName;
-    TextView textViewLastName;
-    TextView textViewInitialHour;
-    TextView textViewFinalHour;
-    TextView textViewActionRadio;
-    TextView textViewTypeVehicle;
-    TextView textViewTmeZone;
-    TextView textViewActionRadioTitle;
-    TextView textViewTypeVehicleTitle;
+    private TextView textViewName;
+    private TextView textViewLastName;
+    private TextView textViewInitialHour;
+    private TextView textViewFinalHour;
+    private TextView textViewActionRadio;
+    private TextView textViewTypeVehicle;
+    private TextView textViewTmeZone;
+    private TextView textViewActionRadioTitle;
+    private TextView textViewTypeVehicleTitle;
+    private Toolbar mToolbar;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_profile);
+
+        mToolbar = (Toolbar) findViewById(R.id.toolbar);
+
+        setSupportActionBar(mToolbar);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
 
         textViewName = (TextView) findViewById(R.id.name);
         textViewLastName = (TextView) findViewById(R.id.lastName);

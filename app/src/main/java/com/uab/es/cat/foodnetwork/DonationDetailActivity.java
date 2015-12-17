@@ -4,9 +4,11 @@ import android.app.ListActivity;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ArrayAdapter;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -24,7 +26,7 @@ import com.uab.es.cat.foodnetwork.dto.LocationDTO;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DonationDetailActivity extends ListActivity implements OnMapReadyCallback {
+public class DonationDetailActivity extends AppCompatActivity implements OnMapReadyCallback {
 
     private GoogleMap map;
     private MapFragment mapFragment;
@@ -34,6 +36,8 @@ public class DonationDetailActivity extends ListActivity implements OnMapReadyCa
     private TextView stateOfDonationTextView;
     private TextView initialHourTextView;
     private TextView finalHourTextView;
+    private Toolbar mToolbar;
+    private ListView ItemsLst;
 
     double latitude;
     double longitude;
@@ -48,6 +52,13 @@ public class DonationDetailActivity extends ListActivity implements OnMapReadyCa
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_donation_detail);
+
+        mToolbar = (Toolbar) findViewById(R.id.toolbar);
+
+        setSupportActionBar(mToolbar);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+
+        ItemsLst = (ListView) findViewById(R.id.listview);
 
         Intent intent = getIntent();
         String idDonation = intent.getStringExtra(DonationsActivity.DONATION_ID);
@@ -85,7 +96,7 @@ public class DonationDetailActivity extends ListActivity implements OnMapReadyCa
         /** Defining the ArrayAdapter to set items to ListView */
         adapter = new ArrayAdapter(this, android.R.layout.simple_list_item_multiple_choice, list);
 
-        setListAdapter(adapter);
+        ItemsLst.setAdapter(adapter);
 
         mapFragment = (MapFragment) getFragmentManager()
                 .findFragmentById(R.id.map);

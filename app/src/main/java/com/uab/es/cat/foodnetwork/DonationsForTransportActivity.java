@@ -4,9 +4,11 @@ import android.app.ListActivity;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -20,16 +22,25 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DonationsForTransportActivity extends ListActivity {
+public class DonationsForTransportActivity extends AppCompatActivity {
 
     DonationForTransportArrayAdapter adapter;
     Button startCollectingButton;
     List<DonationDTO> donations;
+    private ListView ItemsLst;
+    private Toolbar mToolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_donations_for_transport);
+
+        mToolbar = (Toolbar) findViewById(R.id.toolbar);
+
+        setSupportActionBar(mToolbar);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+
+        ItemsLst = (ListView) findViewById(R.id.listview);
 
         startCollectingButton = (Button) findViewById(R.id.startCollectingId);
         FoodNetworkDbHelper mDbHelper = new FoodNetworkDbHelper(getApplicationContext());
@@ -43,14 +54,19 @@ public class DonationsForTransportActivity extends ListActivity {
         }
         startCollectingButton.setVisibility(View.GONE);
         adapter = new DonationForTransportArrayAdapter(this, strings, donations);
-        setListAdapter(adapter);
-    }
+        ItemsLst.setAdapter(adapter);
 
-    @Override
-    protected void onListItemClick(ListView l, View v, int position, long id) {
-        adapter.toggleSelected(new Integer(position));
-        updateStartCollectingButtonStatus(adapter.selectedIds);
-        setListAdapter(adapter);
+        ItemsLst.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+            @Override
+            public void onItemClick(AdapterView<?> l, View v, int position,
+                                    long id) {
+                adapter.toggleSelected(new Integer(position));
+                updateStartCollectingButtonStatus(adapter.selectedIds);
+                ItemsLst.setAdapter(adapter);
+
+            }
+        });
     }
 
     public void updateStartCollectingButtonStatus(ArrayList selectedIds){

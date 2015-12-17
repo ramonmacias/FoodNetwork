@@ -3,6 +3,7 @@ package com.uab.es.cat.foodnetwork;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -40,6 +41,7 @@ public class CollectingDonationsActivity extends AppCompatActivity implements On
     private double bancAlimentsLatitude = 41.35062245;
     private double bancAlimentsLongitude = 2.14470506;
     private List<DonationDTO> donations;
+    private Toolbar mToolbar;
 
     TextView totalWeightOfDonationsTextView;
     TextView totalNumOfDonationsTextView;
@@ -49,6 +51,11 @@ public class CollectingDonationsActivity extends AppCompatActivity implements On
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_collecting_donations);
+
+        mToolbar = (Toolbar) findViewById(R.id.toolbar);
+
+        setSupportActionBar(mToolbar);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
 
         cacheDbHelper = new CacheDbHelper();
         mDbHelper = new FoodNetworkDbHelper(getApplicationContext());

@@ -9,12 +9,14 @@ import android.location.Location;
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.util.SparseBooleanArray;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -46,7 +48,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
-public class FoodDonationActivity extends ListActivity implements View.OnClickListener, OnMapReadyCallback, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, LocationListener {
+public class FoodDonationActivity extends AppCompatActivity implements View.OnClickListener, OnMapReadyCallback, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, LocationListener {
 
     private TextView quantityTextView;
     private EditText productNameText;
@@ -59,6 +61,7 @@ public class FoodDonationActivity extends ListActivity implements View.OnClickLi
     private GoogleMap map;
     protected Location mLastLocation;
     private LocationRequest mLocationRequest;
+    private Toolbar mToolbar;
 
     //Atributes to manage the geopoint in the map
     double latitudeProfile;
@@ -66,6 +69,7 @@ public class FoodDonationActivity extends ListActivity implements View.OnClickLi
     double myLatitude;
     double myLongitude;
     String userName;
+    private ListView ItemsLst;
 
     GoogleApiClient mGoogleApiClient;
 
@@ -79,6 +83,13 @@ public class FoodDonationActivity extends ListActivity implements View.OnClickLi
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_food_donation);
+
+        mToolbar = (Toolbar) findViewById(R.id.toolbar);
+
+        setSupportActionBar(mToolbar);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+
+        ItemsLst = (ListView) findViewById(R.id.listview);
 
         mGoogleApiClient = new GoogleApiClient.Builder(this)
                 .addConnectionCallbacks(this)
@@ -136,7 +147,7 @@ public class FoodDonationActivity extends ListActivity implements View.OnClickLi
         /** Defining the ArrayAdapter to set items to ListView */
         adapter = new ArrayAdapter(this, android.R.layout.simple_list_item_multiple_choice, list);
 
-        setListAdapter(adapter);
+        ItemsLst.setAdapter(adapter);
 
         mapFragment = (MapFragment) getFragmentManager()
                 .findFragmentById(R.id.map);
@@ -219,8 +230,8 @@ public class FoodDonationActivity extends ListActivity implements View.OnClickLi
     public void removeFromDonation(View view){
 
         /** Getting the checked items from the listview */
-        SparseBooleanArray checkedItemPositions = getListView().getCheckedItemPositions();
-        int itemCount = getListView().getCount();
+        SparseBooleanArray checkedItemPositions = ItemsLst.getCheckedItemPositions();
+        int itemCount = ItemsLst.getCount();
 
         for(int i=itemCount-1; i >= 0; i--){
             if(checkedItemPositions.get(i)){

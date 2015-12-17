@@ -20,8 +20,7 @@
 
         <activity
             android:name=".LoginActivity"
-            android:label="@string/app_name"
-            android:theme="@style/Theme.AppCompat.Light" >
+            android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -38,33 +37,27 @@
 
         <activity
             android:name=".RegisterActivity"
-            android:label="@string/title_activity_register"
-            android:theme="@style/Theme.AppCompat.Light" >
+            android:label="@string/title_activity_register" >
         </activity>
         <activity
             android:name=".MainDonateActivity"
-            android:label="@string/title_activity_main_donate"
-            android:theme="@style/Theme.AppCompat.Light" >
+            android:label="@string/title_activity_main_donate" >
         </activity>
         <activity
             android:name=".MainReceptorActivity"
-            android:label="@string/title_activity_main_receptor"
-            android:theme="@style/Theme.AppCompat.Light" >
+            android:label="@string/title_activity_main_receptor" >
         </activity>
         <activity
             android:name=".ViewProfileActivity"
-            android:label="@string/title_activity_view_profile"
-            android:theme="@style/Theme.AppCompat.Light" >
+            android:label="@string/title_activity_view_profile" >
         </activity>
         <activity
             android:name=".EditProfileActivity"
-            android:label="@string/title_activity_edit_profile"
-            android:theme="@style/Theme.AppCompat.Light" >
+            android:label="@string/title_activity_edit_profile" >
         </activity>
         <activity
             android:name=".FoodDonationActivity"
-            android:label="@string/title_activity_food_donation"
-            android:theme="@style/Theme.AppCompat.Light" >
+            android:label="@string/title_activity_food_donation" >
         </activity>
         <activity
             android:name=".DonationsActivity"
@@ -72,23 +65,19 @@
         </activity>
         <activity
             android:name=".AllDonationsMapActivity"
-            android:label="@string/title_activity_all_donations_map"
-            android:theme="@style/Theme.AppCompat.Light" >
+            android:label="@string/title_activity_all_donations_map" >
         </activity>
         <activity
             android:name=".DonationDetailActivity"
-            android:label="@string/title_activity_donation_detail"
-            android:theme="@style/Theme.AppCompat.Light" >
+            android:label="@string/title_activity_donation_detail" >
         </activity>
         <activity
             android:name=".DonationsForTransportActivity"
-            android:label="@string/title_activity_donations_for_transport"
-            android:theme="@style/Theme.AppCompat.Light" >
+            android:label="@string/title_activity_donations_for_transport">
         </activity>
         <activity
             android:name=".CollectingDonationsActivity"
-            android:label="@string/title_activity_collecting_donations"
-            android:theme="@style/Theme.AppCompat.Light" >
+            android:label="@string/title_activity_collecting_donations" >
         </activity>
         <activity
             android:name=".RankingsActivity"

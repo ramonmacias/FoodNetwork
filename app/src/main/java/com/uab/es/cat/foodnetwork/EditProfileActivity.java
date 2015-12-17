@@ -10,6 +10,7 @@ import android.os.Handler;
 import android.os.ResultReceiver;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
@@ -57,6 +58,7 @@ public class EditProfileActivity extends AppCompatActivity implements GoogleApiC
     private int initialActionRadio;
 
     GoogleApiClient mGoogleApiClient;
+    private Toolbar mToolbar;
 
 
 
@@ -65,6 +67,11 @@ public class EditProfileActivity extends AppCompatActivity implements GoogleApiC
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_edit_profile);
+
+        mToolbar = (Toolbar) findViewById(R.id.toolbar);
+
+        setSupportActionBar(mToolbar);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
 
         mDbHelper = new FoodNetworkDbHelper(getApplicationContext());
         cacheDbHelper = new CacheDbHelper();
