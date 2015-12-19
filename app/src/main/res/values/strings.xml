@@ -95,4 +95,24 @@
     <string name="title_activity_rankings">RankingsActivity</string>
     <string name="donations">Donaciones</string>
     <string name="title_activity_best_collecting">BestCollectingActivity</string>
+
+
+    <string name="action_search">Buscar</string>
+    <string name="drawer_open">Abrir</string>
+    <string name="drawer_close">Cerrar</string>
+
+    <string name="nav_item_view_profile">Ver perfil</string>
+    <string name="nav_item_edit_profile">Editar perfil</string>
+    <string name="nav_item_actions">Acciones</string>
+
+    <!-- navigation drawer item labels  -->
+    <string-array name="nav_drawer_labels">
+        <item>@string/nav_item_view_profile</item>
+        <item>@string/nav_item_edit_profile</item>
+        <item>@string/nav_item_actions</item>
+    </string-array>
+
+    <string name="title_view_profile">Ver perfil</string>
+    <string name="title_edit_profile">Editar perfil</string>
+    <string name="title_actions">Acciones</string>
 </resources>

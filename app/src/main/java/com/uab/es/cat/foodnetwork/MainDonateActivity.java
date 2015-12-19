@@ -1,6 +1,10 @@
 package com.uab.es.cat.foodnetwork;
 
 import android.content.Intent;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -17,12 +21,13 @@ import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.common.api.Status;
 import com.uab.es.cat.foodnetwork.util.UserSession;
 
-public class MainDonateActivity extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener{
+public class MainDonateActivity extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener, FragmentDrawer.FragmentDrawerListener{
 
     public static final String LOGOUT = "com.uab.es.cat.foodnetwork.logout";
 
     private GoogleApiClient mGoogleApiClient;
     private Toolbar mToolbar;
+    private FragmentDrawer drawerFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +38,11 @@ public class MainDonateActivity extends AppCompatActivity implements GoogleApiCl
 
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
+
+        drawerFragment = (FragmentDrawer)
+                getSupportFragmentManager().findFragmentById(R.id.fragment_navigation_drawer);
+        drawerFragment.setUp(R.id.fragment_navigation_drawer, (DrawerLayout) findViewById(R.id.drawer_layout), mToolbar);
+        drawerFragment.setDrawerListener(this);
 
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestEmail()
@@ -111,5 +121,47 @@ public class MainDonateActivity extends AppCompatActivity implements GoogleApiCl
         // An unresolvable error has occurred and Google APIs (including Sign-In) will not
         // be available.
         //Log.d(TAG, "onConnectionFailed:" + connectionResult);
+    }
+
+    @Override
+    public void onDrawerItemSelected(View view, int position) {
+        displayView(position);
+    }
+
+    private void displayView(int position) {
+        Fragment fragment = null;
+        String title = getString(R.string.app_name);
+        switch (position) {
+            case 0:
+                fragment = new ViewProfileFragment();
+                title = getString(R.string.title_view_profile);
+                break;
+            case 1:
+                fragment = new EditProfileFragment();
+                title = getString(R.string.title_edit_profile);
+                break;
+            case 2:
+                fragment = new ActionsFragment();
+                title = getString(R.string.title_actions);
+                break;
+            default:
+                break;
+        }
+
+        if (fragment != null) {
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            fragmentTransaction.replace(R.id.container_body, fragment);
+            fragmentTransaction.commit();
+
+            // set the toolbar title
+            getSupportActionBar().setTitle(title);
+        }
+    }
+
+    @Override
+    public void onBackPressed()
+    {
+
     }
 }
