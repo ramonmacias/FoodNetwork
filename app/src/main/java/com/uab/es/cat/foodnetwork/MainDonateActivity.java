@@ -28,6 +28,7 @@ public class MainDonateActivity extends AppCompatActivity implements GoogleApiCl
     private GoogleApiClient mGoogleApiClient;
     private Toolbar mToolbar;
     private FragmentDrawer drawerFragment;
+    private EditProfileFragment editProfileFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -138,6 +139,7 @@ public class MainDonateActivity extends AppCompatActivity implements GoogleApiCl
                 break;
             case 1:
                 fragment = new EditProfileFragment();
+                editProfileFragment = (EditProfileFragment) fragment;
                 title = getString(R.string.title_edit_profile);
                 break;
             case 2:
@@ -157,6 +159,10 @@ public class MainDonateActivity extends AppCompatActivity implements GoogleApiCl
             // set the toolbar title
             getSupportActionBar().setTitle(title);
         }
+    }
+
+    public void beginUpdateUserInfo(View view){
+        editProfileFragment.beginUpdateUserInfo(view);
     }
 
     @Override
