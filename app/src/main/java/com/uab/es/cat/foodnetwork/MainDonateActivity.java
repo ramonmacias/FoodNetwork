@@ -71,15 +71,6 @@ public class MainDonateActivity extends AppCompatActivity implements GoogleApiCl
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_view_profile) {
-            startActivity(new Intent(getApplicationContext(), ViewProfileActivity.class));
-            return true;
-        }
-        if (id == R.id.action_edit_profile) {
-            startActivity(new Intent(getApplicationContext(), EditProfileActivity.class));
-            return true;
-        }
         if (id == R.id.action_disconnect) {
 
             if("Google".equals(UserSession.getInstance(getApplicationContext()).getUserTypeLoggin())){
