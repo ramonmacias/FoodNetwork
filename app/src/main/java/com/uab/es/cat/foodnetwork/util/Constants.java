@@ -29,4 +29,35 @@ public class Constants {
         STATE_AUX.put(3, "Finalizada");
         STATE = Collections.unmodifiableMap(STATE_AUX);
     };
+
+    public static Map<String, Integer> HOURS;
+    static {
+      HashMap<String, Integer>  HOURS_AUX = new HashMap<String, Integer>();
+        HOURS_AUX.put("00:00", 0);
+        HOURS_AUX.put("01:00", 1);
+        HOURS_AUX.put("02:00", 2);
+        HOURS_AUX.put("03:00", 3);
+        HOURS_AUX.put("04:00", 4);
+        HOURS_AUX.put("05:00", 5);
+        HOURS_AUX.put("06:00", 6);
+        HOURS_AUX.put("07:00", 7);
+        HOURS_AUX.put("08:00", 8);
+        HOURS_AUX.put("09:00", 9);
+        HOURS_AUX.put("10:00", 10);
+        HOURS_AUX.put("11:00", 11);
+        HOURS_AUX.put("12:00", 12);
+        HOURS_AUX.put("13:00", 13);
+        HOURS_AUX.put("14:00", 14);
+        HOURS_AUX.put("15:00", 15);
+        HOURS_AUX.put("16:00", 16);
+        HOURS_AUX.put("17:00", 17);
+        HOURS_AUX.put("18:00", 18);
+        HOURS_AUX.put("19:00", 19);
+        HOURS_AUX.put("20:00", 20);
+        HOURS_AUX.put("21:00", 21);
+        HOURS_AUX.put("22:00", 22);
+        HOURS_AUX.put("23:00", 23);
+        HOURS = Collections.unmodifiableMap(HOURS_AUX);
+
+    };
 }

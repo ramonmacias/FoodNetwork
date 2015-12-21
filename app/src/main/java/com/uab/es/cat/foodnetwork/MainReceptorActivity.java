@@ -86,7 +86,7 @@ public class MainReceptorActivity extends AppCompatActivity implements GoogleApi
     }
 
     public void collectDonations(View view){
-
+        startActivity(new Intent(getApplicationContext(), BestCollectingActivity.class));
     }
 
     public void viewAllDonations(View view){

@@ -10,9 +10,11 @@ import com.uab.es.cat.foodnetwork.database.FoodNetworkDbHelper;
 import com.uab.es.cat.foodnetwork.dto.DonationDTO;
 import com.uab.es.cat.foodnetwork.dto.LocationDTO;
 import com.uab.es.cat.foodnetwork.dto.UserDTO;
+import com.uab.es.cat.foodnetwork.util.Constants;
 import com.uab.es.cat.foodnetwork.util.UserSession;
 import com.uab.es.cat.foodnetwork.util.Utilities;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class BestCollectingActivity extends AppCompatActivity {
@@ -20,6 +22,7 @@ public class BestCollectingActivity extends AppCompatActivity {
     private CacheDbHelper cacheDbHelper;
     private FoodNetworkDbHelper mDbHelper;
     private List<DonationDTO> donations;
+    private List<DonationDTO> donationsAux;
     private UserDTO userDTO;
     private String finalHour;
     private String initialHour;
@@ -34,6 +37,7 @@ public class BestCollectingActivity extends AppCompatActivity {
 
         cacheDbHelper = new CacheDbHelper();
         mDbHelper = new FoodNetworkDbHelper(getApplicationContext());
+        donationsAux = new ArrayList<DonationDTO>();
 
         userDTO = obtainUserInformation();
         donations = cacheDbHelper.getReadyAndCurrentDonations(mDbHelper);
@@ -66,10 +70,12 @@ public class BestCollectingActivity extends AppCompatActivity {
             longitudeCriteria = validateLongitudeCriteria(donations.get(i));
             rangeOfHoursCriteria = validateRangeOfHoursCriteria(donations.get(i));
 
-            if(!longitudeCriteria || !rangeOfHoursCriteria){
-                donations.remove(i);
+            if(longitudeCriteria && rangeOfHoursCriteria){
+                donationsAux.add(donations.get(i));
             }
         }
+        donations.clear();
+        donations.addAll(donationsAux);
     }
 
     private boolean validateLongitudeCriteria(DonationDTO donationDTO){
@@ -77,7 +83,7 @@ public class BestCollectingActivity extends AppCompatActivity {
         locationDTO.setIdLocation(donationDTO.getIdLocation());
         locationDTO = (LocationDTO) cacheDbHelper.getById(locationDTO, mDbHelper);
 
-        int distance = Utilities.calculateDistanceBetweenToPoints(longitudeProfile, latitudeProfile, Double.valueOf(locationDTO.getLongitude()), Double.valueOf(locationDTO.getLatitude()));
+        int distance = Utilities.calculateDistanceBetweenTwoPoints(longitudeProfile, latitudeProfile, Double.valueOf(locationDTO.getLongitude()), Double.valueOf(locationDTO.getLatitude()));
 
         if(distance > actionRadio){
             return false;
@@ -87,6 +93,10 @@ public class BestCollectingActivity extends AppCompatActivity {
     }
 
     private boolean validateRangeOfHoursCriteria(DonationDTO donationDTO){
+
+        int finalOrdinal = Constants.HOURS.get(donationDTO.getFinalHour());
+        int initialOrdinal = Constants.HOURS.get(donationDTO.getInitialHour());
+
         return true;
     }
 

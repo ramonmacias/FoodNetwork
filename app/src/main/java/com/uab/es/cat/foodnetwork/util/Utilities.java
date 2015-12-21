@@ -47,9 +47,29 @@ public class Utilities {
         return dateFormat.format(date);
     }
 
-    public static int calculateDistanceBetweenToPoints(double initialCoordenateX, double initialCoordenateY, double finalCoordenateX, double finalCoordenateY){
-        double distance = Math.hypot(finalCoordenateX-initialCoordenateX, finalCoordenateY-initialCoordenateY);
+    /**
+     * Calculate de distance between two points using the Haversine formula
+     * @param initialCoordenateX
+     * @param initialCoordenateY
+     * @param finalCoordenateX
+     * @param finalCoordenateY
+     * @return
+     */
+    public static int calculateDistanceBetweenTwoPoints(double initialCoordenateX, double initialCoordenateY, double finalCoordenateX, double finalCoordenateY){
 
-        return (int)Math.floor(distance + 0.5d);
+        double earthRadius = 6371.0; // miles (or 6371.0 kilometers)
+        double dLat = Math.toRadians(finalCoordenateY-initialCoordenateY);
+        double dLng = Math.toRadians(finalCoordenateX-initialCoordenateX);
+        double sindLat = Math.sin(dLat / 2);
+        double sindLng = Math.sin(dLng / 2);
+        double a = Math.pow(sindLat, 2) + Math.pow(sindLng, 2)
+                * Math.cos(Math.toRadians(initialCoordenateY)) * Math.cos(Math.toRadians(finalCoordenateY));
+        double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+        double dist = earthRadius * c;
+
+        return (int)Math.floor(dist + 0.5d);
+
+
+
     }
 }
