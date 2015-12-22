@@ -55,7 +55,7 @@ public class Utilities {
      * @param finalCoordenateY
      * @return
      */
-    public static int calculateDistanceBetweenTwoPoints(double initialCoordenateX, double initialCoordenateY, double finalCoordenateX, double finalCoordenateY){
+    public static double calculateDistanceBetweenTwoPoints(double initialCoordenateX, double initialCoordenateY, double finalCoordenateX, double finalCoordenateY){
 
         double earthRadius = 6371.0; // miles (or 6371.0 kilometers)
         double dLat = Math.toRadians(finalCoordenateY-initialCoordenateY);
@@ -67,7 +67,7 @@ public class Utilities {
         double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
         double dist = earthRadius * c;
 
-        return (int)Math.floor(dist + 0.5d);
+        return dist;
 
 
 
