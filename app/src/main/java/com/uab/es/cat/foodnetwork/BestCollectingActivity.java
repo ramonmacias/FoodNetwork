@@ -69,6 +69,7 @@ public class BestCollectingActivity extends AppCompatActivity implements OnMapRe
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
 
         setSupportActionBar(mToolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
         cacheDbHelper = new CacheDbHelper();
@@ -101,6 +102,13 @@ public class BestCollectingActivity extends AppCompatActivity implements OnMapRe
         mapFragment = (MapFragment) getFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
+
+        mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                handleOnBackPress();
+            }
+        });
 
     }
 
@@ -251,5 +259,9 @@ public class BestCollectingActivity extends AppCompatActivity implements OnMapRe
         }
         map.setMyLocationEnabled(true);
         map.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 12.0f));
+    }
+
+    public void handleOnBackPress(){
+        startActivity(new Intent(getApplicationContext(), MainReceptorActivity.class));
     }
 }

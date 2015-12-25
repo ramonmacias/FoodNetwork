@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -56,6 +57,7 @@ public class DonationDetailActivity extends AppCompatActivity implements OnMapRe
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
 
         setSupportActionBar(mToolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
         ItemsLst = (ListView) findViewById(R.id.listview);
@@ -102,6 +104,13 @@ public class DonationDetailActivity extends AppCompatActivity implements OnMapRe
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
+        mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                handleOnBackPress();
+            }
+        });
+
 
     }
 
@@ -115,6 +124,10 @@ public class DonationDetailActivity extends AppCompatActivity implements OnMapRe
                 .position(latLng);
         map.addMarker(options);
         map.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 17.0f));
+    }
+
+    public void handleOnBackPress(){
+        startActivity(new Intent(getApplicationContext(), DonationsActivity.class));
     }
 
 }

@@ -37,6 +37,7 @@ public class DonationsActivity extends AppCompatActivity {
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
 
         setSupportActionBar(mToolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
         ItemsLst = (ListView) findViewById(R.id.listview);
@@ -71,6 +72,13 @@ public class DonationsActivity extends AppCompatActivity {
 
             }
         });
+
+        mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                handleOnBackPress();
+            }
+        });
     }
 
     //@Override
@@ -82,5 +90,9 @@ public class DonationsActivity extends AppCompatActivity {
         intent.putExtra(DONATION_ID, item);
         startActivity(intent);
         //Toast.makeText(this, item + " selected", Toast.LENGTH_LONG).show();
+    }
+
+    public void handleOnBackPress(){
+        startActivity(new Intent(getApplicationContext(), MainDonateActivity.class));
     }
 }

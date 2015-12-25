@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -46,6 +47,7 @@ public class AllDonationsMapActivity extends AppCompatActivity implements OnMapR
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
 
         setSupportActionBar(mToolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
         cacheDbHelper = new CacheDbHelper();
@@ -63,6 +65,13 @@ public class AllDonationsMapActivity extends AppCompatActivity implements OnMapR
         mapFragment = (MapFragment) getFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
+
+        mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                handleOnBackPress();
+            }
+        });
     }
 
 
@@ -198,5 +207,9 @@ public class AllDonationsMapActivity extends AppCompatActivity implements OnMapR
 
             markersActiveDonations.add(options);
         }
+    }
+
+    public void handleOnBackPress(){
+        startActivity(new Intent(getApplicationContext(), MainReceptorActivity.class));
     }
 }

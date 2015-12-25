@@ -38,6 +38,7 @@ public class DonationsForTransportActivity extends AppCompatActivity {
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
 
         setSupportActionBar(mToolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
         ItemsLst = (ListView) findViewById(R.id.listview);
@@ -67,6 +68,13 @@ public class DonationsForTransportActivity extends AppCompatActivity {
 
             }
         });
+
+        mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                handleOnBackPress();
+            }
+        });
     }
 
     public void updateStartCollectingButtonStatus(ArrayList selectedIds){
@@ -81,5 +89,9 @@ public class DonationsForTransportActivity extends AppCompatActivity {
         Intent intent = new Intent(this, CollectingDonationsActivity.class);
         intent.putExtra("ListOfDonationsSelected", (Serializable) adapter.selectedDonationDTO);
         startActivity(intent);
+    }
+
+    public void handleOnBackPress(){
+        startActivity(new Intent(getApplicationContext(), MainReceptorActivity.class));
     }
 }

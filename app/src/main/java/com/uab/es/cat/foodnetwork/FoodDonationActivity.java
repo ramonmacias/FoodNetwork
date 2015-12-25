@@ -87,6 +87,7 @@ public class FoodDonationActivity extends AppCompatActivity implements View.OnCl
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
 
         setSupportActionBar(mToolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
         ItemsLst = (ListView) findViewById(R.id.listview);
@@ -152,6 +153,13 @@ public class FoodDonationActivity extends AppCompatActivity implements View.OnCl
         mapFragment = (MapFragment) getFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
+
+        mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                handleOnBackPress();
+            }
+        });
     }
 
     @Override
@@ -347,5 +355,9 @@ public class FoodDonationActivity extends AppCompatActivity implements View.OnCl
     public void ShowToast(String message){
         Toast.makeText(this, message,
                 Toast.LENGTH_LONG).show();
+    }
+
+    public void handleOnBackPress(){
+        startActivity(new Intent(getApplicationContext(), MainDonateActivity.class));
     }
 }
