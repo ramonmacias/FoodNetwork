@@ -20,6 +20,7 @@ android {
     }
 }
 
+repositories { mavenCentral() }
 
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
@@ -30,4 +31,5 @@ dependencies {
     compile 'com.google.android.gms:play-services-identity:8.3.0'
     compile 'com.google.android.gms:play-services-location:8.3.0'
     compile 'com.android.support:recyclerview-v7:22.2.+'
+    compile 'com.facebook.android:facebook-android-sdk:4.6.0'
 }

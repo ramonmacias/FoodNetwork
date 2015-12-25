@@ -13,6 +13,13 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.facebook.CallbackManager;
+import com.facebook.FacebookCallback;
+import com.facebook.FacebookException;
+import com.facebook.FacebookSdk;
+import com.facebook.Profile;
+import com.facebook.login.LoginResult;
+import com.facebook.login.widget.LoginButton;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
@@ -27,6 +34,8 @@ import com.uab.es.cat.foodnetwork.database.FoodNetworkDbHelper;
 import com.uab.es.cat.foodnetwork.dto.UserDTO;
 import com.uab.es.cat.foodnetwork.util.UserSession;
 
+import java.util.Arrays;
+
 public class LoginActivity extends AppCompatActivity implements
         GoogleApiClient.OnConnectionFailedListener,
         View.OnClickListener{
@@ -35,13 +44,17 @@ public class LoginActivity extends AppCompatActivity implements
     private GoogleApiClient mGoogleApiClient;
     private static final int RC_SIGN_IN = 9001;
     private Toolbar mToolbar;
+    private LoginButton loginButton;
 
     private FoodNetworkDbHelper mDbHelper;
+    private CallbackManager callbackManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        FacebookSdk.sdkInitialize(getApplicationContext());
         setContentView(R.layout.activity_login);
+
 
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
 
@@ -66,6 +79,31 @@ public class LoginActivity extends AppCompatActivity implements
         SignInButton signInButton = (SignInButton) findViewById(R.id.button_sign_in);
         signInButton.setSize(SignInButton.SIZE_STANDARD);
         signInButton.setScopes(gso.getScopeArray());
+
+        loginButton = (LoginButton) findViewById(R.id.login_button);
+        loginButton.setReadPermissions(Arrays.asList("public_profile, email, user_birthday, user_friends"));
+
+        callbackManager = CallbackManager.Factory.create();
+
+        loginButton.registerCallback(callbackManager, mFacebookCallback);
+
+        /*loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
+            @Override
+            public void onSuccess(LoginResult loginResult) {
+                // App code
+                Toast.makeText(getApplicationContext(), "El login ha sido correcto", Toast.LENGTH_LONG).show();
+            }
+
+            @Override
+            public void onCancel() {
+                Toast.makeText(getApplicationContext(), "El login ha sido incorrecto Cancel", Toast.LENGTH_LONG).show();
+            }
+
+            @Override
+            public void onError(FacebookException exception) {
+                Toast.makeText(getApplicationContext(), "El login ha sido incorrecto Error", Toast.LENGTH_LONG).show();
+            }
+        });*/
     }
 
 
@@ -242,4 +280,39 @@ public class LoginActivity extends AppCompatActivity implements
     {
 
     }
+
+    /*@Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        callbackManager.onActivityResult(requestCode, resultCode, data);
+    }*/
+
+    private FacebookCallback<LoginResult> mFacebookCallback = new FacebookCallback<LoginResult>() {
+        @Override
+        public void onSuccess(LoginResult loginResult) {
+            //Log.d("Shreks Fragment", "onSuccess");
+
+
+            Profile profile = Profile.getCurrentProfile();
+            startActivity(new Intent(getApplicationContext(), MainReceptorActivity.class));
+            //Log.d("Shreks Fragment onSuccess", "" +profile);
+
+            // Get User Name
+            //mTextDetails.setText(profile.getName() + "");
+
+        }
+
+
+        @Override
+        public void onCancel() {
+            Log.d("Shreks Fragmnt", "onCancel");
+            startActivity(new Intent(getApplicationContext(), MainReceptorActivity.class));
+        }
+
+        @Override
+        public void onError(FacebookException e) {
+            Log.d("Shreks Fragment", "onError " + e);
+            startActivity(new Intent(getApplicationContext(), MainReceptorActivity.class));
+        }
+    };
 }

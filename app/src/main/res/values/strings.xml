@@ -115,4 +115,6 @@
     <string name="title_view_profile">Ver perfil</string>
     <string name="title_edit_profile">Editar perfil</string>
     <string name="title_actions">Acciones</string>
+
+    <string name="facebook_app_id">1535066543479078</string>
 </resources>
