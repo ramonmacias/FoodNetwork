@@ -43,14 +43,18 @@ public class UserSession {
         return userSession;
     }
 
-    public void logIn(long newUserId, String newUserType, String userTypeLoggin){
+    public void logIn(long newUserId, String newUserType){
         this.userId = newUserId;
         this.userType = newUserType;
-        this.userTypeLoggin = userTypeLoggin;
 
         editor.putString(userTypeKey, this.userType);
         editor.putLong(userIdKey, this.userId);
         editor.putBoolean(loggedKey, true);
+        editor.commit();
+    }
+
+    public void setUserTypeLoggin(String userTypeLoggin){
+        this.userTypeLoggin = userTypeLoggin;
         editor.putString(userTypeLogginKey, this.userTypeLoggin);
         editor.commit();
     }

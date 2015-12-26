@@ -13,6 +13,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
+import com.facebook.login.LoginManager;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.ConnectionResult;
@@ -73,8 +74,10 @@ public class MainDonateActivity extends AppCompatActivity implements GoogleApiCl
 
         if (id == R.id.action_disconnect) {
 
-            if("Google".equals(UserSession.getInstance(getApplicationContext()).getUserTypeLoggin())){
+            if("Google".equals(UserSession.getInstance(getApplicationContext()).getUserTypeLoggin())) {
                 signOut();
+            }else if("Facebook".equals(UserSession.getInstance(getApplicationContext()).getUserTypeLoggin())){
+                signOutFromFacebook();
             }else {
                 UserSession.getInstance(getApplicationContext()).logOut(getApplicationContext());
             }
@@ -106,6 +109,11 @@ public class MainDonateActivity extends AppCompatActivity implements GoogleApiCl
                         // [END_EXCLUDE]
                     }
                 });
+    }
+
+    private void signOutFromFacebook(){
+        LoginManager.getInstance().logOut();
+        startActivity(new Intent(getApplicationContext(), LoginActivity.class));
     }
 
     @Override

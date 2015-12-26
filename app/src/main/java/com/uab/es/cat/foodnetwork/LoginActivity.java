@@ -13,11 +13,14 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
 import com.facebook.FacebookSdk;
 import com.facebook.Profile;
+import com.facebook.ProfileTracker;
+import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
 import com.google.android.gms.auth.api.Auth;
@@ -43,8 +46,10 @@ public class LoginActivity extends AppCompatActivity implements
     private static final String TAG = "LoginActivity";
     private GoogleApiClient mGoogleApiClient;
     private static final int RC_SIGN_IN = 9001;
+    private static int FB_SIGN_IN = 0;
     private Toolbar mToolbar;
     private LoginButton loginButton;
+    private ProfileTracker mProfileTracker;
 
     private FoodNetworkDbHelper mDbHelper;
     private CallbackManager callbackManager;
@@ -82,28 +87,19 @@ public class LoginActivity extends AppCompatActivity implements
 
         loginButton = (LoginButton) findViewById(R.id.login_button);
         loginButton.setReadPermissions(Arrays.asList("public_profile, email, user_birthday, user_friends"));
+        FB_SIGN_IN = loginButton.getRequestCode();
 
         callbackManager = CallbackManager.Factory.create();
 
+        boolean isLoggedByFacebook = isLoggedIn();
+
+
         loginButton.registerCallback(callbackManager, mFacebookCallback);
 
-        /*loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
-            @Override
-            public void onSuccess(LoginResult loginResult) {
-                // App code
-                Toast.makeText(getApplicationContext(), "El login ha sido correcto", Toast.LENGTH_LONG).show();
-            }
+        if(isLoggedByFacebook){
+            manageLoggdeUser();
+        }
 
-            @Override
-            public void onCancel() {
-                Toast.makeText(getApplicationContext(), "El login ha sido incorrecto Cancel", Toast.LENGTH_LONG).show();
-            }
-
-            @Override
-            public void onError(FacebookException exception) {
-                Toast.makeText(getApplicationContext(), "El login ha sido incorrecto Error", Toast.LENGTH_LONG).show();
-            }
-        });*/
     }
 
 
@@ -162,7 +158,8 @@ public class LoginActivity extends AppCompatActivity implements
         mCount.close();
 
         if(count > 0){
-            UserSession.getInstance(getApplicationContext()).logIn(userId, userType, "Mail");
+            UserSession.getInstance(getApplicationContext()).logIn(userId, userType);
+            UserSession.getInstance(getApplicationContext()).setUserTypeLoggin("Mail");
             if("D".equals(userType)){
                 startActivity(new Intent(getApplicationContext(), MainDonateActivity.class));
             }else {
@@ -177,10 +174,14 @@ public class LoginActivity extends AppCompatActivity implements
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
+
         // Result returned from launching the Intent from GoogleSignInApi.getSignInIntent(...);
         if (requestCode == RC_SIGN_IN) {
             GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
             handleSignInResult(result);
+        }
+        if (requestCode == FB_SIGN_IN){
+            callbackManager.onActivityResult(requestCode, resultCode, data);
         }
     }
 
@@ -203,7 +204,8 @@ public class LoginActivity extends AppCompatActivity implements
             mCount.close();
 
             if(count > 0){
-                UserSession.getInstance(getApplicationContext()).logIn(userId, userType, "Google");
+                UserSession.getInstance(getApplicationContext()).logIn(userId, userType);
+                UserSession.getInstance(getApplicationContext()).setUserTypeLoggin("Google");
                 if("D".equals(userType)){
                     startActivity(new Intent(getApplicationContext(), MainDonateActivity.class));
                 }else {
@@ -221,7 +223,8 @@ public class LoginActivity extends AppCompatActivity implements
                 CacheDbHelper cacheDbHelper = new CacheDbHelper();
                 long newUserId = cacheDbHelper.insert(userDTO, mDbHelper);
 
-                UserSession.getInstance(getApplicationContext()).logIn(newUserId, "", "Google");
+                UserSession.getInstance(getApplicationContext()).logIn(newUserId, "");
+                UserSession.getInstance(getApplicationContext()).setUserTypeLoggin("Google");
 
                 setContentView(R.layout.type_user);
             }
@@ -254,7 +257,7 @@ public class LoginActivity extends AppCompatActivity implements
         cacheDbHelper.update(userDTO, mDbHelper);
 
 
-        UserSession.getInstance(getApplicationContext()).logIn(userDTO.getIdUser(), userDTO.getIdTypeUser(), "Google");
+        UserSession.getInstance(getApplicationContext()).logIn(userDTO.getIdUser(), userDTO.getIdTypeUser());
 
         startActivity(new Intent(getApplicationContext(), MainDonateActivity.class));
     }
@@ -270,7 +273,7 @@ public class LoginActivity extends AppCompatActivity implements
         cacheDbHelper.update(userDTO, mDbHelper);
 
 
-        UserSession.getInstance(getApplicationContext()).logIn(userDTO.getIdUser(), userDTO.getIdTypeUser(), "Google");
+        UserSession.getInstance(getApplicationContext()).logIn(userDTO.getIdUser(), userDTO.getIdTypeUser());
 
         startActivity(new Intent(getApplicationContext(), MainReceptorActivity.class));
     }
@@ -281,38 +284,143 @@ public class LoginActivity extends AppCompatActivity implements
 
     }
 
-    /*@Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        callbackManager.onActivityResult(requestCode, resultCode, data);
-    }*/
 
     private FacebookCallback<LoginResult> mFacebookCallback = new FacebookCallback<LoginResult>() {
         @Override
         public void onSuccess(LoginResult loginResult) {
-            //Log.d("Shreks Fragment", "onSuccess");
+
+            if(Profile.getCurrentProfile() == null) {
+                mProfileTracker = new ProfileTracker() {
+                    @Override
+                    protected void onCurrentProfileChanged(Profile profile, Profile profile2) {
+                        String firstName = profile2.getFirstName();
+                        String lastName = profile2.getLastName();
+                        String facebookUserId = profile2.getId();
 
 
-            Profile profile = Profile.getCurrentProfile();
-            startActivity(new Intent(getApplicationContext(), MainReceptorActivity.class));
-            //Log.d("Shreks Fragment onSuccess", "" +profile);
+                        SQLiteDatabase db = mDbHelper.getReadableDatabase();
 
-            // Get User Name
-            //mTextDetails.setText(profile.getName() + "");
+                        Cursor mCount= db.rawQuery("select count(*), usertype, userid from users where mail='" + facebookUserId + "'", null);
+                        mCount.moveToFirst();
+                        int count= mCount.getInt(0);
+                        String userType = mCount.getString(1);
+                        int userId = mCount.getInt(2);
+                        mCount.close();
 
+                        if(count > 0){
+                            UserSession.getInstance(getApplicationContext()).logIn(userId, userType);
+                            UserSession.getInstance(getApplicationContext()).setUserTypeLoggin("Facebook");
+                            if("D".equals(userType)){
+                                startActivity(new Intent(getApplicationContext(), MainDonateActivity.class));
+                            }else {
+                                startActivity(new Intent(getApplicationContext(), MainReceptorActivity.class));
+                            }
+                        }else {
+                            UserDTO userDTO = new UserDTO();
+
+
+                            userDTO.setName(firstName);
+                            userDTO.setLastName(lastName);
+                            userDTO.setMail(facebookUserId);
+
+                            CacheDbHelper cacheDbHelper = new CacheDbHelper();
+                            long newUserId = cacheDbHelper.insert(userDTO, mDbHelper);
+
+                            UserSession.getInstance(getApplicationContext()).logIn(newUserId, "");
+                            UserSession.getInstance(getApplicationContext()).setUserTypeLoggin("Facebook");
+
+                            setContentView(R.layout.type_user);
+                        }
+
+                        mProfileTracker.stopTracking();
+                    }
+                };
+                mProfileTracker.startTracking();
+            }
+            else {
+                Profile profile = Profile.getCurrentProfile();
+
+                String firstName = profile.getFirstName();
+                String lastName = profile.getLastName();
+                String facebookUserId = profile.getId();
+
+
+                SQLiteDatabase db = mDbHelper.getReadableDatabase();
+
+                Cursor mCount= db.rawQuery("select count(*), usertype, userid from users where mail='" + facebookUserId + "'", null);
+                mCount.moveToFirst();
+                int count= mCount.getInt(0);
+                String userType = mCount.getString(1);
+                int userId = mCount.getInt(2);
+                mCount.close();
+
+                if(count > 0){
+                    UserSession.getInstance(getApplicationContext()).logIn(userId, userType);
+                    UserSession.getInstance(getApplicationContext()).setUserTypeLoggin("Facebook");
+                    if("D".equals(userType)){
+                        startActivity(new Intent(getApplicationContext(), MainDonateActivity.class));
+                    }else {
+                        startActivity(new Intent(getApplicationContext(), MainReceptorActivity.class));
+                    }
+                }else {
+                    UserDTO userDTO = new UserDTO();
+
+
+                    userDTO.setName(firstName);
+                    userDTO.setLastName(lastName);
+                    userDTO.setMail(facebookUserId);
+
+                    CacheDbHelper cacheDbHelper = new CacheDbHelper();
+                    long newUserId = cacheDbHelper.insert(userDTO, mDbHelper);
+
+                    UserSession.getInstance(getApplicationContext()).logIn(newUserId, "");
+                    UserSession.getInstance(getApplicationContext()).setUserTypeLoggin("Facebook");
+
+                    setContentView(R.layout.type_user);
+                }
+            }
         }
 
 
         @Override
         public void onCancel() {
-            Log.d("Shreks Fragmnt", "onCancel");
-            startActivity(new Intent(getApplicationContext(), MainReceptorActivity.class));
+            updateUI(false);
         }
 
         @Override
         public void onError(FacebookException e) {
-            Log.d("Shreks Fragment", "onError " + e);
-            startActivity(new Intent(getApplicationContext(), MainReceptorActivity.class));
+            updateUI(false);
         }
     };
+
+    public boolean isLoggedIn() {
+        AccessToken accessToken = AccessToken.getCurrentAccessToken();
+        return accessToken != null;
+    }
+
+    public void manageLoggdeUser() {
+        AccessToken accessToken = AccessToken.getCurrentAccessToken();
+        if(accessToken != null){
+            String facebookUserId = accessToken.getUserId();
+            SQLiteDatabase db = mDbHelper.getReadableDatabase();
+
+            Cursor mCount= db.rawQuery("select count(*), usertype, userid from users where mail='" + facebookUserId + "'", null);
+            mCount.moveToFirst();
+            int count= mCount.getInt(0);
+            String userType = mCount.getString(1);
+            int userId = mCount.getInt(2);
+            mCount.close();
+
+            if(count > 0){
+                UserSession.getInstance(getApplicationContext()).logIn(userId, userType);
+                UserSession.getInstance(getApplicationContext()).setUserTypeLoggin("Facebook");
+                if("D".equals(userType)){
+                    startActivity(new Intent(getApplicationContext(), MainDonateActivity.class));
+                }else {
+                    startActivity(new Intent(getApplicationContext(), MainReceptorActivity.class));
+                }
+            }
+        }
+    }
+
 }

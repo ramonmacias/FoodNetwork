@@ -12,6 +12,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
+import com.facebook.login.LoginManager;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.ConnectionResult;
@@ -70,8 +71,10 @@ public class MainReceptorActivity extends AppCompatActivity implements GoogleApi
 
         if (id == R.id.action_disconnect) {
 
-            if("Google".equals(UserSession.getInstance(getApplicationContext()).getUserTypeLoggin())){
+            if("Google".equals(UserSession.getInstance(getApplicationContext()).getUserTypeLoggin())) {
                 signOut();
+            }else if("Facebook".equals(UserSession.getInstance(getApplicationContext()).getUserTypeLoggin())){
+                signOutFacebook();
             }else {
                 UserSession.getInstance(getApplicationContext()).logOut(getApplicationContext());
             }
@@ -103,6 +106,11 @@ public class MainReceptorActivity extends AppCompatActivity implements GoogleApi
                         // [END_EXCLUDE]
                     }
                 });
+    }
+
+    private void signOutFacebook(){
+        LoginManager.getInstance().logOut();
+        startActivity(new Intent(getApplicationContext(), LoginActivity.class));
     }
 
     @Override
