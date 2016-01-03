@@ -1,6 +1,7 @@
 package com.uab.es.cat.foodnetwork.util;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,6 +9,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.amulyakhare.textdrawable.TextDrawable;
 import com.uab.es.cat.foodnetwork.R;
 import com.uab.es.cat.foodnetwork.dto.DonationDTO;
 
@@ -38,19 +40,31 @@ public class DonationArrayAdapter extends ArrayAdapter<String> {
         TextView textView = (TextView) rowView.findViewById(R.id.label);
         ImageView imageView = (ImageView) rowView.findViewById(R.id.icon);
         TextView textViewStateOfDonation = (TextView) rowView.findViewById(R.id.stateOfDonation);
-        //textView.setText(values.get(position));
         textView.setText(getContext().getString(R.string.my_donation_of) + ": " + String.valueOf(valuesDTO.get(position).getInsertDate()));
         String stateText = Constants.STATE.get(valuesDTO.get(position).getState());
         textViewStateOfDonation.setText(getContext().getString(R.string.state) + ": " + stateText);
 
-        //String s = values.get(position);
-        String s = String.valueOf(valuesDTO.get(position).getIdDonation());
-        if (s.startsWith("1")) {
-            imageView.setImageResource(R.drawable.ic_check_black_24dp);
-        } else {
-            imageView.setImageResource(R.drawable.ic_close_black_24dp);
-        }
 
+        int sampleColorGreen = Color.parseColor("#2B4722");
+        int sampleColorRed = Color.parseColor("#D75E5E");
+        int sampleColorYellow = Color.parseColor("#EAD36B");
+
+        if(valuesDTO.get(position).getState() == 1){
+            TextDrawable drawable = TextDrawable.builder()
+                    .buildRound("A", sampleColorGreen);
+
+            imageView.setImageDrawable(drawable);
+        }else if(valuesDTO.get(position).getState() == 2){
+            TextDrawable drawable = TextDrawable.builder()
+                    .buildRound("C", sampleColorYellow);
+
+            imageView.setImageDrawable(drawable);
+        }else {
+            TextDrawable drawable = TextDrawable.builder()
+                    .buildRound("F", sampleColorRed);
+
+            imageView.setImageDrawable(drawable);
+        }
         return rowView;
     }
 }

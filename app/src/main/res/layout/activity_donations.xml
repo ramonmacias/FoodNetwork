@@ -1,6 +1,6 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
-    android:layout_height="wrap_content" >
+    android:layout_height="wrap_content">
 
     <ImageView
         android:id="@+id/icon"
@@ -8,7 +8,8 @@
         android:layout_height="100px"
         android:layout_marginLeft="4px"
         android:layout_marginRight="10px"
-        android:layout_marginTop="4px">
+        android:layout_marginBottom="7dp"
+        android:layout_marginTop="7dp">
     </ImageView>
 
     <LinearLayout
@@ -21,7 +22,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@+id/label"
-            android:textSize="40px" >
+            android:textStyle="bold"
+            android:textSize="40px"
+            android:layout_marginTop="7dp">
         </TextView>
 
         <TextView
@@ -29,7 +32,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@+id/stateOfDonation"
-            android:textSize="30px" >
+            android:textSize="30px">
         </TextView>
 
     </LinearLayout>

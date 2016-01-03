@@ -1,11 +1,15 @@
 package com.uab.es.cat.foodnetwork;
 
 import android.content.Intent;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
+import android.content.pm.Signature;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Base64;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -37,6 +41,8 @@ import com.uab.es.cat.foodnetwork.database.FoodNetworkDbHelper;
 import com.uab.es.cat.foodnetwork.dto.UserDTO;
 import com.uab.es.cat.foodnetwork.util.UserSession;
 
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
 
 public class LoginActivity extends AppCompatActivity implements
@@ -100,6 +106,7 @@ public class LoginActivity extends AppCompatActivity implements
             manageLoggdeUser();
         }
 
+        manageKeyHashes();
     }
 
 
@@ -420,6 +427,33 @@ public class LoginActivity extends AppCompatActivity implements
                     startActivity(new Intent(getApplicationContext(), MainReceptorActivity.class));
                 }
             }
+        }
+    }
+
+    public void manageKeyHashes(){
+        PackageInfo packageInfo;
+        String key = null;
+        try {
+            //getting application package name, as defined in manifest
+            String packageName = getApplicationContext().getPackageName();
+
+            //Retriving package info
+            packageInfo = getPackageManager().getPackageInfo(packageName,
+                    PackageManager.GET_SIGNATURES);
+
+            for (Signature signature : packageInfo.signatures) {
+                MessageDigest md = MessageDigest.getInstance("SHA");
+                md.update(signature.toByteArray());
+                key = new String(Base64.encode(md.digest(), 0));
+
+            }
+        } catch (PackageManager.NameNotFoundException e1) {
+            updateUI(false);
+        }
+        catch (NoSuchAlgorithmException e) {
+            updateUI(false);
+        } catch (Exception e) {
+            updateUI(false);
         }
     }
 
