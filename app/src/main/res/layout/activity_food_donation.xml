@@ -79,6 +79,8 @@
                     <Button
                         android:text="@string/button_add_to_donation"
                         android:onClick="addToDonation"
+                        android:background="@color/colorPrimary"
+                        android:textColor="@color/textColorPrimary"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content" />
 
@@ -145,6 +147,8 @@
                     <Button
                         android:text="@string/button_donate"
                         android:onClick="donate"
+                        android:background="@color/colorPrimary"
+                        android:textColor="@color/textColorPrimary"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"/>
 

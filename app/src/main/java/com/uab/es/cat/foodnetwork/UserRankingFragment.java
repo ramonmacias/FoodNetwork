@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import com.uab.es.cat.foodnetwork.adapter.UserRankingAdapter;
 import com.uab.es.cat.foodnetwork.database.CacheDbHelper;
 import com.uab.es.cat.foodnetwork.database.FoodNetworkDbHelper;
 import com.uab.es.cat.foodnetwork.dto.UserDTO;
@@ -24,6 +25,7 @@ public class UserRankingFragment extends Fragment {
     private ListView ItemsLst;
     private CacheDbHelper cacheDbHelper;
     private FoodNetworkDbHelper mDbHelper;
+    private List<UserDTO> rankingUsersDTO;
 
     public UserRankingFragment() {
         // Required empty public constructor
@@ -40,8 +42,11 @@ public class UserRankingFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.user_ranking_fragment, container, false);
 
+        List<String> strings = getRankingUsers();
+
+        UserRankingAdapter adapter = new UserRankingAdapter(getContext(), strings, rankingUsersDTO);
+
         ItemsLst = (ListView) view.findViewById(R.id.listview);
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, getRankingUsers());
         ItemsLst.setAdapter(adapter);
 
         return view;
@@ -53,7 +58,7 @@ public class UserRankingFragment extends Fragment {
         mDbHelper = new FoodNetworkDbHelper(getContext());
         List<String> rankingOfUsers = new ArrayList<String>();
 
-        List<UserDTO> rankingUsersDTO = cacheDbHelper.getRankingUser(mDbHelper);
+        rankingUsersDTO = cacheDbHelper.getRankingUser(mDbHelper);
         for(UserDTO userWithRanking : rankingUsersDTO){
             rankingOfUsers.add(userWithRanking.getName() + " " + userWithRanking.getLastName() + " " + getString(R.string.donations) + ": " + userWithRanking.getNumberOfDonationsCompleted());
         }

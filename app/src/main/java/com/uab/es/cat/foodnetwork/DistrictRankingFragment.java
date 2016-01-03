@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import com.uab.es.cat.foodnetwork.adapter.DistrictRankingAdapter;
 import com.uab.es.cat.foodnetwork.database.CacheDbHelper;
 import com.uab.es.cat.foodnetwork.database.FoodNetworkDbHelper;
 import com.uab.es.cat.foodnetwork.dto.RankingDTO;
@@ -24,6 +25,7 @@ public class DistrictRankingFragment extends Fragment{
     private ListView ItemsLst;
     private CacheDbHelper cacheDbHelper;
     private FoodNetworkDbHelper mDbHelper;
+    private List<RankingDTO> rankingDistrictsDTO;
 
     public DistrictRankingFragment() {
         // Required empty public constructor
@@ -40,8 +42,10 @@ public class DistrictRankingFragment extends Fragment{
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.district_ranking_fragment, container, false);
 
+        List<String> strings = getRankingDistrict();
+
         ItemsLst = (ListView) view.findViewById(R.id.listview);
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, getRankingDistrict());
+        DistrictRankingAdapter adapter = new DistrictRankingAdapter(getContext(), strings, rankingDistrictsDTO);
         ItemsLst.setAdapter(adapter);
 
         return view;
@@ -52,7 +56,7 @@ public class DistrictRankingFragment extends Fragment{
         mDbHelper = new FoodNetworkDbHelper(getContext());
         List<String> rankingOfDistricts = new ArrayList<String>();
 
-        List<RankingDTO> rankingDistrictsDTO = cacheDbHelper.getRankingDistricts(mDbHelper);
+        rankingDistrictsDTO = cacheDbHelper.getRankingDistricts(mDbHelper);
         for(RankingDTO districtWithRanking : rankingDistrictsDTO){
             rankingOfDistricts.add(districtWithRanking.getDistrict() + " " + getString(R.string.donations) + ": " + districtWithRanking.getNumberOfDonationsCompleted());
         }

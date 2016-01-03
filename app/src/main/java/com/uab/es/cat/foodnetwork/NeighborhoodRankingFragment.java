@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import com.uab.es.cat.foodnetwork.adapter.NeighborhoodRankingAdapter;
 import com.uab.es.cat.foodnetwork.database.CacheDbHelper;
 import com.uab.es.cat.foodnetwork.database.FoodNetworkDbHelper;
 import com.uab.es.cat.foodnetwork.dto.RankingDTO;
@@ -23,6 +24,7 @@ public class NeighborhoodRankingFragment extends Fragment {
     private ListView ItemsLst;
     private CacheDbHelper cacheDbHelper;
     private FoodNetworkDbHelper mDbHelper;
+    private List<RankingDTO> rankingNeighborhoodDTO;
 
     public NeighborhoodRankingFragment() {
         // Required empty public constructor
@@ -39,8 +41,11 @@ public class NeighborhoodRankingFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.neighborhood_ranking_fragment, container, false);
 
+        List<String> strings = getRankingNeihgborhood();
+
         ItemsLst = (ListView) view.findViewById(R.id.listview);
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, getRankingNeihgborhood());
+
+        NeighborhoodRankingAdapter adapter = new NeighborhoodRankingAdapter(getContext(), strings, rankingNeighborhoodDTO);
         ItemsLst.setAdapter(adapter);
 
         return view;
@@ -51,7 +56,7 @@ public class NeighborhoodRankingFragment extends Fragment {
         mDbHelper = new FoodNetworkDbHelper(getContext());
         List<String> rankingOfNeighborhoods = new ArrayList<String>();
 
-        List<RankingDTO> rankingNeighborhoodDTO = cacheDbHelper.getRankingNeighborhood(mDbHelper);
+        rankingNeighborhoodDTO = cacheDbHelper.getRankingNeighborhood(mDbHelper);
         for(RankingDTO neighborhoodWithRanking : rankingNeighborhoodDTO){
             rankingOfNeighborhoods.add(neighborhoodWithRanking.getNeighborhood() + " " + getString(R.string.donations) + ": " + neighborhoodWithRanking.getNumberOfDonationsCompleted());
         }
