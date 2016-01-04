@@ -2,6 +2,7 @@ package com.uab.es.cat.foodnetwork;
 
 import android.app.ListActivity;
 import android.content.Intent;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -25,10 +26,10 @@ import java.util.List;
 public class DonationsForTransportActivity extends AppCompatActivity {
 
     DonationForTransportArrayAdapter adapter;
-    Button startCollectingButton;
     List<DonationDTO> donations;
     private ListView ItemsLst;
     private Toolbar mToolbar;
+    private FloatingActionButton floatingActionButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,8 +43,8 @@ public class DonationsForTransportActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
         ItemsLst = (ListView) findViewById(R.id.listview);
+        floatingActionButton = (FloatingActionButton) findViewById(R.id.fab);
 
-        startCollectingButton = (Button) findViewById(R.id.startCollectingId);
         FoodNetworkDbHelper mDbHelper = new FoodNetworkDbHelper(getApplicationContext());
 
         CacheDbHelper cacheDbHelper = new CacheDbHelper();
@@ -53,7 +54,7 @@ public class DonationsForTransportActivity extends AppCompatActivity {
         for(DonationDTO donationDTO : donations){
             strings.add(String.valueOf(donationDTO.getIdDonation()));
         }
-        startCollectingButton.setVisibility(View.GONE);
+        floatingActionButton.setVisibility(View.GONE);
         adapter = new DonationForTransportArrayAdapter(this, strings, donations);
         ItemsLst.setAdapter(adapter);
 
@@ -69,6 +70,14 @@ public class DonationsForTransportActivity extends AppCompatActivity {
             }
         });
 
+
+        floatingActionButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startCollecting(v);
+            }
+        });
+
         mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -79,9 +88,9 @@ public class DonationsForTransportActivity extends AppCompatActivity {
 
     public void updateStartCollectingButtonStatus(ArrayList selectedIds){
         if(selectedIds != null && selectedIds.size() > 0){
-            startCollectingButton.setVisibility(View.VISIBLE);
+            floatingActionButton.setVisibility(View.VISIBLE);
         }else {
-            startCollectingButton.setVisibility(View.GONE);
+            floatingActionButton.setVisibility(View.GONE);
         }
     }
 

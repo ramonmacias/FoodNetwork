@@ -78,20 +78,13 @@ public class DonationForTransportArrayAdapter extends ArrayAdapter<String> {
             if (selectedIds.contains(position)) {
                 rowView.setSelected(true);
                 rowView.setPressed(true);
-                rowView.setBackgroundColor(Color.parseColor("#FF8080"));
+                rowView.setBackgroundColor(Color.parseColor("#C8E8FF"));
             } else {
                 rowView.setSelected(false);
                 rowView.setPressed(false);
-                rowView.setBackgroundColor(Color.parseColor("#FFE5E5"));
+                rowView.setBackgroundColor(Color.parseColor("#FFFFFF"));
             }
         }
-        //String s = values.get(position);
-        /*String s = String.valueOf(valuesDTO.get(position).getIdDonation());
-        if (s.startsWith("1")) {
-            imageView.setImageResource(R.drawable.ic_check_black_24dp);
-        } else {
-            imageView.setImageResource(R.drawable.ic_close_black_24dp);
-        }*/
 
         return rowView;
     }
