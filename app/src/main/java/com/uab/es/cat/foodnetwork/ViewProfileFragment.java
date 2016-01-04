@@ -6,6 +6,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.uab.es.cat.foodnetwork.database.CacheDbHelper;
@@ -30,6 +31,7 @@ public class ViewProfileFragment extends Fragment {
     private TextView textViewActionRadioTitle;
     private TextView textViewTypeVehicleTitle;
     private TextView textViewContactPhone;
+    private RelativeLayout relativeLayoutTransporterInfo;
 
     public ViewProfileFragment() {
         // Required empty public constructor
@@ -56,6 +58,7 @@ public class ViewProfileFragment extends Fragment {
         textViewActionRadioTitle = (TextView) rootView.findViewById(R.id.actionRadioTitle);
         textViewTypeVehicleTitle = (TextView) rootView.findViewById(R.id.type_vehicles_title);
         textViewContactPhone = (TextView) rootView.findViewById(R.id.contact_phone);
+        relativeLayoutTransporterInfo = (RelativeLayout) rootView.findViewById(R.id.header_transporter_info_container);
 
         UserDTO userDTO = new UserDTO();
 
@@ -105,6 +108,7 @@ public class ViewProfileFragment extends Fragment {
             textViewTmeZone.setVisibility(View.GONE);
             textViewTypeVehicleTitle.setVisibility(View.GONE);
             textViewActionRadioTitle.setVisibility(View.GONE);
+            relativeLayoutTransporterInfo.setVisibility(View.GONE);
         }
 
 

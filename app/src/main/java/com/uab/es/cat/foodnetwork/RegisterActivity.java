@@ -30,6 +30,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     private Spinner spinnerTypeVehicles;
     private SeekBar actionRadio;
     private TextView textActionRadio;
+    private TextView textRangeHours;
     private Toolbar mToolbar;
 
     @Override
@@ -50,6 +51,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         spinnerTypeVehicles = (Spinner) findViewById(R.id.type_vehicles);
         actionRadio = (SeekBar) findViewById(R.id.actionRadio);
         textActionRadio = (TextView) findViewById(R.id.textActionRadio);
+        textRangeHours = (TextView) findViewById(R.id.textRangeHours);
 
         actionRadio.setOnSeekBarChangeListener(this);
 
@@ -73,6 +75,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         actionRadio.setVisibility(View.GONE);
         textActionRadio.setVisibility(View.GONE);
         spinnerTypeVehicles.setVisibility(View.GONE);
+        textRangeHours.setVisibility(View.GONE);
 
         mDbHelper = new FoodNetworkDbHelper(getApplicationContext());
     }
@@ -137,6 +140,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                 actionRadio.setVisibility(View.GONE);
                 textActionRadio.setVisibility(View.GONE);
                 spinnerTypeVehicles.setVisibility(View.GONE);
+                textRangeHours.setVisibility(View.GONE);
                 break;
             case R.id.receptor_user:
                 spinnerFinalHour.setVisibility(View.VISIBLE);
@@ -144,6 +148,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                 actionRadio.setVisibility(View.VISIBLE);
                 textActionRadio.setVisibility(View.VISIBLE);
                 spinnerTypeVehicles.setVisibility(View.VISIBLE);
+                textRangeHours.setVisibility(View.VISIBLE);
                 break;
         }
     }

@@ -34,9 +34,28 @@
 
         </RelativeLayout>
 
+        <RelativeLayout
+            android:id="@+id/header_personal_info_container"
+            android:layout_width="match_parent"
+            android:layout_height="20dp"
+            android:layout_alignParentTop="true"
+            android:layout_marginBottom="5dp"
+            android:layout_marginTop="5dp"
+            android:background="@color/common_action_bar_splitter">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:layout_marginLeft="5dp"
+                android:textColor="@color/navigationBarColor"
+                android:textStyle="bold"
+                android:text="@string/personal_info" />
+
+        </RelativeLayout>
 
 
-        <LinearLayout
+        <RelativeLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
@@ -49,17 +68,18 @@
                 android:textStyle="bold"
                 android:text="@string/name"
                 android:layout_weight="1"
-                android:layout_gravity="left" />
+                android:layout_alignParentLeft="true" />
 
-            <TextView android:id="@id/name" android:text=""
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:layout_gravity="right"/>
 
-        </LinearLayout>
+                <TextView android:id="@id/name" android:text=""
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_alignParentRight="true" />
 
-        <LinearLayout
+        </RelativeLayout>
+
+        <RelativeLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
@@ -72,16 +92,36 @@
                 android:textStyle="bold"
                 android:text="@string/lastName"
                 android:layout_weight="1"
-                android:layout_gravity="left" />
+                android:layout_alignParentLeft="true" />
 
             <TextView android:id="@id/lastName" android:text="" android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:layout_gravity="right"/>
+                android:layout_alignParentRight="true"/>
 
-        </LinearLayout>
+        </RelativeLayout>
 
-        <LinearLayout
+        <RelativeLayout
+            android:id="@+id/header_personal_contact_info_container"
+            android:layout_width="match_parent"
+            android:layout_height="20dp"
+            android:layout_alignParentTop="true"
+            android:layout_marginBottom="5dp"
+            android:layout_marginTop="5dp"
+            android:background="@color/common_action_bar_splitter">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:layout_marginLeft="5dp"
+                android:textColor="@color/navigationBarColor"
+                android:textStyle="bold"
+                android:text="@string/personal_contact_info" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
@@ -94,16 +134,16 @@
                 android:textStyle="bold"
                 android:text="@string/address"
                 android:layout_weight="1"
-                android:layout_gravity="left" />
+                android:layout_alignParentLeft="true" />
 
             <TextView android:id="@+id/address" android:text="" android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:layout_gravity="right"/>
+                android:layout_alignParentRight="true"/>
 
-        </LinearLayout>
+        </RelativeLayout>
 
-        <LinearLayout
+        <RelativeLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
@@ -116,16 +156,16 @@
                 android:textStyle="bold"
                 android:text="@string/neighborhood"
                 android:layout_weight="1"
-                android:layout_gravity="left" />
+                android:layout_alignParentLeft="true" />
 
             <TextView android:id="@+id/neighborhood" android:text="" android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:layout_gravity="right"/>
+                android:layout_alignParentRight="true"/>
 
-        </LinearLayout>
+        </RelativeLayout>
 
-        <LinearLayout
+        <RelativeLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
@@ -138,16 +178,16 @@
                 android:textStyle="bold"
                 android:text="@string/district"
                 android:layout_weight="1"
-                android:layout_gravity="left" />
+                android:layout_alignParentLeft="true" />
 
             <TextView android:id="@+id/district" android:text="" android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:layout_gravity="right"/>
+                android:layout_alignParentRight="true"/>
 
-        </LinearLayout>
+        </RelativeLayout>
 
-        <LinearLayout
+        <RelativeLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
@@ -160,15 +200,35 @@
                 android:textStyle="bold"
                 android:text="@string/contact_phone"
                 android:layout_weight="1"
-                android:layout_gravity="left" />
+                android:layout_alignParentLeft="true" />
 
             <TextView android:id="@+id/contact_phone"
                 android:text="" android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:layout_gravity="right"/>
+                android:layout_alignParentRight="true"/>
 
-        </LinearLayout>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/header_transporter_info_container"
+            android:layout_width="match_parent"
+            android:layout_height="20dp"
+            android:layout_alignParentTop="true"
+            android:layout_marginBottom="5dp"
+            android:layout_marginTop="5dp"
+            android:background="@color/common_action_bar_splitter">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:layout_marginLeft="5dp"
+                android:textColor="@color/navigationBarColor"
+                android:textStyle="bold"
+                android:text="@string/transporter_info" />
+
+        </RelativeLayout>
 
         <TextView
             android:layout_width="wrap_content"
@@ -196,7 +256,7 @@
 
         </LinearLayout>
 
-        <LinearLayout
+        <RelativeLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
@@ -210,16 +270,16 @@
                 android:text="@string/radio_action"
                 android:id="@+id/actionRadioTitle"
                 android:layout_weight="1"
-                android:layout_gravity="left" />
+                android:layout_alignParentLeft="true" />
 
             <TextView android:id="@+id/actionRadio" android:text="" android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:layout_gravity="right"/>
+                android:layout_alignParentRight="true"/>
 
-        </LinearLayout>
+        </RelativeLayout>
 
-        <LinearLayout
+        <RelativeLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
@@ -233,16 +293,36 @@
                 android:text="@string/type_vehicle"
                 android:id="@+id/type_vehicles_title"
                 android:layout_weight="1"
-                android:layout_gravity="left" />
+                android:layout_alignParentLeft="true" />
 
             <TextView android:id="@+id/type_vehicles" android:text="" android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:layout_gravity="right"/>
+                android:layout_alignParentRight="true"/>
 
-        </LinearLayout>
+        </RelativeLayout>
 
-        <LinearLayout
+        <RelativeLayout
+            android:id="@+id/header_ranking_info_container"
+            android:layout_width="match_parent"
+            android:layout_height="20dp"
+            android:layout_alignParentTop="true"
+            android:layout_marginBottom="5dp"
+            android:layout_marginTop="5dp"
+            android:background="@color/common_action_bar_splitter">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:layout_marginLeft="5dp"
+                android:textColor="@color/navigationBarColor"
+                android:textStyle="bold"
+                android:text="@string/ranking" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
@@ -255,14 +335,14 @@
                 android:textStyle="bold"
                 android:text="@string/ranking_position"
                 android:layout_weight="1"
-                android:layout_gravity="left" />
+                android:layout_alignParentLeft="true" />
 
             <TextView android:id="@+id/ranking_position" android:text="" android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:layout_gravity="right"/>
+                android:layout_alignParentRight="true"/>
 
-        </LinearLayout>
+        </RelativeLayout>
 
     </LinearLayout>
 

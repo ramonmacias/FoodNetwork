@@ -117,4 +117,8 @@
     <string name="title_actions">Acciones</string>
 
     <string name="facebook_app_id">1535066543479078</string>
+    <string name="personal_info">Información personal</string>
+    <string name="personal_contact_info">Información de contacto</string>
+    <string name="transporter_info">Información del transportista</string>
+    <string name="ranking">Ranking</string>
 </resources>
