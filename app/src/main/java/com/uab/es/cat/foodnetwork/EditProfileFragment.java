@@ -39,6 +39,7 @@ public class EditProfileFragment extends Fragment implements GoogleApiClient.Con
     private EditText floorText;
     private EditText doorText;
     private EditText cityText;
+    private EditText phoneText;
     private TextView nameText;
     private TextView lastNameText;
     private TextView textActionRadio;
@@ -101,6 +102,7 @@ public class EditProfileFragment extends Fragment implements GoogleApiClient.Con
         floorText = (EditText) rootView.findViewById(R.id.floor);
         doorText = (EditText) rootView.findViewById(R.id.door);
         cityText = (EditText) rootView.findViewById(R.id.city);
+        phoneText = (EditText) rootView.findViewById(R.id.phone);
         nameText = (TextView) rootView.findViewById(R.id.name);
         textActionRadio = (TextView) rootView.findViewById(R.id.textActionRadio);
         lastNameText = (TextView) rootView.findViewById(R.id.lastName);
@@ -138,6 +140,11 @@ public class EditProfileFragment extends Fragment implements GoogleApiClient.Con
         spinner_districts.setAdapter(adapterDistricts);
         nameText.setText(userDTO.getName());
         lastNameText.setText(userDTO.getLastName());
+        if(userDTO.getPhoneNumber() != 0){
+            phoneText.setText(String.valueOf(userDTO.getPhoneNumber()));
+        }else {
+            phoneText.setText("");
+        }
 
         if("D".equals(userType)){
             spinnerFinalHour.setVisibility(View.GONE);
@@ -177,6 +184,8 @@ public class EditProfileFragment extends Fragment implements GoogleApiClient.Con
         }else {*/
         long idLocationNew = cacheDbHelper.insert(locationDTO, mDbHelper);
         userDTO.setIdLocation(idLocationNew);
+        String phoneNumber = phoneText.getText().toString();
+        userDTO.setPhoneNumber(Long.valueOf(phoneNumber));
         cacheDbHelper.update(userDTO, mDbHelper);
         //}
 
@@ -191,6 +200,7 @@ public class EditProfileFragment extends Fragment implements GoogleApiClient.Con
             initialHour = spinnerInitialHour.getSelectedItem().toString();
             finalHour = spinnerFinalHour.getSelectedItem().toString();
             typeOfVehiclesValue = spinnerTypeVehicles.getSelectedItem().toString();
+
             userDTO.setActionRadio(actionRadioValue);
             userDTO.setInitialHour(initialHour);
             userDTO.setFinalHour(finalHour);

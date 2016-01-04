@@ -29,6 +29,7 @@ public class ViewProfileFragment extends Fragment {
     private TextView textViewTmeZone;
     private TextView textViewActionRadioTitle;
     private TextView textViewTypeVehicleTitle;
+    private TextView textViewContactPhone;
 
     public ViewProfileFragment() {
         // Required empty public constructor
@@ -54,6 +55,7 @@ public class ViewProfileFragment extends Fragment {
         textViewTmeZone = (TextView) rootView.findViewById(R.id.timeZone);
         textViewActionRadioTitle = (TextView) rootView.findViewById(R.id.actionRadioTitle);
         textViewTypeVehicleTitle = (TextView) rootView.findViewById(R.id.type_vehicles_title);
+        textViewContactPhone = (TextView) rootView.findViewById(R.id.contact_phone);
 
         UserDTO userDTO = new UserDTO();
 
@@ -83,6 +85,12 @@ public class ViewProfileFragment extends Fragment {
 
         textViewName.setText(userDTO.getName());
         textViewLastName.setText(userDTO.getLastName());
+        if(userDTO.getPhoneNumber() != 0){
+            textViewContactPhone.setText(String.valueOf(userDTO.getPhoneNumber()));
+        }else {
+            textViewContactPhone.setText("");
+        }
+
 
         if (!"D".equals(userType)){
             textViewActionRadio.setText(String.valueOf(userDTO.getActionRadio()));

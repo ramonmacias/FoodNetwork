@@ -16,8 +16,7 @@
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_centerHorizontal="true">
+        android:layout_height="match_parent">
 
         <RelativeLayout
             android:id="@+id/nav_header_container"
@@ -40,18 +39,20 @@
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true">
+            android:layout_height="wrap_content">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="@color/navigationBarColor"
+                android:textStyle="bold"
                 android:text="@string/name"
                 android:layout_weight="1"
                 android:layout_gravity="left" />
 
-            <TextView android:id="@id/name" android:text="" android:layout_width="wrap_content"
+            <TextView android:id="@id/name" android:text=""
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:layout_gravity="right"/>
@@ -61,13 +62,14 @@
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true">
+            android:layout_height="wrap_content">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="@color/navigationBarColor"
+                android:textStyle="bold"
                 android:text="@string/lastName"
                 android:layout_weight="1"
                 android:layout_gravity="left" />
@@ -82,13 +84,14 @@
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true">
+            android:layout_height="wrap_content">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="@color/navigationBarColor"
+                android:textStyle="bold"
                 android:text="@string/address"
                 android:layout_weight="1"
                 android:layout_gravity="left" />
@@ -103,13 +106,14 @@
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true">
+            android:layout_height="wrap_content">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="@color/navigationBarColor"
+                android:textStyle="bold"
                 android:text="@string/neighborhood"
                 android:layout_weight="1"
                 android:layout_gravity="left" />
@@ -124,13 +128,14 @@
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true">
+            android:layout_height="wrap_content">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="@color/navigationBarColor"
+                android:textStyle="bold"
                 android:text="@string/district"
                 android:layout_weight="1"
                 android:layout_gravity="left" />
@@ -145,18 +150,20 @@
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true">
+            android:layout_height="wrap_content">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="@color/navigationBarColor"
+                android:textStyle="bold"
                 android:text="@string/contact_phone"
                 android:layout_weight="1"
                 android:layout_gravity="left" />
 
-            <TextView android:id="@+id/contact_phone" android:text="" android:layout_width="wrap_content"
+            <TextView android:id="@+id/contact_phone"
+                android:text="" android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:layout_gravity="right"/>
@@ -167,14 +174,15 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="@color/navigationBarColor"
+            android:textStyle="bold"
             android:id="@+id/timeZone"
             android:text="@string/time_zone" />
 
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true">
+            android:layout_height="wrap_content">
 
             <TextView android:id="@+id/initial_hour" android:text="" android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -191,13 +199,14 @@
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true">
+            android:layout_height="wrap_content">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="@color/navigationBarColor"
+                android:textStyle="bold"
                 android:text="@string/radio_action"
                 android:id="@+id/actionRadioTitle"
                 android:layout_weight="1"
@@ -213,13 +222,14 @@
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true">
+            android:layout_height="wrap_content">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="@color/navigationBarColor"
+                android:textStyle="bold"
                 android:text="@string/type_vehicle"
                 android:id="@+id/type_vehicles_title"
                 android:layout_weight="1"
@@ -235,13 +245,14 @@
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true">
+            android:layout_height="wrap_content">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="@color/navigationBarColor"
+                android:textStyle="bold"
                 android:text="@string/ranking_position"
                 android:layout_weight="1"
                 android:layout_gravity="left" />

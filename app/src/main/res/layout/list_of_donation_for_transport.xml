@@ -7,62 +7,187 @@
         android:layout_width="fill_parent"
         android:layout_height="match_parent">
 
-        <TextView
-            android:id="@+id/label"
+        <LinearLayout
+            android:orientation="horizontal"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@+id/label"
-            android:textSize="40px" >
-        </TextView>
+            android:layout_height="wrap_content">
 
-        <TextView
-            android:id="@+id/stateOfDonation"
+            <TextView
+                android:id="@+id/dateOfDonation"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/navigationBarColor"
+                android:textStyle="bold"
+                android:text="@string/Donation_day"
+                android:textSize="30px" >
+            </TextView>
+
+
+            <TextView
+                android:id="@+id/label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@+id/label"
+                android:textSize="30px" >
+            </TextView>
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:orientation="horizontal"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@+id/stateOfDonation"
-            android:textSize="30px" >
-        </TextView>
+            android:layout_height="wrap_content">
 
-        <TextView
-            android:id="@+id/address"
+            <TextView
+                android:id="@+id/stateOfDonationTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/navigationBarColor"
+                android:textStyle="bold"
+                android:text="@string/state"
+                android:textSize="30px" >
+            </TextView>
+
+            <TextView
+                android:id="@+id/stateOfDonation"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@+id/stateOfDonation"
+                android:textSize="30px" >
+            </TextView>
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:orientation="horizontal"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@+id/address"
-            android:textSize="30px" >
-        </TextView>
+            android:layout_height="wrap_content">
 
-        <TextView
-            android:id="@+id/user"
+            <TextView
+                android:id="@+id/addressTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/navigationBarColor"
+                android:textStyle="bold"
+                android:text="@string/address"
+                android:textSize="30px" >
+            </TextView>
+
+            <TextView
+                android:id="@+id/address"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@+id/address"
+                android:textSize="30px" >
+            </TextView>
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:orientation="horizontal"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@+id/user"
-            android:textSize="30px" >
-        </TextView>
+            android:layout_height="wrap_content">
 
-        <TextView
-            android:id="@+id/phoneNumber"
+            <TextView
+                android:id="@+id/userTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/navigationBarColor"
+                android:textStyle="bold"
+                android:text="@string/user"
+                android:textSize="30px" >
+            </TextView>
+
+            <TextView
+                android:id="@+id/user"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@+id/user"
+                android:textSize="30px" >
+            </TextView>
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:orientation="horizontal"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@+id/phoneNumber"
-            android:textSize="30px" >
-        </TextView>
+            android:layout_height="wrap_content">
 
-        <TextView
-            android:id="@+id/totalWeight"
+            <TextView
+                android:id="@+id/phoneNumberTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/navigationBarColor"
+                android:textStyle="bold"
+                android:text="@string/phone"
+                android:textSize="30px" >
+            </TextView>
+
+            <TextView
+                android:id="@+id/phoneNumber"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@+id/phoneNumber"
+                android:textSize="30px" >
+            </TextView>
+
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:orientation="horizontal"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@+id/totalWeight"
-            android:textSize="30px" >
-        </TextView>
+            android:layout_height="wrap_content">
 
-        <TextView
-            android:id="@+id/timeZone"
+            <TextView
+                android:id="@+id/totalWeightTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/navigationBarColor"
+                android:textStyle="bold"
+                android:text="@string/total_weight"
+                android:textSize="30px" >
+            </TextView>
+
+            <TextView
+                android:id="@+id/totalWeight"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@+id/totalWeight"
+                android:textSize="30px" >
+            </TextView>
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:orientation="horizontal"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@+id/timeZone"
-            android:textSize="30px" >
-        </TextView>
+            android:layout_height="wrap_content">
 
+            <TextView
+                android:id="@+id/timeZoneTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/navigationBarColor"
+                android:textStyle="bold"
+                android:text="@string/total_weight"
+                android:textSize="30px" >
+            </TextView>
+
+            <TextView
+                android:id="@+id/timeZone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@+id/time_zone"
+                android:textSize="30px" >
+            </TextView>
+
+        </LinearLayout>
     </LinearLayout>
-
 </LinearLayout>

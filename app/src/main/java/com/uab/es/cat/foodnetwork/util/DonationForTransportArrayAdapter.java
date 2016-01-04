@@ -60,20 +60,20 @@ public class DonationForTransportArrayAdapter extends ArrayAdapter<String> {
         TextView textViewPhoneNumber = (TextView) rowView.findViewById(R.id.phoneNumber);
         TextView textViewTotalWeight = (TextView) rowView.findViewById(R.id.totalWeight);
         TextView textViewTimeZone = (TextView) rowView.findViewById(R.id.timeZone);
-        textView.setText(getContext().getString(R.string.my_donation_of) + ": " + String.valueOf(valuesDTO.get(position).getInsertDate()));
+        textView.setText(": " + String.valueOf(valuesDTO.get(position).getInsertDate()));
         String stateText = Constants.STATE.get(valuesDTO.get(position).getState());
-        textViewStateOfDonation.setText(getContext().getString(R.string.state) + ": " + stateText);
+        textViewStateOfDonation.setText(": " + stateText);
 
         if(locationDTO.getStreetName() != null && !"".equals(locationDTO.getStreetName())){
             String address = Utilities.getGoogleAddress(locationDTO.getStreetName(), locationDTO.getBuildingNumber(), locationDTO.getCity());
-            textViewAddress.setText(getContext().getString(R.string.address) + ": " + address);
+            textViewAddress.setText(": " + address);
         }else {
-            textViewAddress.setText(getContext().getString(R.string.address) + ": " + locationDTO.getCompleteAdrressFromGeocoder());
+            textViewAddress.setText(": " + locationDTO.getCompleteAdrressFromGeocoder());
         }
-        textViewUser.setText(getContext().getString(R.string.user) + ": " + userDTO.getName());
-        textViewPhoneNumber.setText(getContext().getString(R.string.phone) + ": " + "607779462");
-        textViewTotalWeight.setText(getContext().getString(R.string.total_weight) + ": " +  valuesDTO.get(position).getTotalWeight() + "kg");
-        textViewTimeZone.setText(getContext().getString(R.string.time_zone) + ": " + valuesDTO.get(position).getInitialHour() + " a " + valuesDTO.get(position).getFinalHour());
+        textViewUser.setText(": " + userDTO.getName());
+        textViewPhoneNumber.setText(": " + String.valueOf(userDTO.getPhoneNumber()));
+        textViewTotalWeight.setText(": " +  valuesDTO.get(position).getTotalWeight() + "kg");
+        textViewTimeZone.setText(": " + valuesDTO.get(position).getInitialHour() + " a " + valuesDTO.get(position).getFinalHour());
         if(rowView != null){
             if (selectedIds.contains(position)) {
                 rowView.setSelected(true);

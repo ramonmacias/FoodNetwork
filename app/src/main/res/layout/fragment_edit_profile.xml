@@ -175,9 +175,17 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/type_vehicles"/>
 
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/phone"
+                android:id="@+id/phone"/>
+
             <Button
                 android:text="@string/button_save"
                 android:onClick="beginUpdateUserInfo"
+                android:background="?attr/colorPrimary"
+                android:textColor="@color/textColorPrimary"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 
