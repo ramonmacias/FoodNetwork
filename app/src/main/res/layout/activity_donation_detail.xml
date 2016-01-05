@@ -30,81 +30,167 @@
             android:paddingBottom="@dimen/activity_vertical_margin"
             tools:context="com.uab.es.cat.foodnetwork.DonationDetailActivity">
 
-            <LinearLayout
-                android:orientation="vertical"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true">
+            <ScrollView android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
                 <LinearLayout
-                    android:orientation="horizontal"
+                    android:orientation="vertical"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true">
 
-                    <TextView android:text="@string/Donation_day"
-                        android:layout_weight="1"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
+                    <RelativeLayout
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
 
-                    <TextView android:id="@+id/dateOfDonation"
-                        android:layout_weight="1"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
+                        <TextView android:text="@string/Donation_day"
+                            android:layout_weight="1"
+                            android:textStyle="bold"
+                            android:layout_width="wrap_content"
+                            android:layout_alignParentLeft="true"
+                            android:layout_height="wrap_content" />
+
+                        <TextView android:id="@+id/dateOfDonation"
+                            android:layout_weight="1"
+                            android:layout_alignParentRight="true"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:id="@+id/header_donation_info_container"
+                        android:layout_width="match_parent"
+                        android:layout_height="20dp"
+                        android:layout_alignParentTop="true"
+                        android:layout_marginBottom="5dp"
+                        android:layout_marginTop="5dp"
+                        android:background="@color/common_action_bar_splitter">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textAppearance="?android:attr/textAppearanceSmall"
+                            android:layout_marginLeft="5dp"
+                            android:textColor="@color/navigationBarColor"
+                            android:textStyle="bold"
+                            android:text="@string/donation_value" />
+
+                    </RelativeLayout>
+
+                    <ListView
+                        android:id="@+id/listview"
+                        android:layout_width="fill_parent"
+                        android:layout_height="170dp" >
+                    </ListView>
+
+                    <RelativeLayout
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <TextView android:id="@+id/stateOfDonationTitle"
+                            android:textAlignment="center"
+                            android:text="@string/state"
+                            android:textStyle="bold"
+                            android:layout_marginRight="5dp"
+                            android:layout_alignParentLeft="true"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+
+                        <TextView android:id="@+id/stateOfDonation"
+                            android:textAlignment="center"
+                            android:layout_alignParentRight="true"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+
+                    </RelativeLayout>
+
+
+
+                    <RelativeLayout
+                        android:id="@+id/header_time_zone_info_container"
+                        android:layout_width="match_parent"
+                        android:layout_height="20dp"
+                        android:layout_alignParentTop="true"
+                        android:layout_marginBottom="5dp"
+                        android:layout_marginTop="5dp"
+                        android:background="@color/common_action_bar_splitter">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textAppearance="?android:attr/textAppearanceSmall"
+                            android:layout_marginLeft="5dp"
+                            android:textColor="@color/navigationBarColor"
+                            android:textStyle="bold"
+                            android:text="@string/time_zone" />
+
+                    </RelativeLayout>
+
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <TextView android:text="@string/Initial_hour"
+                            android:textAlignment="center"
+                            android:layout_weight="1"
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content" />
+
+                        <TextView android:id="@+id/initial_hour"
+                            android:textAlignment="center"
+                            android:layout_weight="1"
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content" />
+
+                        <TextView android:text="@string/Final_hour"
+                            android:textAlignment="center"
+                            android:layout_weight="1"
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content" />
+
+                        <TextView android:id="@+id/final_hour"
+                            android:textAlignment="center"
+                            android:layout_weight="1"
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content" />
+
+                    </LinearLayout>
+
+                    <RelativeLayout
+                        android:id="@+id/header_donation_location_info_container"
+                        android:layout_width="match_parent"
+                        android:layout_height="20dp"
+                        android:layout_alignParentTop="true"
+                        android:layout_marginBottom="5dp"
+                        android:layout_marginTop="5dp"
+                        android:background="@color/common_action_bar_splitter">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textAppearance="?android:attr/textAppearanceSmall"
+                            android:layout_marginLeft="5dp"
+                            android:textColor="@color/navigationBarColor"
+                            android:textStyle="bold"
+                            android:text="@string/donation_location" />
+
+                    </RelativeLayout>
+
+                    <fragment xmlns:android="http://schemas.android.com/apk/res/android"
+                        android:name="com.google.android.gms.maps.MapFragment"
+                        android:id="@+id/map"
+                        android:layout_width="match_parent"
+                        android:layout_marginTop="40px"
+                        android:layout_height="500px"/>
+
 
                 </LinearLayout>
 
-                <ListView
-                    android:id="@+id/listview"
-                    android:layout_width="fill_parent"
-                    android:layout_height="170dp" >
-                </ListView>
-
-
-                <TextView android:id="@+id/stateOfDonation"
-                    android:textAlignment="center"
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content" />
-
-                <LinearLayout
-                    android:orientation="horizontal"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                    <TextView android:text="@string/Initial_hour"
-                        android:textAlignment="center"
-                        android:layout_weight="1"
-                        android:layout_width="fill_parent"
-                        android:layout_height="wrap_content" />
-
-                    <TextView android:id="@+id/initial_hour"
-                        android:textAlignment="center"
-                        android:layout_weight="1"
-                        android:layout_width="fill_parent"
-                        android:layout_height="wrap_content" />
-
-                    <TextView android:text="@string/Final_hour"
-                        android:textAlignment="center"
-                        android:layout_weight="1"
-                        android:layout_width="fill_parent"
-                        android:layout_height="wrap_content" />
-
-                    <TextView android:id="@+id/final_hour"
-                        android:textAlignment="center"
-                        android:layout_weight="1"
-                        android:layout_width="fill_parent"
-                        android:layout_height="wrap_content" />
-
-                </LinearLayout>
-
-                <fragment xmlns:android="http://schemas.android.com/apk/res/android"
-                    android:name="com.google.android.gms.maps.MapFragment"
-                    android:id="@+id/map"
-                    android:layout_width="match_parent"
-                    android:layout_marginTop="40px"
-                    android:layout_height="500px"/>
-
-
-            </LinearLayout>
+            </ScrollView>
 
         </RelativeLayout>
 

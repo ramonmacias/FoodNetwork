@@ -122,4 +122,5 @@
     <string name="transporter_info">Información del transportista</string>
     <string name="ranking">Ranking</string>
     <string name="donation_location">Localización de la donación</string>
+    <string name="donation_value">Contenido de la donación</string>
 </resources>

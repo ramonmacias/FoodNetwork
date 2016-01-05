@@ -23,6 +23,7 @@ import com.uab.es.cat.foodnetwork.database.FoodNetworkDbHelper;
 import com.uab.es.cat.foodnetwork.dto.DonationDTO;
 import com.uab.es.cat.foodnetwork.dto.FoodsDTO;
 import com.uab.es.cat.foodnetwork.dto.LocationDTO;
+import com.uab.es.cat.foodnetwork.util.Constants;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -85,7 +86,7 @@ public class DonationDetailActivity extends AppCompatActivity implements OnMapRe
         finalHourTextView = (TextView) findViewById(R.id.final_hour);
 
         dateOfDonationTextView.setText(donationDTO.getInsertDate());
-        stateOfDonationTextView.setText(String.valueOf(donationDTO.getState()));
+        stateOfDonationTextView.setText(Constants.STATE.get(donationDTO.getState()));
         initialHourTextView.setText(donationDTO.getInitialHour());
         finalHourTextView.setText(donationDTO.getFinalHour());
 
@@ -96,7 +97,7 @@ public class DonationDetailActivity extends AppCompatActivity implements OnMapRe
         }
 
         /** Defining the ArrayAdapter to set items to ListView */
-        adapter = new ArrayAdapter(this, android.R.layout.simple_list_item_multiple_choice, list);
+        adapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, list);
 
         ItemsLst.setAdapter(adapter);
 
