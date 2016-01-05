@@ -104,12 +104,16 @@
     <string name="nav_item_view_profile">Ver perfil</string>
     <string name="nav_item_edit_profile">Editar perfil</string>
     <string name="nav_item_actions">Acciones</string>
+    <string name="nav_item_info">Información general</string>
+    <string name="nav_item_help">Ayuda</string>
 
     <!-- navigation drawer item labels  -->
     <string-array name="nav_drawer_labels">
         <item>@string/nav_item_view_profile</item>
         <item>@string/nav_item_edit_profile</item>
         <item>@string/nav_item_actions</item>
+        <item>@string/nav_item_info</item>
+        <item>@string/nav_item_help</item>
     </string-array>
 
     <string name="title_view_profile">Ver perfil</string>

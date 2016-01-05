@@ -145,6 +145,14 @@ public class MainDonateActivity extends AppCompatActivity implements GoogleApiCl
                 fragment = new ActionsFragment();
                 title = getString(R.string.title_actions);
                 break;
+            case 3:
+                fragment = new ActionsFragment();
+                title = getString(R.string.nav_item_info);
+                break;
+            case 4:
+                fragment = new ActionsFragment();
+                title = getString(R.string.nav_item_help);
+                break;
             default:
                 break;
         }

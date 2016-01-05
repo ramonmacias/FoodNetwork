@@ -58,6 +58,12 @@ public class NavigationDrawerAdapter extends RecyclerView.Adapter<NavigationDraw
             case 2:
                 holder.image.setImageResource(R.drawable.ic_apps_black_24dp);
                 break;
+            case 3:
+                holder.image.setImageResource(R.drawable.ic_info_outline_black_24dp);
+                break;
+            case 4:
+                holder.image.setImageResource(R.drawable.ic_help_outline_black_24dp);
+                break;
             default:
                 break;
         }
