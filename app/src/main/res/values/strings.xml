@@ -48,7 +48,7 @@
     <string name="title_activity_food_donation">FoodDonationActivity</string>
     <string name="productName">Nombre del producto</string>
     <string name="my_location">Mi ubicación</string>
-    <string name="profile_location">Profile location</string>
+    <string name="profile_location">Localización Perfil</string>
     <string name="button_donate">Donar</string>
     <string name="title_activity_donations">DonationsActivity</string>
     <string name="title_activity_maps_sample">MapsSampleActivity</string>
@@ -121,4 +121,5 @@
     <string name="personal_contact_info">Información de contacto</string>
     <string name="transporter_info">Información del transportista</string>
     <string name="ranking">Ranking</string>
+    <string name="donation_location">Localización de la donación</string>
 </resources>
