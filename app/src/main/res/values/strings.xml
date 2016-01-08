@@ -127,7 +127,10 @@
     <string name="ranking">Ranking</string>
     <string name="donation_location">Localización de la donación</string>
     <string name="donation_value">Contenido de la donación</string>
-    <string name="button_donation_desc">¡Empieza creando una nueva donación pulsando el siguiente boton!</string>
+    <string name="button_donation_desc">¡Empieza creando una nueva donación pulsando el siguiente botón!</string>
     <string name="button_list_donations_desc">¡Visualiza todas tus donaciones y sus estados!</string>
     <string name="button_rankings_desc">¡Consulta tu posición en los diferentes rankings!</string>
+    <string name="button_list_donations_for_transporter">¡Dale un vistazo a todas las donaciones que están en curso o están pendiente de recoger!</string>
+    <string name="button_best_track_desc">¡Empieza de inmediato a recoger donaciones pulsando el siguiente botón!</string>
+    <string name="button_all_donations_map_desc">!Visualiza todas las donaciones y sus estados en una mapa de la ciudad!</string>
 </resources>
