@@ -446,6 +446,8 @@ public class LoginActivity extends AppCompatActivity implements
                 md.update(signature.toByteArray());
                 key = new String(Base64.encode(md.digest(), 0));
 
+                Log.i("LoginActivity", key);
+
             }
         } catch (PackageManager.NameNotFoundException e1) {
             updateUI(false);
