@@ -30,6 +30,16 @@ public class Constants {
         STATE = Collections.unmodifiableMap(STATE_AUX);
     };
 
+    public static Map<String, Double> WEIGHT_VEHICLES;
+    static {
+      HashMap<String, Double> WEIGHT_VEHICLES_AUX = new HashMap<String, Double>();
+        WEIGHT_VEHICLES_AUX.put("Moto", Double.valueOf("5"));
+        WEIGHT_VEHICLES_AUX.put("Coche", Double.valueOf("200"));
+        WEIGHT_VEHICLES_AUX.put("Furgoneta", Double.valueOf("400"));
+        WEIGHT_VEHICLES_AUX.put("Camion", Double.valueOf("800"));
+        WEIGHT_VEHICLES = Collections.unmodifiableMap(WEIGHT_VEHICLES_AUX);
+    };
+
     public static Map<String, Integer> HOURS;
     static {
       HashMap<String, Integer>  HOURS_AUX = new HashMap<String, Integer>();

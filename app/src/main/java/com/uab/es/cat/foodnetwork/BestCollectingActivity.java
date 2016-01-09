@@ -45,7 +45,7 @@ public class BestCollectingActivity extends AppCompatActivity implements OnMapRe
     private int actionRadio;
     private double latitudeProfile;
     private double longitudeProfile;
-    private double maximumWeight = 10;
+    private double maximumWeight;
 
     private double bancAlimentsLatitude = 41.35062245;
     private double bancAlimentsLongitude = 2.14470506;
@@ -78,6 +78,7 @@ public class BestCollectingActivity extends AppCompatActivity implements OnMapRe
         elements = new ArrayList<Element>();
 
         userDTO = obtainUserInformation();
+        maximumWeight = Constants.WEIGHT_VEHICLES.get(userDTO.getTypeOfVehicle());
         donations = cacheDbHelper.getReadyAndCurrentDonations(mDbHelper);
 
         filterDonationsByUserInformation(userDTO);

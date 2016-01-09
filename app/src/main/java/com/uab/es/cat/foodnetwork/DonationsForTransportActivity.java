@@ -17,7 +17,9 @@ import android.widget.Toast;
 import com.uab.es.cat.foodnetwork.database.CacheDbHelper;
 import com.uab.es.cat.foodnetwork.database.FoodNetworkDbHelper;
 import com.uab.es.cat.foodnetwork.dto.DonationDTO;
+import com.uab.es.cat.foodnetwork.dto.UserDTO;
 import com.uab.es.cat.foodnetwork.util.DonationForTransportArrayAdapter;
+import com.uab.es.cat.foodnetwork.util.UserSession;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -30,6 +32,9 @@ public class DonationsForTransportActivity extends AppCompatActivity {
     private ListView ItemsLst;
     private Toolbar mToolbar;
     private FloatingActionButton floatingActionButton;
+    private FoodNetworkDbHelper mDbHelper;
+    private CacheDbHelper cacheDbHelper;
+    private UserDTO userDTO;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,9 +50,13 @@ public class DonationsForTransportActivity extends AppCompatActivity {
         ItemsLst = (ListView) findViewById(R.id.listview);
         floatingActionButton = (FloatingActionButton) findViewById(R.id.fab);
 
-        FoodNetworkDbHelper mDbHelper = new FoodNetworkDbHelper(getApplicationContext());
 
-        CacheDbHelper cacheDbHelper = new CacheDbHelper();
+        mDbHelper = new FoodNetworkDbHelper(getApplicationContext());
+        cacheDbHelper = new CacheDbHelper();
+
+        userDTO = getUserInfo();
+        selectIconForFloatButton(userDTO);
+
         donations = cacheDbHelper.getReadyAndCurrentDonations(mDbHelper);
         List<String> strings = new ArrayList<String>();
 
@@ -102,5 +111,29 @@ public class DonationsForTransportActivity extends AppCompatActivity {
 
     public void handleOnBackPress(){
         startActivity(new Intent(getApplicationContext(), MainReceptorActivity.class));
+    }
+
+    private UserDTO getUserInfo(){
+        UserDTO userDTO = new UserDTO();
+        userDTO.setIdUser(UserSession.getInstance(getApplicationContext()).getUserId());
+        return (UserDTO) cacheDbHelper.getById(userDTO, mDbHelper);
+    }
+
+    private void selectIconForFloatButton(UserDTO userDTO){
+
+        switch (userDTO.getTypeOfVehicle()){
+            case "Moto":
+                floatingActionButton.setImageResource(R.drawable.ic_motorcycle_black_24dp);
+                break;
+            case "Coche":
+                floatingActionButton.setImageResource(R.drawable.ic_directions_car_black_24dp);
+                break;
+            case "Furgoneta":
+                floatingActionButton.setImageResource(R.drawable.ic_airport_shuttle_black_24dp);
+                break;
+            case "Camion":
+                floatingActionButton.setImageResource(R.drawable.ic_directions_bus_black_24dp);
+                break;
+        }
     }
 }
