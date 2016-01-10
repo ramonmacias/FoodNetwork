@@ -87,6 +87,7 @@
     <string name="number_of_donations">Número total de donaciones</string>
     <string name="finalize_collect">Finalizar recogida</string>
     <string name="food_bank">Banco de alimentos</string>
+    <string name="home">Casa</string>
 
     <string name="active_state">Activo</string>
     <string name="current_state">En curso</string>
