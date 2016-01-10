@@ -94,7 +94,7 @@ public class CollectingDonationsActivity extends AppCompatActivity implements On
             updateDonationStatus(donationDTO);
         }
 
-        totalWeightOfDonationsTextView.setText(getString(R.string.total_weight) + ": " + String.valueOf(totalWeightOfDonations));
+        totalWeightOfDonationsTextView.setText(getString(R.string.total_weight) + ": " + String.valueOf(totalWeightOfDonations) + " kg/l");
         totalNumOfDonationsTextView.setText(getString(R.string.number_of_donations) + ": " + String.valueOf(totalSelectedDonations));
         dateOfCollectingTextView.setText(getString(R.string.collecting_date) + " " + Utilities.dateToString(new Date()));
 
@@ -194,15 +194,9 @@ public class CollectingDonationsActivity extends AppCompatActivity implements On
 
     private String getMapsApiDirectionsUrl(){
         String waypoints = getWaypoints();
-
-        //String waypoints = "waypoints=optimize:true|"
-        //        + LOWER_MANHATTAN.latitude + "," + LOWER_MANHATTAN.longitude;
-        //+ "|" + "|" +  WALL_STREET.latitude + ","
-        //+ WALL_STREET.longitude;
         String OriDest = "origin="+homeLatitude+","+homeLongitude+"&destination="+bancAlimentsLatitude+","+bancAlimentsLongitude;
 
         String sensor = "sensor=false";
-        //String params = OriDest+"&%20"+waypoints + "&" + sensor;
         String params = OriDest+"&"+waypoints + "&" + sensor;
         String output = "json";
         String url = "https://maps.googleapis.com/maps/api/directions/"
@@ -215,8 +209,8 @@ public class CollectingDonationsActivity extends AppCompatActivity implements On
         if(coordenatesDonations != null && coordenatesDonations.size() > 0){
             waypoints += "waypoints=optimize:true|";
             waypoints += coordenatesDonations.get(0).latitude + "," + coordenatesDonations.get(0).longitude;
-            for(int i = 1; i < coordenatesDonations.size() - 1; i++){
-                waypoints += "|" + "|" + coordenatesDonations.get(i).latitude + "," + coordenatesDonations.get(i).longitude;
+            for(int i = 1; i < coordenatesDonations.size(); i++){
+                waypoints += "|" + coordenatesDonations.get(i).latitude + "," + coordenatesDonations.get(i).longitude;
             }
         }
         return waypoints;
@@ -267,28 +261,31 @@ public class CollectingDonationsActivity extends AppCompatActivity implements On
             ArrayList<LatLng> points = null;
             PolylineOptions polyLineOptions = null;
 
-            // traversing through routes
-            for (int i = 0; i < routes.size(); i++) {
-                points = new ArrayList<LatLng>();
-                polyLineOptions = new PolylineOptions();
-                List<HashMap<String, String>> path = routes.get(i);
+            if(routes != null && routes.size() > 0){
+                // traversing through routes
+                for (int i = 0; i < routes.size(); i++) {
+                    points = new ArrayList<LatLng>();
+                    polyLineOptions = new PolylineOptions();
+                    List<HashMap<String, String>> path = routes.get(i);
 
-                for (int j = 0; j < path.size(); j++) {
-                    HashMap<String, String> point = path.get(j);
+                    for (int j = 0; j < path.size(); j++) {
+                        HashMap<String, String> point = path.get(j);
 
-                    double lat = Double.parseDouble(point.get("lat"));
-                    double lng = Double.parseDouble(point.get("lng"));
-                    LatLng position = new LatLng(lat, lng);
+                        double lat = Double.parseDouble(point.get("lat"));
+                        double lng = Double.parseDouble(point.get("lng"));
+                        LatLng position = new LatLng(lat, lng);
 
-                    points.add(position);
+                        points.add(position);
+                    }
+
+                    polyLineOptions.addAll(points);
+                    polyLineOptions.width(6);
+                    polyLineOptions.color(Color.BLUE);
                 }
 
-                polyLineOptions.addAll(points);
-                polyLineOptions.width(6);
-                polyLineOptions.color(Color.BLUE);
+                map.addPolyline(polyLineOptions);
             }
 
-            map.addPolyline(polyLineOptions);
         }
     }
 }

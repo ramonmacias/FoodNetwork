@@ -134,4 +134,6 @@
     <string name="button_list_donations_for_transporter">¡Dale un vistazo a todas las donaciones que están en curso o están pendiente de recoger!</string>
     <string name="button_best_track_desc">¡Empieza de inmediato a recoger donaciones pulsando el siguiente botón!</string>
     <string name="button_all_donations_map_desc">!Visualiza todas las donaciones y sus estados en una mapa de la ciudad!</string>
+    <string name="general_info">Información general</string>
+    <string name="route_info">Ruta</string>
 </resources>

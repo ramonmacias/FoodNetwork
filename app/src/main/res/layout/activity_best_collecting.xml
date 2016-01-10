@@ -34,10 +34,30 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
+                <RelativeLayout
+                    android:id="@+id/header_info_container"
+                    android:layout_width="match_parent"
+                    android:layout_height="20dp"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginTop="5dp"
+                    android:background="@color/common_action_bar_splitter">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceSmall"
+                        android:layout_marginLeft="5dp"
+                        android:textColor="@color/navigationBarColor"
+                        android:textStyle="bold"
+                        android:text="@string/general_info" />
+
+                </RelativeLayout>
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
                     android:id="@+id/collectingDate" />
 
                 <TextView
@@ -51,6 +71,26 @@
                     android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceSmall"
                     android:id="@+id/totalNumOfDonations" />
+
+                <RelativeLayout
+                    android:id="@+id/header_info_route_container"
+                    android:layout_width="match_parent"
+                    android:layout_height="20dp"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginTop="5dp"
+                    android:background="@color/common_action_bar_splitter">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceSmall"
+                        android:layout_marginLeft="5dp"
+                        android:textColor="@color/navigationBarColor"
+                        android:textStyle="bold"
+                        android:text="@string/route_info" />
+
+                </RelativeLayout>
 
                 <fragment xmlns:android="http://schemas.android.com/apk/res/android"
                     android:name="com.google.android.gms.maps.MapFragment"
