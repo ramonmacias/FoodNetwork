@@ -44,6 +44,7 @@ public class EditProfileFragment extends Fragment implements GoogleApiClient.Con
     private TextView lastNameText;
     private TextView textActionRadio;
     private TextView textTimeZone;
+    private TextView textTypeVehicles;
     private Spinner spinner;
     private Spinner spinner_districts;
     private String addresToFind;
@@ -113,6 +114,7 @@ public class EditProfileFragment extends Fragment implements GoogleApiClient.Con
         spinnerTypeVehicles = (Spinner) rootView.findViewById(R.id.type_vehicles);
         actionRadio = (SeekBar) rootView.findViewById(R.id.actionRadio);
         textTimeZone = (TextView) rootView.findViewById(R.id.timeZone);
+        textTypeVehicles = (TextView) rootView.findViewById(R.id.textTypeVehicles);
 
         actionRadio.setOnSeekBarChangeListener(this);
 
@@ -153,6 +155,7 @@ public class EditProfileFragment extends Fragment implements GoogleApiClient.Con
             textActionRadio.setVisibility(View.GONE);
             spinnerTypeVehicles.setVisibility(View.GONE);
             textTimeZone.setVisibility(View.GONE);
+            textTypeVehicles.setVisibility(View.GONE);
         }else {
             spinnerInitialHour.setSelection(adapterInitialHour.getPosition(userDTO.getInitialHour()));
             spinnerFinalHour.setSelection(adapterFinalHour.getPosition(userDTO.getFinalHour()));
