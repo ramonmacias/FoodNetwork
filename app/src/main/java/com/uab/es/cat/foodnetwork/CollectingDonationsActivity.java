@@ -112,6 +112,11 @@ public class CollectingDonationsActivity extends AppCompatActivity implements On
         String url = getMapsApiDirectionsUrl();
         ReadTask downloadTask = new ReadTask();
         downloadTask.execute(url);
+
+        //With this lines we can call toa google maps app and start our GPS for collect all the donations selected
+        /*String address = "http://maps.google.com/maps?daddr=" + "Latitude" + "," + "Longitude" + "+to:" +"Latitude" + "," + "Longitude";
+        Intent intent = new Intent(android.content.Intent.ACTION_VIEW, Uri.parse(address));
+        startActivity(intent);*/
     }
 
     public void generateStaticMarkers(){

@@ -142,6 +142,10 @@ public class MainReceptorActivity extends AppCompatActivity implements GoogleApi
                 fragment = new ActionsTransportFragment();
                 title = getString(R.string.title_actions);
                 break;
+            case 3:
+                fragment = new InfoFragment();
+                title = getString(R.string.nav_item_info);
+                break;
             default:
                 break;
         }

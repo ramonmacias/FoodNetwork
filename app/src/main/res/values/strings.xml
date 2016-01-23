@@ -1,9 +1,9 @@
 <resources>
-    <string name="app_name">Food network</string>
+    <string name="app_name">FoodGiving</string>
 
     <string name="button_register">Registrarse</string>
     <string name="button_save">Guardar</string>
-    <string name="title_activity_register">RegisterActivity</string>
+    <string name="title_activity_register">Registro</string>
 
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
@@ -15,7 +15,7 @@
     <string name="password">Contraseña</string>
     <string name="repeatPassword">Repetir contraseña</string>
     <string name="logIn">Iniciar sesión</string>
-    <string name="title_activity_main_donate">MainDonateActivity</string>
+    <string name="title_activity_main_donate">Donador</string>
 
     <string name="donate_food">Donar Alimentos</string>
     <string name="list_donations">Listado de donaciones</string>
@@ -24,7 +24,7 @@
     <string name="donor_user">Donador</string>
     <string name="recepto_user">Receptor</string>
     <string name="user_type">Tipo de usuario</string>
-    <string name="title_activity_main_receptor">MainReceptorActivity</string>
+    <string name="title_activity_main_receptor">Transportista</string>
     
     <string name="collect_donations">Recoger donaciones</string>
     <string name="action_view_profile">Mi perfil</string>
@@ -32,37 +32,37 @@
     <string name="action_disconnect">Cerrar sesión</string>
 
     <string name="user_id">Id de usuario</string>
-    <string name="title_activity_view_profile">ViewProfileActivity</string>
+    <string name="title_activity_view_profile">Ver perfil</string>
 
     <string name="address">Dirección</string>
     <string name="neighborhood">Barrio</string>
     <string name="district">Distrito</string>
     <string name="contact_phone">Teléfono de contacto</string>
     <string name="ranking_position">Posición ranking</string>
-    <string name="title_activity_edit_profile">EditProfileActivity</string>
+    <string name="title_activity_edit_profile">Editar perfil</string>
     <string name="street_name">Nombre de la calle</string>
     <string name="building_number">Número del edificio</string>
     <string name="floor">Piso</string>
     <string name="door">Puerta</string>
     <string name="city">Ciudad</string>
-    <string name="title_activity_food_donation">FoodDonationActivity</string>
+    <string name="title_activity_food_donation">Donación alimentos</string>
     <string name="productName">Nombre del producto</string>
     <string name="my_location">Mi ubicación</string>
     <string name="profile_location">Localización Perfil</string>
     <string name="button_donate">Donar</string>
-    <string name="title_activity_donations">DonationsActivity</string>
-    <string name="title_activity_maps_sample">MapsSampleActivity</string>
-    <string name="title_activity_login">LoginActivity</string>
+    <string name="title_activity_donations">Listado de donaciones</string>
+    <string name="title_activity_maps_sample">Mapa de donaciones</string>
+    <string name="title_activity_login">Inicio de sesión</string>
 
     <string name="signed_in_fmt">signed_in_fmt</string>
     <string name="signed_out">Signed out</string>
     <string name="sign_out">sign out</string>
-    <string name="title_activity_all_donations_map">AllDonationsMapActivity</string>
+    <string name="title_activity_all_donations_map">Mapa de donaciones</string>
 
     <string name="button_add_to_donation">Añadir a la donación</string>
 
     <string name="view_all_donations">Mapa de donaciones</string>
-    <string name="title_activity_donation_detail">DonationDetailActivity</string>
+    <string name="title_activity_donation_detail">Detalle de la donación</string>
     <string name="Donation_day">Donación del dia </string>
     <string name="Initial_hour">Desde</string>
     <string name="Final_hour">Hasta</string>
@@ -76,12 +76,12 @@
     <string name="my_donation_of">Mi donación del dia</string>
     <string name="state">Estado</string>
     <string name="transporter">Transportista</string>
-    <string name="title_activity_donations_for_transport">DonationsForTransport</string>
+    <string name="title_activity_donations_for_transport">Listado de donaciones</string>
     <string name="start_collecting">Iniciar la recogida</string>
     <string name="user">Usuario</string>
     <string name="phone">Teléfono</string>
     <string name="total_weight">Peso total</string>
-    <string name="title_activity_collecting_donations">CollectingDonationsActivity</string>
+    <string name="title_activity_collecting_donations">Recoger donaciones</string>
     <string name="to">a</string>
     <string name="collecting_date">Ruta del día</string>
     <string name="number_of_donations">Número total de donaciones</string>
@@ -91,11 +91,11 @@
 
     <string name="active_state">Activo</string>
     <string name="current_state">En curso</string>
-    <string name="completed_state">Completado</string>
+    <string name="completed_state">Finalizado</string>
     <string name="all_state">Cualquier estado</string>
-    <string name="title_activity_rankings">RankingsActivity</string>
+    <string name="title_activity_rankings">Rankings</string>
     <string name="donations">Donaciones</string>
-    <string name="title_activity_best_collecting">BestCollectingActivity</string>
+    <string name="title_activity_best_collecting">Recoger donaciones</string>
 
 
     <string name="action_search">Buscar</string>
@@ -136,4 +136,13 @@
     <string name="button_all_donations_map_desc">!Visualiza todas las donaciones y sus estados en una mapa de la ciudad!</string>
     <string name="general_info">Información general</string>
     <string name="route_info">Ruta</string>
+    <string name="info_for_users">La aplicación FoodGiving es una aplicación sin animo de lucro que esta enfocada íntegramente
+    al tercer sector, la aplicación se centra principalmente en unos de los mayores problemas que tenemos en nuestro pais, la
+    falta y malgasto de alimentos, FoodGiving pretende utilizar la potencia de las nuevas tecnologias móbiles para fomentar, concienciar y
+    facilitar la donación de alimentos.</string>
+    <string name="info_food_bank">El banco de alimentos de Barcelona es una entidad social que trabaja desde hace muchos años
+    combatiendo el problema de la falta de alimentos, se encarga principalmente de recuperar los excedentes de
+     la indústria alimentaria, recoger donaciones de alimentos y posteriormente hacer llegar estas donaciones a
+    los puntos de recogida para que lleguen a la gente que lo necesite</string>
+    <string name="link_food_bank_page">www.bancdelsaliments.org</string>
 </resources>
