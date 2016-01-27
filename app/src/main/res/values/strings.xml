@@ -145,4 +145,14 @@
      la indústria alimentaria, recoger donaciones de alimentos y posteriormente hacer llegar estas donaciones a
     los puntos de recogida para que lleguen a la gente que lo necesite</string>
     <string name="link_food_bank_page">www.bancdelsaliments.org</string>
+    <string name="init_nav">Iniciar navegación</string>
+    <string name="main_function_of_transporter">La principal función que tiene un usuario transportista es la de poder recoger el máximo
+    número de donaciones y llevarlas a su destino final el Banco de alimentos, FoodGiving te ofrece la oportunidad de llenarte de solidaridad
+    gracias a tres acciones principales</string>
+    <string name="description_of_types_vehicles">A continuación se muestran los diferentes iconos que representan los diferentes vehiculos que
+    un transportista puede llevar para realizar sus recogidas</string>
+    <string name="truck_description">El camión es el tipo de vehiculo más pesado por lo que soporta una cantidad máxima de 800kg</string>
+    <string name="van_description">La furgoneta es el segundo tipo de vehiculo más pesado por lo que soporta una cantidad máxima de 400kg</string>
+    <string name="car_description">El coche es uno de los transportes más comunes en la grandes ciudade y soporta una cantidad máxima de 200kg</string>
+    <string name="motorcycle_description">La motocicleta es el transporte más pequeño y a la vez mas ágil por lo que soporta una cantidad màxima de 5kg</string>
 </resources>
